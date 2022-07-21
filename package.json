@@ -1,0 +1,27 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "practicum-messenger",
+  "scripts": {
+    "clean:output": "rimraf dist",
+    "start-dev": "npm run clean:output && parcel index.html --port 8000 --no-cache",
+    "build": "npm run clean:output && parcel build index.html --no-cache",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "practicum",
+    "messenger"
+  ],
+  "author": "thisistim",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2",
+    "parcel": "^2.6.2",
+    "parcel-transformer-hbs": "^1.0.4",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "handlebars": "^4.7.7"
+  }
+}

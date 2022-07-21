@@ -1,0 +1,17 @@
+@mixin headlineL
+{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 40px;
+    color: $trueBlack
+}
+
+@mixin headlineM
+{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    color: $trueBlack
+}

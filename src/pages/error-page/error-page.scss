@@ -1,0 +1,30 @@
+@import '../design.scss';
+
+.error-page
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    &__title
+    {
+        margin-bottom: 20px;
+
+        cursor: default;
+
+        @include headlineL;
+    }
+
+    &__descr
+    {
+        margin-bottom: 69px;
+
+        cursor: default;
+
+        @include headlineM;
+    }
+}

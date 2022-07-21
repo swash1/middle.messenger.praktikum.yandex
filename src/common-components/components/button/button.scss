@@ -1,0 +1,16 @@
+@import '../../design.scss';
+
+.button 
+{
+    border: none;
+    outline: none;
+    background-color: $blue;
+    border-radius: 8px;
+    color: $white;
+    padding: 12px 70px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}

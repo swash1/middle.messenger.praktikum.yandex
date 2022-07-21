@@ -1,0 +1,61 @@
+@import '../design.scss';
+
+.login-page
+{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__title
+    {
+        @include headlineM;
+
+        margin-bottom: 40px;
+    }
+
+    &__form
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 50px 30px 30px;
+        height: 100%;
+        min-height: 300px;
+        max-height: 450px;
+        width: 340px;
+        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+        border-radius: 12px;
+    }
+
+    &__input
+    {
+        margin-bottom: 16px;
+        width: 100%;
+    }
+
+    &__main-info
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__controls
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__auth-button
+    {
+        width: 100%;
+        margin-bottom: 14px;
+    }
+}
