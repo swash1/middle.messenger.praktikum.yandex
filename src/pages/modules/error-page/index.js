@@ -1,6 +1,6 @@
 import tpl from './error-page.hbs';
 
-import { link } from '../../common-components';
+import { link } from '../../../common-components';
 
 import './error-page.scss';
 

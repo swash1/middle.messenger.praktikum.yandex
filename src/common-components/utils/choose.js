@@ -1,1 +1,0 @@
-export const choose = (a, b) => a || b;

@@ -1,0 +1,93 @@
+@import '../../design.scss';
+
+.chat-item
+{
+    display: grid;
+    grid-template-columns: 57px 193px 40px;
+    grid-template-rows: 17px 30px;
+    grid-template-areas: 
+    "avatar name timestamp"
+    "avatar message count";
+    padding: 10px;
+
+    &_active
+    {
+        background-color: $lightBlue;
+    }
+
+    &__avatar
+    {
+        grid-area: avatar;
+
+        width: 47px;
+        height: 47px;
+        border-radius: 50%;
+        overflow: hidden;
+        object-fit: cover;
+    }
+
+    &__name
+    {
+        grid-area: name;
+
+        max-width: 170px;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 13px;
+        color: $trueBlack;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__message
+    {
+        grid-area: message;
+
+        width: 100%;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        color: $gray;
+        overflow: hidden;
+
+        & .message
+        {
+            &__sender
+            {
+               color: $trueBlack; 
+            }
+        }
+    }
+
+    &__timestamp
+    {
+        grid-area: timestamp;
+
+        font-weight: 500;
+        font-size: 9px;
+        line-height: 13px;
+        color: $gray;
+        white-space: nowrap;
+        justify-self: end;
+    }
+
+    &__unread-count
+    {
+        grid-area: count;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: $blue;
+        text-align: center;
+        color: $white;
+        font-size: 11px;
+        line-height: 12px;
+        align-self: end;
+        justify-self: end;
+    }
+}

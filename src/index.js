@@ -1,4 +1,4 @@
-import { loginTmpl, notFoundTmpl, serverErrorTmpl, siginTmpl } from './pages';
+import { loginTmpl, notFoundTmpl, serverErrorTmpl, siginTmpl, chatsTmpl } from './pages';
 
 import './style.scss';
 
@@ -7,6 +7,7 @@ const routes = {
     '/404': notFoundTmpl,
     '/505': serverErrorTmpl,
     '/signin': siginTmpl,
+    '/chats': chatsTmpl,
 }
 
 window.onload = () => {
