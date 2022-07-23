@@ -2,8 +2,9 @@
 
 .chats-reel
 {
-    border-right: 1px solid $lightGray;
     max-height: 100vh;
+
+    border-right: 1px solid $lightGray;
 
     &__header
     {
@@ -27,11 +28,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 290px;
+        height: 32px;
+
+        color: $gray;
         font-size: 12px;
         line-height: 12px;
-        height: 32px;
-        width: 290px;
-        color: $gray;
+
         background-color: $lightGray;
         border-radius: 5px;
     }

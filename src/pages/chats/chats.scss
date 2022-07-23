@@ -1,9 +1,9 @@
 .chats
 {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 310px auto;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: 310px auto;
-    grid-template-rows: 1fr;
 }

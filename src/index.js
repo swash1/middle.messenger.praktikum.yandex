@@ -1,4 +1,13 @@
-import { loginTmpl, notFoundTmpl, serverErrorTmpl, siginTmpl, chatsTmpl, profileTmpl, editProfileTmpl, changePasswordTmpl } from './pages';
+import {
+    loginTmpl,
+    notFoundTmpl,
+    serverErrorTmpl,
+    siginTmpl,
+    chatsTmpl,
+    profileTmpl,
+    editProfileTmpl,
+    changePasswordTmpl,
+} from './pages';
 
 import './style.scss';
 
@@ -10,8 +19,8 @@ const routes = {
     '/chats': chatsTmpl,
     '/profile': profileTmpl,
     '/profile/edit': editProfileTmpl,
-    '/profile/change-password': changePasswordTmpl
-}
+    '/profile/change-password': changePasswordTmpl,
+};
 
 window.onload = () => {
     const pathName = window.location.pathname;
@@ -21,4 +30,4 @@ window.onload = () => {
     } else {
         window.location.href = '/404';
     }
-}
+};

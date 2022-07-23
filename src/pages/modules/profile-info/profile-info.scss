@@ -2,19 +2,20 @@
 
 .profile-info
 {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     &__info-wrapper
     {
-        width: 510px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 510px;
         min-height: 510px;
     }
 
@@ -39,25 +40,28 @@
 
         &__avatar
         {
-            border-radius: 50%;
-            object-fit: cover;
             margin-bottom: 21px;
+            object-fit: cover;
+
+            border-radius: 50%;
         }
 
         &__name
         {
+            margin-bottom: 60px;
+
+            color: $trueBlack;
             font-weight: 500;
             font-size: 16px;
             line-height: 16px;
-            color: $trueBlack;
-            margin-bottom: 60px;
+
             cursor: default;
         }
 
         & > .button
         {
-            margin: 0 auto;
             display: block;
+            margin: 0 auto;
         }
     }
 
@@ -72,6 +76,27 @@
             {
                 color: $red;
             }
+        }
+    }
+
+    &__back
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 100vh;
+
+        border-right: 1px solid $lightGray;
+        cursor: pointer;
+
+        & .arrow-button
+        {
+            cursor: pointer;
         }
     }
 }

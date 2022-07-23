@@ -1,5 +1,7 @@
 <div class="profile-info">
-    <div class="profile-info__back"></div>
+    <div class="profile-info__back">
+        {{> arrowButton direction='left'}}
+    </div>
     <div class="profile-info__info-wrapper">
         <img src="{{ avatarImgSrc }}" alt="avatar" class="info__avatar">
         {{#if name}}

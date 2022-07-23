@@ -1,16 +1,21 @@
 module.exports = {
-    "parser": "@babel/eslint-parser",
+    parser: '@babel/eslint-parser',
     parserOptions: {
         requireConfigFile: false,
         babelOptions: {
-          babelrc: false,
-          configFile: false,
-          // your babel options
-          // presets: ["@babel/preset-env"],
+            babelrc: false,
+            configFile: false,
+            // your babel options
+            // presets: ["@babel/preset-env"],
         },
     },
-    "extends": [
-        "airbnb-base",
-        "prettier"
-    ]
-}
+    env: {
+        browser: true,
+        node: true,
+        es6: true,
+    },
+    rules: {
+        'import/prefer-default-export': 'off',
+    },
+    extends: ['airbnb-base', 'prettier'],
+};

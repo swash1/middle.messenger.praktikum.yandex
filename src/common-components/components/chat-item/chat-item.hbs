@@ -1,13 +1,13 @@
-<div class="chat-item">
-    <img src="{{ avatar }}" alt="avatar" class="chat-item__avatar">
-    <span class="chat-item__name">{{ name }}</span>
-    <p class="chat-item__message">
+<div class='chat-item'>
+    <img src='{{avatar}}' alt='avatar' class='chat-item__avatar' />
+    <span class='chat-item__name'>{{name}}</span>
+    <p class='chat-item__message'>
         {{#if (isYouSender sender)}}
-            <span class="message__sender">Вы: </span>
-        {{/if}}{{ latestMessage }}
+            <span class='message__sender'>Вы: </span>
+        {{/if}}{{latestMessage}}
     </p>
-    <span class="chat-item__timestamp">{{ timestamp }}</span>
+    <span class='chat-item__timestamp'>{{timestamp}}</span>
     {{#if unreadMessagesCount}}
-        <div class="chat-item__unread-count">{{ unreadMessagesCount }}</div>
+        <div class='chat-item__unread-count'>{{unreadMessagesCount}}</div>
     {{/if}}
 </div>

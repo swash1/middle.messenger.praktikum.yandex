@@ -1,4 +1,4 @@
-import { profileInfo } from "../modules/profile-info";
+import { profileInfo } from '../modules/profile-info';
 
 const inputs = [
     {
@@ -17,7 +17,7 @@ const inputs = [
         descr: 'Повторите новый пароль',
         type: 'password',
         disabled: false,
-    }
-]
+    },
+];
 
-export default profileInfo({isEditable: true, inputs});
+export default profileInfo({ isEditable: true, inputs });

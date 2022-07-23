@@ -1,6 +1,7 @@
 import tpl from './signin.hbs';
 
-import { button, link, index } from '../../common-components';
+// eslint-disable-next-line no-unused-vars
+import { button, link, input } from '../../common-components';
 
 import './signin.scss';
 

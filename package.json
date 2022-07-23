@@ -6,7 +6,7 @@
     "clean:output": "rimraf dist",
     "start-dev": "npm run clean:output && parcel index.html --port 8000 --no-cache",
     "build": "npm run clean:output && parcel build index.html --no-cache",
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "keywords": [
     "practicum",
@@ -22,6 +22,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "parcel": "^2.6.2",
+    "parcel-reporter-static-files-copy": "^1.3.4",
     "parcel-transformer-hbs": "^1.0.4",
     "prettier": "2.7.1",
     "rimraf": "^3.0.2",

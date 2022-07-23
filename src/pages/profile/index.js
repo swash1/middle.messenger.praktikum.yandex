@@ -1,4 +1,4 @@
-import { profileInfo } from "../modules/profile-info";
+import { profileInfo } from '../modules/profile-info';
 
 const inputs = [
     {
@@ -37,6 +37,6 @@ const inputs = [
         name: 'phone',
         disabled: true,
     },
-]
+];
 
-export default profileInfo({name: "Иван", isEditable: false, inputs});
+export default profileInfo({ name: 'Иван', isEditable: false, inputs });
