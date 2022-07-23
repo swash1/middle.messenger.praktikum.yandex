@@ -1,7 +1,6 @@
 module.exports = {
     plugins: ['stylelint-order', 'stylelint-config-rational-order/plugin'],
     rules: {
-        'order/properties-order': [],
         'plugin/rational-order': [
             true,
             {

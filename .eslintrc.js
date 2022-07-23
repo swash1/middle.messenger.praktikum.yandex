@@ -5,8 +5,6 @@ module.exports = {
         babelOptions: {
             babelrc: false,
             configFile: false,
-            // your babel options
-            // presets: ["@babel/preset-env"],
         },
     },
     env: {
