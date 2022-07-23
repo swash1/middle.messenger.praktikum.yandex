@@ -1,4 +1,4 @@
-import { loginTmpl, notFoundTmpl, serverErrorTmpl, siginTmpl, chatsTmpl } from './pages';
+import { loginTmpl, notFoundTmpl, serverErrorTmpl, siginTmpl, chatsTmpl, profileTmpl, editProfileTmpl, changePasswordTmpl } from './pages';
 
 import './style.scss';
 
@@ -8,6 +8,9 @@ const routes = {
     '/505': serverErrorTmpl,
     '/signin': siginTmpl,
     '/chats': chatsTmpl,
+    '/profile': profileTmpl,
+    '/profile/edit': editProfileTmpl,
+    '/profile/change-password': changePasswordTmpl
 }
 
 window.onload = () => {
@@ -16,7 +19,6 @@ window.onload = () => {
     if (template) {
         document.querySelector('.root').innerHTML = template;
     } else {
-        //TODO: window.open()
-        document.querySelector('.root').innerHTML = notFoundTmpl;
+        window.location.href = '/404';
     }
 }

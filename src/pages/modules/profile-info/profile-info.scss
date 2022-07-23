@@ -1,0 +1,77 @@
+@import '../../design.scss';
+
+.profile-info
+{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__info-wrapper
+    {
+        width: 510px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 510px;
+    }
+
+    .info
+    {
+        width: 100%;
+        margin-top: 60px;
+
+        &__fields
+        {
+            width: 100%;
+            margin-bottom: 60px;
+
+            & .input__wrapper
+            {
+                &:last-child
+                {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        &__avatar
+        {
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 21px;
+        }
+
+        &__name
+        {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 16px;
+            color: $trueBlack;
+            margin-bottom: 60px;
+            cursor: default;
+        }
+
+        & > .button
+        {
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    &__action-link
+    {
+        font-size: 13px;
+        line-height: 33px;
+
+        &_color
+        {
+            &_red
+            {
+                color: $red;
+            }
+        }
+    }
+}

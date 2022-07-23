@@ -27,5 +27,32 @@
     &__wrapper
     {
         width: 100%;
+
+        &_view
+        {
+            &_two-sided
+            {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid $lightGray;
+
+                .input
+                {
+                    color: $gray;
+                    text-align: right;
+                    border-bottom: none;
+
+                    &__descr
+                    {
+                        font-weight: 500;
+                        font-size: 13px;
+                        line-height: 33px;
+                        color: $trueBlack;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
     }
 }

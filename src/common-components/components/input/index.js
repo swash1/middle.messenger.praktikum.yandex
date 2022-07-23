@@ -4,6 +4,6 @@ import './input.scss';
 
 Handlebars.registerPartial('input', template);
 
-export default input = ({ placeholder, descr, type = 'text', mix, name } = {}) => {
-	return template({ placeholder, descr, type, mix, name });
+export default input = ({ placeholder, descr, type = 'text', mix, name, view = 'default', disabled = false } = {}) => {
+	return template({ placeholder, descr, type, mix, name, view, disabled });
 }

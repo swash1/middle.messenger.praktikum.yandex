@@ -1,4 +1,4 @@
-<div class="input__wrapper {{ mix }}">
+<div class="input__wrapper input__wrapper_view_{{ view }} {{ mix }}">
     <span class="input__descr">{{ descr }}</span>
-    <input placeholder="{{ placeholder }}" class="input" type="{{ type }}" name="{{ name }}"/>
+    <input placeholder="{{ placeholder }}" class="input" type="{{ type }}" name="{{ name }}" {{#if disabled}}disabled{{/if}} />
 </div>
