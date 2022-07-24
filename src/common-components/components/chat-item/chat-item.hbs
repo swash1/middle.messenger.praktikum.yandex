@@ -4,9 +4,10 @@
     <p class='chat-item__message'>
         {{#if (isYouSender sender)}}
             <span class='message__sender'>Вы: </span>
-        {{/if}}{{latestMessage}}
+        {{/if}}
+        {{latestMessage}}
     </p>
-    <span class='chat-item__timestamp'>{{timestamp}}</span>
+    <time class='chat-item__timestamp'>{{timestamp}}</time>
     {{#if unreadMessagesCount}}
         <div class='chat-item__unread-count'>{{unreadMessagesCount}}</div>
     {{/if}}
