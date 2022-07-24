@@ -6,7 +6,8 @@
     "clean:output": "rimraf dist",
     "start-dev": "npm run clean:output && parcel index.html --port 8000 --no-cache",
     "build": "npm run clean:output && parcel build index.html --no-cache",
-    "start":  "npm run build && node server.js"
+    "start":  "npm run build && node server.js",
+    "start:server": "set PORT=3000 && node server.js"
   },
   "keywords": [
     "practicum",

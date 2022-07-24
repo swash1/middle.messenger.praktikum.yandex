@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const server = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const shared = path.join(__dirname, "/dist");
 
