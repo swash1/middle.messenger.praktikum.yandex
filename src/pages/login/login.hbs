@@ -1,0 +1,13 @@
+<div class="login-page">
+    <form class="login-page__form" action="#" enctype="multipart/form-data">
+        <div class="login-page__main-info">
+            <h1 class="login-page__title">Вход</h1>
+            {{> input descr='Логин' mix='login-page__input' name='login'}}
+            {{> input descr='Пароль' type='password' mix='login-page__input' name='password'}}
+        </div>
+        <div class="login-page__controls">
+            {{> button text='Вход' mix='login-page__auth-button'}}
+            {{> link url='/signin' text='Создать аккаунт'}}
+        </div>
+    </form>
+</div>

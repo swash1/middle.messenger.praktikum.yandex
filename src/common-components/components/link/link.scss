@@ -1,0 +1,9 @@
+@import '../../design.scss';
+
+.link
+{
+    @include paragraphS;
+
+    color: $blue;
+    text-decoration: none;
+}

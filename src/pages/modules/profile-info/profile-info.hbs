@@ -1,0 +1,28 @@
+<div class="profile-info">
+    <div class="profile-info__back">
+        {{> arrowButton direction='left'}}
+    </div>
+    <div class="profile-info__info-wrapper">
+        <img src="{{ avatarImgSrc }}" alt="avatar" class="info__avatar">
+        {{#if name}}
+            <span class="info__name">{{ name }}</span>
+        {{/if}}
+        <form class="info">
+            <div class="info__fields">
+                {{#each inputs}}
+                    {{> input descr=descr type=type name=name view='two-sided' disabled=disabled }}
+                {{/each}}
+            </div>
+
+            {{#if isEditable}}
+                {{> button text='Сохранить'}}
+            {{else}}
+                {{> link url='/profile/edit' text='Изменить данные' mix="profile-info__action-link"}}
+                {{> divider}}
+                {{> link url='/profile/change-password' text='Изменить пароль' mix="profile-info__action-link"}}
+                {{> divider}}
+                {{> link url='/login' text='Выйти' mix="profile-info__action-link profile-info__action-link_color_red"}}
+            {{/if}}
+        </form>
+    </div>
+</div>

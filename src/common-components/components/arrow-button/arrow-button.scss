@@ -1,0 +1,15 @@
+@import "../../design.scss";
+
+.arrow-button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+
+    color: $white;
+
+    background-color: $blue;
+    border-radius: 50%;
+}

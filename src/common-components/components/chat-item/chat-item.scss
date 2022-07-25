@@ -1,0 +1,99 @@
+@import '../../design.scss';
+
+.chat-item
+{
+    display: grid;
+    grid-template-areas: 
+        "avatar name timestamp"
+        "avatar message count";
+    grid-template-rows: 17px 30px;
+    grid-template-columns: 57px 193px 40px;
+    padding: 10px;
+
+    &_active
+    {
+        background-color: $lightBlue;
+    }
+
+    &__avatar
+    {
+        grid-area: avatar;
+
+        width: 47px;
+        height: 47px;
+        object-fit: cover;
+        overflow: hidden;
+
+        border-radius: 50%;
+    }
+
+    &__name
+    {
+        grid-area: name;
+
+        max-width: 170px;
+        overflow: hidden;
+
+        @include paragraphM;
+
+        font-weight: 600;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &__message
+    {
+        grid-area: message;
+
+        width: 100%;
+        overflow: hidden;
+
+        color: $gray;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+
+        & .message
+        {
+            &__sender
+            {
+                color: $trueBlack; 
+            }
+        }
+    }
+
+    &__timestamp
+    {
+        grid-area: timestamp;
+        justify-self: end;
+
+        @include paragraphXS;
+
+        color: $gray;
+
+        line-height: 13px;
+        white-space: nowrap;
+    }
+
+    &__unread-count
+    {
+
+        display: flex;
+        grid-area: count;
+        align-items: center;
+        align-self: end;
+        justify-content: center;
+        justify-self: end;
+        width: 20px;
+        height: 20px;
+
+        @include paragraphS;
+
+        color: $white;
+        line-height: 12px;
+        text-align: center;
+
+        background-color: $blue;
+        border-radius: 50%;
+    }
+}

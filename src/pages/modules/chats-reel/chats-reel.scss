@@ -1,0 +1,56 @@
+@import '../../design.scss';
+
+.chats-reel
+{
+    max-height: 100vh;
+
+    border-right: 1px solid $lightGray;
+
+    &__header
+    {
+        padding: 21px 10px 12px;
+    }
+
+    &__profile-link-wrapper
+    {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 23px;
+    }
+
+    &__profile-link
+    {
+        color: $gray;
+    }
+
+    &__search
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 290px;
+        height: 32px;
+
+        color: $gray;
+        font-size: 12px;
+        line-height: 12px;
+
+        background-color: $lightGray;
+        border-radius: 5px;
+    }
+
+    &__chats-container
+    {
+        max-height: 100%;
+        padding-bottom: 30px;
+        overflow: scroll;
+
+        @include hideScrollbar;
+    }
+
+    & .divider
+    {
+        width: 290px;
+        margin: 2px auto;
+    }
+}

@@ -1,0 +1,44 @@
+@mixin headlineL
+{
+    color: $trueBlack;
+    font-weight: 500;
+    font-size: 40px;
+    font-style: normal;
+    line-height: 40px
+}
+
+@mixin headlineM
+{
+    color: $trueBlack;
+    font-weight: 500;
+    font-size: 20px;
+    font-style: normal;
+    line-height: 20px
+}
+
+@mixin paragraphM
+{
+    color: $trueBlack;
+    font-weight: 500;
+    font-size: 13px;
+    font-style: normal;
+    line-height: 13px
+}
+
+@mixin paragraphS
+{
+    color: $trueBlack;
+    font-weight: 500;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 11px
+}
+
+@mixin paragraphXS
+{
+    color: $trueBlack;
+    font-weight: 500;
+    font-size: 9px;
+    font-style: normal;
+    line-height: 9px
+}

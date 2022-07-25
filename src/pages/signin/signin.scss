@@ -1,0 +1,44 @@
+@import '../design.scss';
+
+.signin-page
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+
+    &__title
+    {
+        @include headlineM;
+
+        margin-bottom: 40px;
+    }
+
+    &__form
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 340px;
+        height: min-content;
+        padding: 50px 30px 30px;
+
+        border-radius: 12px;
+        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    }
+
+    &__input
+    {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    &__button
+    {
+        width: 100%;
+        margin-top: 47px;
+        margin-bottom: 14px;
+    }
+}
