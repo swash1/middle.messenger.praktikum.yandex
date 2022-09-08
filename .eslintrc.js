@@ -1,5 +1,5 @@
 module.exports = {
-    parser: '@babel/eslint-parser',
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         requireConfigFile: false,
         babelOptions: {
@@ -7,6 +7,7 @@ module.exports = {
             configFile: false,
         },
     },
+    plugins: ['@typescript-eslint'],
     env: {
         browser: true,
         node: true,
@@ -14,6 +15,22 @@ module.exports = {
     },
     rules: {
         'import/prefer-default-export': 'off',
+        'sort-imports': [
+            'error',
+            {
+                ignoreCase: false,
+                ignoreDeclarationSort: false,
+                ignoreMemberSort: false,
+                allowSeparatedGroups: true,
+                memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
+            },
+        ],
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.ts'],
+            },
+        },
+        'import/order': [1, { groups: ['external', 'builtin', 'internal', 'sibling', 'parent', 'index'] }],
     },
-    extends: ['airbnb-base', 'prettier'],
+    extends: ['plugin:@typescript-eslint/recommended', 'airbnb-base', 'prettier'],
 };

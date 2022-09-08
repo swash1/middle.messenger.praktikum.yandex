@@ -1,0 +1,90 @@
+@import '../../design.scss';
+
+.dialog
+{
+    width: 100%;
+    height: 100vh;
+    padding: 0 20px;
+    overflow-y: scroll;
+
+    @include hideScrollbar;
+
+    &__header-wrapper
+    {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+
+        background-color: $white;
+    }
+
+    &__header
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 54px;
+    }
+
+    &__recipient-info
+    {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: min-content;
+    }
+
+    .recipient
+    {
+        &__avatar
+        {
+            width: 34px;
+            height: 34px;
+            margin-right: 10px;
+            overflow: hidden;
+
+            border-radius: 50%;
+        }
+
+        &__name
+        {
+            color: $trueBlack;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 14px;
+        }
+    }
+
+    &__messages
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: end;
+        min-height: calc(100% - 55px - 55px);
+        padding: 30px 0;
+
+        .message
+        {
+            flex-shrink: 0;
+        }
+    }
+
+    &__footer-wrapper
+    {
+        position: sticky;
+        bottom: 0;
+
+        background-color: $white;
+    }
+
+    &__footer
+    {
+        display: grid;
+        grid-template-columns: 32px auto 32px;
+        gap: 10px;
+        align-items: center;
+        height: 54px;
+    }
+}

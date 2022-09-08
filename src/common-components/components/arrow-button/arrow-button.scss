@@ -11,5 +11,34 @@
     color: $white;
 
     background-color: $blue;
+    border: none;
     border-radius: 50%;
+    cursor: pointer;
+
+    &_direction
+    {
+        &_right
+        {
+            svg
+            {
+                transform: rotate(180deg);
+            }
+        }
+
+        &_top
+        {
+            svg
+            {
+                transform: rotate(90deg);
+            }
+        }
+
+        &_down
+        {
+            svg
+            {
+                transform: rotate(270deg);
+            }
+        }
+    }
 }

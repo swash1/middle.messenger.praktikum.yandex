@@ -1,0 +1,142 @@
+@import '../../design.scss';
+
+.message
+{
+    position: relative;
+
+    width: fit-content;
+    max-width: 40%;
+
+    border-radius: 12px;
+
+    &__info
+    {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+
+        display: inline-flex;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    &__timestamp
+    {
+        font-weight: 500;
+        font-size: 9px;
+        line-height: 9px;
+    }
+
+    &__read-status
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 4px;
+    }
+
+    &__text
+    {
+        color: $trueBlack;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    &__image
+    {
+        display: block;
+        width: auto;
+        height: 100%;
+    }
+
+    &_type
+    {
+        &_incoming
+        {
+            align-self: start;
+
+            background-color: $incomingMessageColor;
+
+            .message
+            {
+                &__timestamp
+                {
+                    color: $gray;
+                }
+            }
+        }
+
+        &_outgoing
+        {
+            align-self: end;
+
+            background-color: $outgoingMessageColor;
+
+            .message
+            {
+                &__timestamp
+                {
+                    color: $blue;
+                }
+
+                &__read-status
+                {
+                    svg
+                    {
+                        line
+                        {
+                            stroke: $blue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &_content-type
+    {
+        &_text
+        {
+            padding: 10px;
+        }
+
+        &_image
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+
+            border: 1px solid #EAEAEA;
+            aspect-ratio: 1 / 1;
+
+            .message
+            {
+                &__info
+                {
+                    padding: 2px 8px;
+
+                    background: rgba(82, 82, 82, 0.5);
+                    border-radius: 30px;
+                }
+
+                &__timestamp
+                {
+                    color: $white;
+                }
+
+                &__read-status
+                {
+                    svg
+                    {
+                        line
+                        {
+                            stroke: $white;
+                        }
+                    }
+                }
+            }  
+        }
+    }
+}
