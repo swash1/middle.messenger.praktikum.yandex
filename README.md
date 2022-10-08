@@ -18,3 +18,4 @@ https://sage-capybara-879631.netlify.app/
 
 ПР-ы:
  - Sprint 1: https://github.com/swash1/middle.messenger.praktikum.yandex/pull/1
+ - Sprint 2: https://github.com/swash1/middle.messenger.praktikum.yandex/pull/2
