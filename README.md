@@ -14,5 +14,7 @@ https://sage-capybara-879631.netlify.app/
 
 Макет: https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=1%3A498
 
+Технологии: TS, Prettier, ESLint, SCSS, Handlebars, Stylelint
+
 ПР-ы:
  - Sprint 1: https://github.com/swash1/middle.messenger.praktikum.yandex/pull/1
