@@ -1,6 +1,6 @@
 export * from './handlebarsHelpers';
 export * from './validators';
-export { EventBus } from './eventBus';
+export { EventBus } from './EventBus';
 export { render } from './renderDOM';
-export { Block } from './block';
+export { Block } from './Block';
 export { HTTPTransport } from './HTTPTransport';

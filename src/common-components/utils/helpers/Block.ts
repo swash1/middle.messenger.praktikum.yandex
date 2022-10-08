@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 
-import { EventBus } from './eventBus';
+import { EventBus } from './EventBus';
 
 interface Meta {
     tagName: string;
@@ -121,7 +121,6 @@ export class Block {
         this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
 
-    //  можно переопределить, если хотим что-то делать на обновление
     componentDidUpdate(props: { oldProps: Record<string, any>; newProps: Record<string, any> }) {
         return true;
     }

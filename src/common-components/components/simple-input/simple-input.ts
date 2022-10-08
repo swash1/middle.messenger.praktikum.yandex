@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers/block';
+import { Block } from '../../utils/helpers/Block';
 
 export interface Props {
     placeholder?: string;

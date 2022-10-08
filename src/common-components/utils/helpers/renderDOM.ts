@@ -1,4 +1,4 @@
-import { Block } from './block';
+import { Block } from './Block';
 
 export const render = (targetElementSelector: string, block: Block) => {
     const root = document.querySelector(targetElementSelector);

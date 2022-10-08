@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers/block';
+import { Block } from '../../utils/helpers/Block';
 
 import { Jackdaw } from '../../icons/Jackdaw';
 import { DoubleJackdaw } from '../../icons/DoubleJackdaw';
