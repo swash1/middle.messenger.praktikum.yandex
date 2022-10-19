@@ -52,16 +52,6 @@ const contentTemplateWithImage = `
 `;
 
 export class Message extends Block {
-    CONTENT_TYPES = {
-        TEXT: CONTENT_TYPES.TEXT,
-        IMAGE: CONTENT_TYPES.IMAGE,
-    };
-
-    MESSAGE_TYPES = {
-        INCOMING: MESSAGE_TYPES.INCOMING,
-        OUTGOING: MESSAGE_TYPES.OUTGOING,
-    }
-
     constructor(props: Props) {
         const { contentType, type, content, timestamp, read } = props;
 

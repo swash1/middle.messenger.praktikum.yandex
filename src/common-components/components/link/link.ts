@@ -9,7 +9,7 @@ interface Props {
     target?: LINK_TARGETS;
 }
 
-enum LINK_TARGETS {
+export enum LINK_TARGETS {
     BLANK = '_blank',
     SELF = '_self',
 }
@@ -17,11 +17,6 @@ enum LINK_TARGETS {
 const contentTemplate = '{{text}}';
 
 export class Link extends Block {
-    static TARGET = {
-        BLANK: LINK_TARGETS.BLANK,
-        SELF: LINK_TARGETS.SELF,
-    };
-
     constructor(props: Props) {
         const { mix, target = LINK_TARGETS.SELF, url, text } = props;
 

@@ -1,4 +1,6 @@
 import { Block, Button, Input, Link } from '../../common-components';
+import { INPUT_VIEWS } from '../../common-components/components/input/input';
+import { LINK_TARGETS } from '../../common-components/components/link/link';
 import { validateLogin } from '../../common-components/utils/helpers/validators';
 
 import './login.scss';
@@ -37,13 +39,13 @@ export class Login extends Block {
     constructor() {
         const link = new Link({
             url: '/signin',
-            target: Link.TARGET.SELF,
+            target: LINK_TARGETS.SELF,
             text: 'Создать аккаунт',
         });
 
         const inputsArray = inputs.map((inputParams) => {
             return new Input({
-                view: Input.INPUT_VIEWS.DEFAULT,
+                view: INPUT_VIEWS.DEFAULT,
                 mix: 'login-page__input',
                 ...inputParams,
             });

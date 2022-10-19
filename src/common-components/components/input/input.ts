@@ -13,7 +13,7 @@ export interface Props extends InputProps {
     validateFunc?: (string: string) => boolean;
 }
 
-enum INPUT_VIEWS {
+export enum INPUT_VIEWS {
     DEFAULT = 'default',
     TWO_SIDED = 'two-sided',
 }
@@ -30,11 +30,6 @@ export class Input extends Block {
     isValid: boolean;
     baseInput: SimpleInput;
     validateFunc?: (string: string) => boolean;
-
-    static INPUT_VIEWS = {
-        DEFAULT: INPUT_VIEWS.DEFAULT,
-        TWO_SIDED: INPUT_VIEWS.TWO_SIDED,
-    };
 
     constructor(props: Props) {
         const {

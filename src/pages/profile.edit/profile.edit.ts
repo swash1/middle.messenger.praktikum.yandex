@@ -1,4 +1,5 @@
 import { Button, Input } from '../../common-components';
+import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { validateEmail, validateLogin, validateName, validatePhone } from '../../common-components/utils/helpers';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
@@ -53,7 +54,7 @@ class ProfileEdit extends ProfileInfo {
         const inputsArray = inputs.map((inputParams) => {
             return new Input({
                 ...inputParams,
-                view: Input.INPUT_VIEWS.TWO_SIDED,
+                view: INPUT_VIEWS.TWO_SIDED,
             });
         });
 

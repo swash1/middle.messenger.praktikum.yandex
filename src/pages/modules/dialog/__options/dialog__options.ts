@@ -1,4 +1,5 @@
 import { Block, Button, Input, Select } from '../../../../common-components';
+import { INPUT_VIEWS } from '../../../../common-components/components/input/input';
 import { Modal } from '../../../../common-components/components/modal/modal';
 
 import { Cancel, Plus, ThreeDots } from '../../../../common-components/icons';
@@ -29,7 +30,7 @@ export class DialogOptions extends Block {
         });
 
         const userToAddLoginInput = new Input({
-            view: Input.INPUT_VIEWS.DEFAULT,
+            view: INPUT_VIEWS.DEFAULT,
             descr: 'Логин',
             invalidMessage: 'Некорректный логин',
             validateFunc: validateLogin,
@@ -64,7 +65,7 @@ export class DialogOptions extends Block {
         });
 
         const userToRemoveLoginInput = new Input({
-            view: Input.INPUT_VIEWS.DEFAULT,
+            view: INPUT_VIEWS.DEFAULT,
             descr: 'Логин',
             invalidMessage: 'Некорректный логин',
             validateFunc: validateLogin,

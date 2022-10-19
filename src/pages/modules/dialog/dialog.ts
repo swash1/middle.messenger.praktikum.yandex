@@ -25,6 +25,7 @@ interface DialogInfo {
 }
 
 import './dialog.scss';
+import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
 
 const contentTemplate = `
     <div class="dialog__header-wrapper">
@@ -67,7 +68,7 @@ export class Dialog extends Block {
 
         const messageInput = new DialogMessageInput();
 
-        const arrowButton = new ArrowButton({ direction: ArrowButton.ARROW_DIRECTIONS.RIGHT });
+        const arrowButton = new ArrowButton({ direction: ARROW_DIRECTIONS.RIGHT });
 
         super({
             tagName: 'div',

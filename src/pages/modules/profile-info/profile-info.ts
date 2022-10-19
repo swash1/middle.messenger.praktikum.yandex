@@ -1,4 +1,5 @@
 import { ArrowButton, Block, Divider, Input, Link, Avatar } from '../../../common-components';
+import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
 
 import './profile-info.scss';
 
@@ -51,7 +52,7 @@ export class ProfileInfo extends Block {
         errorMessage,
     }: Props) {
         const arrowButton = new ArrowButton({
-            direction: ArrowButton.ARROW_DIRECTIONS.LEFT,
+            direction: ARROW_DIRECTIONS.LEFT,
             events: [
                 [
                     'click',

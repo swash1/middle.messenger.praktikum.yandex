@@ -6,9 +6,10 @@ import {
     validatePassword,
     validatePhone,
 } from '../../common-components/utils/helpers/validators';
-import { Props as InputParams } from '../../common-components/components/input/input';
+import { INPUT_VIEWS, Props as InputParams } from '../../common-components/components/input/input';
 
 import './signin.scss';
+import { LINK_TARGETS } from '../../common-components/components/link/link';
 
 const contentTemplate = `
     <form class="signin-page__form" action="#" enctype="multipart/form-data">
@@ -104,7 +105,7 @@ export class SignIn extends Block {
         const inputsArray = inputs.map(
             (inputParams) =>
                 new Input({
-                    view: Input.INPUT_VIEWS.DEFAULT,
+                    view: INPUT_VIEWS.DEFAULT,
                     mix: 'signin-page__input',
                     ...inputParams,
                 })
@@ -163,7 +164,7 @@ export class SignIn extends Block {
 
         const link = new Link({
             url: '/profile',
-            target: Link.TARGET.SELF,
+            target: LINK_TARGETS.SELF,
             text: 'Войти',
         });
 

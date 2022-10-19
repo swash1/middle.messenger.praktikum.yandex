@@ -1,4 +1,5 @@
 import { Input } from '../../common-components';
+import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
 const inputs = [
@@ -45,7 +46,7 @@ class Profile extends ProfileInfo {
         const inputsArray = inputs.map((inputParams) => {
             return new Input({
                 ...inputParams,
-                view: Input.INPUT_VIEWS.TWO_SIDED,
+                view: INPUT_VIEWS.TWO_SIDED,
             });
         });
 

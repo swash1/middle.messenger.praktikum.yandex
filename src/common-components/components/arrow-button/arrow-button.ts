@@ -9,7 +9,7 @@ interface Props {
     events?: [string, (event: Event) => void][];
 }
 
-enum ARROW_DIRECTIONS {
+export enum ARROW_DIRECTIONS {
     TOP = 'top',
     LEFT = 'left',
     BOTTOM = 'bottom',
@@ -21,13 +21,6 @@ const contentTemplate = `
 `;
 
 export class ArrowButton extends Block {
-    static ARROW_DIRECTIONS = {
-        TOP: ARROW_DIRECTIONS.TOP,
-        LEFT: ARROW_DIRECTIONS.LEFT,
-        BOTTOM: ARROW_DIRECTIONS.BOTTOM,
-        RIGHT: ARROW_DIRECTIONS.RIGHT,
-    };
-
     constructor(props: Props = {}) {
         const { direction = ARROW_DIRECTIONS.LEFT, events } = props;
 
