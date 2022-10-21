@@ -31,7 +31,7 @@ const contentTemplate = `
     <div class="dialog__header-wrapper">
         <div class="dialog__header">
             <div class="dialog__recipient-info">
-                <img class="recipient__avatar" src={{avatarImgSrc}}/>
+                <img class="recipient__avatar" src={{avatarImgSrc}} alt="avatar"/>
                 <div class="recipient__name">{{recipientName}}</div>
             </div>
             {{{dialogOptions}}}
