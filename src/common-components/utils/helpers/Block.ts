@@ -252,7 +252,12 @@ export class Block {
                 return typeof value === 'function' ? value.bind(target) : value;
             },
             set: (target, prop: string, value) => {
-                const oldProps = JSON.parse(JSON.stringify(target));
+                let oldProps;
+                try {
+                    oldProps = JSON.parse(JSON.stringify(target));
+                } catch (error) {
+                    throw error;
+                }
 
                 target[prop] = value;
 
