@@ -246,25 +246,21 @@ export class Block {
     }
 
     _makePropsProxy(props: Record<string, any>) {
-        // Можно и так передать this
-        // Такой способ больше не применяется с приходом ES6+
-        const self = this;
-
         return new Proxy(props, {
-            get(target, prop: string) {
+            get: (target, prop: string) => {
                 const value = target[prop];
                 return typeof value === 'function' ? value.bind(target) : value;
             },
-            set(target, prop: string, value) {
+            set: (target, prop: string, value) => {
                 const oldProps = JSON.parse(JSON.stringify(target));
 
                 target[prop] = value;
 
-                self.eventBus.emit(EVENTS.FLOW_CDU, { oldProps, newProps: target });
+                this.eventBus.emit(EVENTS.FLOW_CDU, { oldProps, newProps: target });
 
                 return true;
             },
-            deleteProperty() {
+            deleteProperty: () => {
                 throw new Error('Отказано в доступе');
             },
         });
