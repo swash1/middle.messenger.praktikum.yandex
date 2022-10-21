@@ -88,7 +88,7 @@ export class Input extends Block {
             const baseInput = this.baseInput.getContent();
             const status = this.validateFunc(baseInput.value);
             this.setIsValid(status);
-            return this.getIsValid();
+            return status;
         }
 
         return true;
