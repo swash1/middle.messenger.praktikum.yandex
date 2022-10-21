@@ -1,4 +1,4 @@
-import { queryStringify } from "./queryStringify";
+import { queryStringify } from './queryStringify';
 
 interface RequestProps {
     url: string;
@@ -24,6 +24,10 @@ enum METHODS {
 
 export class HTTPTransport {
     static get = ({ url, options = {} }: RequestProps) => {
+        if (options.data) {
+            url = `${url}${queryStringify(options.data)}`;
+        }
+
         return this.request({ url, options, method: METHODS.GET });
     };
 
@@ -47,7 +51,7 @@ export class HTTPTransport {
 
             const isGetMethod = method === METHODS.GET;
 
-            xhr.open(method, isGetMethod && Boolean(data) ? `${url}${queryStringify(data)}` : url);
+            xhr.open(method, url);
 
             Object.keys(headers).forEach((key) => {
                 xhr.setRequestHeader(key, headers[key]);
