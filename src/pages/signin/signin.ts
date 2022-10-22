@@ -11,6 +11,7 @@ import { INPUT_VIEWS, Props as InputParams } from '../../common-components/compo
 import './signin.scss';
 import { LINK_TARGETS } from '../../common-components/components/link/link';
 import { sendForm } from '../../common-components/utils/helpers';
+import { urls } from '../../common-components/urls';
 
 const contentTemplate = `
     <form class="signin-page__form" action="#" enctype="multipart/form-data">
@@ -144,9 +145,10 @@ export class SignIn extends Block {
         });
 
         const link = new Link({
-            url: '/profile',
+            url: urls.profile,
             target: LINK_TARGETS.SELF,
             text: 'Войти',
+            isRouter: true,
         });
 
         super({

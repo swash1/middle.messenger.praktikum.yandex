@@ -1,4 +1,5 @@
 import { Block, Link } from '../../../common-components';
+import { urls } from '../../../common-components/urls';
 
 import './error-page.scss';
 
@@ -15,7 +16,7 @@ const contentTemplate = `
 
 export class ErrorPage extends Block {
     public constructor(props: Props) {
-        const link = new Link({ text: 'Назад к чатам', url: '/chats' });
+        const link = new Link({ text: 'Назад к чатам', url: urls.chats, isRouter: true });
 
         super({
             tagName: 'div',

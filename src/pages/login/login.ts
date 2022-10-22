@@ -1,6 +1,7 @@
 import { Block, Button, Input, Link } from '../../common-components';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../common-components/components/link/link';
+import { urls } from '../../common-components/urls';
 import { validateLogin } from '../../common-components/utils/helpers/validators';
 
 import './login.scss';
@@ -38,9 +39,10 @@ const inputs = [
 export class Login extends Block {
     public constructor() {
         const link = new Link({
-            url: '/signin',
+            url: urls.signIn,
             target: LINK_TARGETS.SELF,
             text: 'Создать аккаунт',
+            isRouter: true,
         });
 
         const inputsArray = inputs.map((inputParams) => {

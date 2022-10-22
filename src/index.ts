@@ -1,5 +1,6 @@
-import { Block } from './common-components';
-import { render } from './common-components/utils/helpers/renderDOM';
+import { rootNodeSelector } from './common-components/constants';
+import { urls } from './common-components/urls';
+import { Router } from './common-components/utils/helpers';
 import {
     loginPage,
     notFoundPage,
@@ -13,23 +14,16 @@ import {
 
 import './style.scss';
 
-const routes: Record<string, Block> = {
-    '/login': loginPage,
-    '/404': notFoundPage,
-    '/500': serverErrorPage,
-    '/signin': siginPage,
-    '/chats': chatsPage,
-    '/profile': profilePage,
-    '/profile/edit': editProfilePage,
-    '/profile/change-password': changePasswordPage,
-};
+const router = new Router(rootNodeSelector);
 
-window.onload = () => {
-    const pathName = window.location.pathname;
-    const block = Object.keys(routes).includes(pathName) ? routes[pathName] : null;
-    if (block) {
-        render('.root', block)
-    } else {
-        window.location.href = '/404';
-    }
-};
+router
+    .use(urls.index, chatsPage)
+    .use(urls.login, loginPage)
+    .use(urls.notFound, notFoundPage)
+    .use(urls.serverError, serverErrorPage)
+    .use(urls.signIn, siginPage)
+    .use(urls.chats, chatsPage)
+    .use(urls.profile, profilePage)
+    .use(urls.editProfile, editProfilePage)
+    .use(urls.changePassword, changePasswordPage)
+    .start();

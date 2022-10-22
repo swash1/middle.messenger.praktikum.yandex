@@ -1,5 +1,6 @@
 import { Block, ChatItem, Divider, Link } from '../../../common-components';
 import { LINK_TARGETS } from '../../../common-components/components/link/link';
+import { urls } from '../../../common-components/urls';
 
 import './chats-reel.scss';
 
@@ -30,10 +31,11 @@ export class ChatsReel extends Block {
         const divider = new Divider();
 
         const link = new Link({
-            url: '/profile',
+            url: urls.profile,
             target: LINK_TARGETS.SELF,
             text: 'Профиль >',
             mix: 'chats-reel__profile-link',
+            isRouter: true,
         });
 
         super({

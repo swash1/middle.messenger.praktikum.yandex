@@ -280,4 +280,8 @@ export class Block {
     public getContent() {
         return this._rootElement;
     }
+
+    public hide() {
+        this._rootElement.remove();
+    }
 }

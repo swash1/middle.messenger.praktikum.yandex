@@ -1,5 +1,6 @@
 import { ArrowButton, Block, Divider, Input, Link, Avatar } from '../../../common-components';
 import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
+import { urls } from '../../../common-components/urls';
 
 import './profile-info.scss';
 
@@ -69,21 +70,24 @@ export class ProfileInfo extends Block {
         const avatar = new Avatar({ isEditable: true, imgSrc: avatarImgSrc, mix: 'info__avatar' });
 
         const editProfileLink = new Link({
-            url: '/profile/edit',
+            url: urls.editProfile,
             text: 'Изменить данные',
             mix: 'profile-info__action-link',
+            isRouter: true,
         });
 
         const changePasswordLink = new Link({
-            url: '/profile/change-password',
+            url: urls.changePassword,
             text: 'Изменить пароль',
             mix: 'profile-info__action-link',
+            isRouter: true,
         });
 
         const logOutLink = new Link({
-            url: '/login',
+            url: urls.login,
             text: 'Выйти',
             mix: 'profile-info__action-link profile-info__action-link_color_red',
+            isRouter: true,
         });
 
         super({
