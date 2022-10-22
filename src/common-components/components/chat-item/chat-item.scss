@@ -6,8 +6,8 @@
     grid-template-areas: 
         "avatar name timestamp"
         "avatar message count";
-    grid-template-rows: 17px 30px;
-    grid-template-columns: 57px 193px 40px;
+    grid-template-rows: 16px 30px;
+    grid-template-columns: 56px 190px 40px;
     padding: 10px;
 
     &_active
@@ -19,8 +19,8 @@
     {
         grid-area: avatar;
 
-        width: 47px;
-        height: 47px;
+        width: 48px;
+        height: 48px;
         object-fit: cover;
         overflow: hidden;
 
@@ -95,5 +95,14 @@
 
         background-color: $blue;
         border-radius: 50%;
+    }
+
+    &__wrapper
+    {
+        .divider
+        {
+            width: 290px;
+            margin: 2px auto;
+        }
     }
 }

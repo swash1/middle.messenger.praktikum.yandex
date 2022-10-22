@@ -1,0 +1,62 @@
+@import '../../../design.scss';
+
+.dialog
+{
+    &__options
+    {
+        .select
+        {
+            top: 50px;
+            right: 0;
+        }
+    }
+
+    &__options-button
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+
+        background-color: $white;
+        border: none;
+
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        &:hover
+        {
+            background-color: $lightGray;
+        }
+    }
+
+    &__options-modal-header
+    {
+        margin-bottom: 24px;
+
+        color: $trueBlack;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    &__login-input
+    {
+        margin-bottom: 30px;
+    }
+
+    &__modal-button
+    {
+        width: 100%;
+    }
+
+    .modal__content
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 340px;
+    }
+}

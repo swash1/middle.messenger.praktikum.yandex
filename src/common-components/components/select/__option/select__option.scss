@@ -1,0 +1,36 @@
+@import '../../../design.scss';
+
+.select
+{
+    &__option
+    {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        padding: 8px 16px;
+
+        cursor: pointer;
+
+        &:hover
+        {
+            background-color: $lightGray;
+        }
+    }
+
+    &__icon
+    {
+        width: 20px;
+        height: 20px;
+        margin-right: 16px;
+    }
+
+    &__option-text
+    {
+        color: $trueBlack;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        white-space: nowrap;
+    }
+}

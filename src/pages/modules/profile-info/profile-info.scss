@@ -29,7 +29,7 @@
             width: 100%;
             margin-bottom: 60px;
 
-            & .input__wrapper
+            & .input
             {
                 &:last-child
                 {
@@ -40,10 +40,7 @@
 
         &__avatar
         {
-            margin-bottom: 21px;
-            object-fit: cover;
-
-            border-radius: 50%;
+            margin-bottom: 20px;
         }
 
         &__name
@@ -67,8 +64,8 @@
 
     &__action-link
     {
-        font-size: 13px;
-        line-height: 33px;
+        font-size: 14px;
+        line-height: 30px;
 
         &_color
         {
@@ -98,5 +95,15 @@
         {
             cursor: pointer;
         }
+    }
+
+    &__error-message
+    {
+        @include paragraphS;
+        display: block;
+        margin: 16px auto 0 auto;
+
+        color: $red;
+        text-align: center;
     }
 }

@@ -1,0 +1,28 @@
+@import '../../../design.scss';
+
+.dialog
+{
+    &__message-input-wrapper
+    {
+        display: flex;
+        align-items: center;
+        height: 32px;
+        padding: 0 16px;
+
+        background: $lightGray;
+        border-radius: 30px;
+    }
+
+    &__message-input
+    {
+        width: 100%;
+
+        background: transparent;
+        border: none;
+
+        &:active, &:hover, &:focus
+        {
+            outline: none;
+        }
+    }
+}

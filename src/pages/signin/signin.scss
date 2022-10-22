@@ -35,10 +35,29 @@
         margin-bottom: 16px;
     }
 
+    &__error-message
+    {
+        width: 100%;
+        margin-top: 40px;
+
+        color: $red;
+
+        font-size: 8px;
+        line-height: 8px;
+        text-align: center;
+
+        visibility: hidden;
+
+        &_visible
+        {
+            visibility: visible;
+        }
+    }
+
     &__button
     {
         width: 100%;
-        margin-top: 47px;
+        margin-top: 12px;
         margin-bottom: 14px;
     }
 }

@@ -1,0 +1,19 @@
+@import '../../../design.scss';
+
+.avatar
+{
+    &__modal-file-input-label
+    {
+        width: 122px;
+        margin-bottom: 44px;
+
+        color: $blue;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        text-align: center;
+        text-decoration-line: underline;
+
+        cursor: pointer;
+    }
+}

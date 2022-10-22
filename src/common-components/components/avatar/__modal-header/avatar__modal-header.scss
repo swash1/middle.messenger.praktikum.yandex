@@ -1,0 +1,14 @@
+@import '../../../design.scss';
+
+.avatar
+{
+    &__modal-header
+    {
+        margin-bottom: 44px;
+
+        color: $trueBlack;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 20px;
+    }
+}
