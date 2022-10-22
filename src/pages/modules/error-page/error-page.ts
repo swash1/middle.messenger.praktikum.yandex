@@ -14,7 +14,7 @@ const contentTemplate = `
 `;
 
 export class ErrorPage extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const link = new Link({ text: 'Назад к чатам', url: '/chats' });
 
         super({

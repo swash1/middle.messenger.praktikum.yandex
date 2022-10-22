@@ -102,7 +102,7 @@ const inputs: InputParams[] = [
 ];
 
 export class SignIn extends Block {
-    constructor() {
+    public constructor() {
         const inputsArray = inputs.map(
             (inputParams) =>
                 new Input({

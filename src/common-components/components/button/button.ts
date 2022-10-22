@@ -11,7 +11,7 @@ interface Props {
 const contentTemplate = '{{text}}';
 
 export class Button extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { mix, events, text } = props;
 
         let className = 'button';

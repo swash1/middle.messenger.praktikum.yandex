@@ -27,9 +27,9 @@ const contentTemplate = `
 `;
 
 export class Input extends Block {
-    isValid: boolean;
-    baseInput: SimpleInput;
-    validateFunc?: (string: string) => boolean;
+    public isValid: boolean;
+    private _baseInput: SimpleInput;
+    private _validateFunc?: (string: string) => boolean;
 
     constructor(props: Props) {
         const {
@@ -72,29 +72,29 @@ export class Input extends Block {
                 [
                     'mousedown',
                     () => {
-                        this.setIsValid(true);
+                        this._setIsValid(true);
                     },
                 ],
             ]);
         }
 
         this.isValid = isValid;
-        this.baseInput = input;
-        this.validateFunc = validateFunc;
+        this._baseInput = input;
+        this._validateFunc = validateFunc;
     }
 
-    validate() {
-        if (this.validateFunc) {
-            const baseInput = this.baseInput.getContent();
-            const status = this.validateFunc(baseInput.value);
-            this.setIsValid(status);
+    public validate() {
+        if (this._validateFunc) {
+            const baseInput = this._baseInput.getContent();
+            const status = this._validateFunc(baseInput.value);
+            this._setIsValid(status);
             return status;
         }
 
         return true;
     }
 
-    setIsValid(status: boolean) {
+    private _setIsValid(status: boolean) {
         this.isValid = status;
         this.setProps({ error: !this.isValid });
 
@@ -105,15 +105,15 @@ export class Input extends Block {
         }
     }
 
-    getIsValid() {
+    public getIsValid() {
         return this.isValid;
     }
 
-    getValue() {
-        return this.baseInput.getValue();
+    public getValue() {
+        return this._baseInput.getValue();
     }
 
-    setValue(value: string) {
-        return this.baseInput.setValue(value);
+    public setValue(value: string) {
+        return this._baseInput.setValue(value);
     }
 }

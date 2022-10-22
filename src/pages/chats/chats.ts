@@ -15,7 +15,7 @@ const contentTemplate = `
 `;
 
 class Chats extends Block {
-    constructor() {
+    public constructor() {
         const chatsArray = chats.map((chatInfo) => {
             return new ChatItem(chatInfo);
         });

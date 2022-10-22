@@ -52,7 +52,7 @@ const contentTemplate = `
 `;
 
 export class Dialog extends Block {
-    constructor({ dialogInfo }: Props) {
+    public constructor({ dialogInfo }: Props) {
         const divider1 = new Divider();
         const divider2 = new Divider();
 

@@ -43,7 +43,7 @@ const contentTemplate = `
 `;
 
 export class ProfileInfo extends Block {
-    constructor({
+    public constructor({
         avatarImgSrc = 'https://via.placeholder.com/130x130',
         name = '',
         inputs,

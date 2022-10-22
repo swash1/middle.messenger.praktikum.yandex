@@ -28,7 +28,7 @@ const contentTemplate = `
 `;
 
 export class Avatar extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { mix, events, isEditable = false, imgSrc } = props;
 
         let className = 'avatar';

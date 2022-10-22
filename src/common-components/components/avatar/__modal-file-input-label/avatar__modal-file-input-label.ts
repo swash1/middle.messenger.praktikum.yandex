@@ -10,7 +10,7 @@ interface Props {
 const contentTemplate = '{{{input}}} {{text}}';
 
 export class AvatarModalFileInputLabel extends Block {
-    constructor({ text, input }: Props) {
+    public constructor({ text, input }: Props) {
         super({
             tagName: 'label',
             attributes: { class: 'avatar__modal-file-input-label' },

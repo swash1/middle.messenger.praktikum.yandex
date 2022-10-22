@@ -1,11 +1,11 @@
 export class EventBus {
-    listeners: Record<string, Array<(params?: Record<string, any>) => void>>;
+    private listeners: Record<string, Array<(params?: Record<string, any>) => void>>;
 
-    constructor() {
+    public constructor() {
         this.listeners = {};
     }
 
-    on(event: string, callback: (params?: Record<string, any>) => void) {
+    public on(event: string, callback: (params?: Record<string, any>) => void) {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
@@ -13,7 +13,7 @@ export class EventBus {
         this.listeners[event].push(callback);
     }
 
-    off(event: string, callback: (params?: Record<string, any>) => void) {
+    public off(event: string, callback: (params?: Record<string, any>) => void) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }
@@ -21,7 +21,7 @@ export class EventBus {
         this.listeners[event] = this.listeners[event].filter((listener) => listener !== callback);
     }
 
-    emit(event: string, params?: Record<string, any>) {
+    public emit(event: string, params?: Record<string, any>) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }

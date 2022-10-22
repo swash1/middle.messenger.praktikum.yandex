@@ -26,7 +26,7 @@ const contentTemplate = `
 `;
 
 export class ChatsReel extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const divider = new Divider();
 
         const link = new Link({

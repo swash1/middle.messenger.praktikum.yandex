@@ -21,7 +21,7 @@ const contentTemplate = `
 `;
 
 export class ArrowButton extends Block {
-    constructor(props: Props = {}) {
+    public constructor(props: Props = {}) {
         const { direction = ARROW_DIRECTIONS.LEFT, events } = props;
 
         const className = `arrow-button arrow-button_direction_${direction}`;

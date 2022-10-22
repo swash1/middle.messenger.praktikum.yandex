@@ -9,7 +9,7 @@ interface Props {
 const contentTemplate = '{{text}}';
 
 export class AvatarModalHeader extends Block {
-    constructor({ text }: Props) {
+    public constructor({ text }: Props) {
         super({
             tagName: 'h2',
             attributes: { class: 'avatar__modal-header' },

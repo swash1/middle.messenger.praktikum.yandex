@@ -1,4 +1,4 @@
-import { CONTENT_TYPES, MESSAGE_TYPES } from "./components/message/message";
+import { CONTENT_TYPES, MESSAGE_TYPES } from './components/message/message';
 
 export interface DialogInfo {
     recipientInfo: {
@@ -12,4 +12,4 @@ export interface DialogInfo {
         timestamp: string;
         read: boolean;
     }[];
-};
+}

@@ -14,7 +14,7 @@ const contentTemplate = '{{{selectOptions}}}';
 export class Select extends Block {
     static SelectOption = SelectOption;
 
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { mix, selectOptions } = props;
 
         let className = 'select';
@@ -43,15 +43,15 @@ export class Select extends Block {
         });
     }
 
-    open() {
+    public open() {
         this.getContent().classList.add('select_visible');
     }
 
-    close() {
+    public close() {
         this.getContent().classList.remove('select_visible');
     }
 
-    toggle() {
+    public toggle() {
         this.getContent().classList.toggle('select_visible');
     }
 }

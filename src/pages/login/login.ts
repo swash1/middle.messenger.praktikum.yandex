@@ -36,7 +36,7 @@ const inputs = [
 ];
 
 export class Login extends Block {
-    constructor() {
+    public constructor() {
         const link = new Link({
             url: '/signin',
             target: LINK_TARGETS.SELF,

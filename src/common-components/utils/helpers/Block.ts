@@ -26,14 +26,14 @@ enum EVENTS {
 }
 
 export class Block {
-    _rootElement: HTMLElement;
-    _meta: Meta;
-    eventBus: EventBus;
-    props: Record<string, any>;
-    _id: string;
-    children: Record<string, Block>;
+    protected _rootElement: HTMLElement;
+    private _meta: Meta;
+    public eventBus: EventBus;
+    public props: Record<string, any>;
+    private _id: string;
+    public children: Record<string, Block>;
 
-    constructor({ tagName = 'div', attributes, events = [], propsAndChildren = {}, contentTemplate = '' }: BlockProps) {
+    public constructor({ tagName = 'div', attributes, events = [], propsAndChildren = {}, contentTemplate = '' }: BlockProps) {
         this._id = makeUUID();
 
         const { children, props } = this._separatePropsAndChildren(propsAndChildren);
@@ -58,9 +58,9 @@ export class Block {
         eventBus.emit(EVENTS.INIT);
     }
 
-    _separatePropsAndChildren(propsAndChildren: Record<string, any>) {
-        const children: Record<string, Block> = {};
-        const props: Record<string, any> = {};
+    private _separatePropsAndChildren(propsAndChildren: Record<string, any>) {
+        const children: typeof this.children = {};
+        const props: typeof this.props = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
             if (value instanceof Block) {
@@ -73,25 +73,25 @@ export class Block {
         return { children, props };
     }
 
-    _registerEvents(eventBus: EventBus) {
-        eventBus.on(EVENTS.INIT, this.init.bind(this));
+    private _registerEvents(eventBus: EventBus) {
+        eventBus.on(EVENTS.INIT, this._init.bind(this));
         eventBus.on(EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
-    init() {
+    private _init() {
         this._createRootElement();
 
         this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
 
-    _createRootElement() {
+    private _createRootElement() {
         const { tagName, attributes } = this._meta;
         this._rootElement = this._createDocumentElement(tagName, attributes);
     }
 
-    _createDocumentElement(tagName: string, attributes?: Record<string, string | undefined>) {
+    private _createDocumentElement(tagName: string, attributes?: Record<string, string | undefined>) {
         const element = document.createElement(tagName);
 
         if (attributes) {
@@ -101,7 +101,7 @@ export class Block {
         return element;
     }
 
-    _componentDidMount() {
+    private _componentDidMount() {
         this.componentDidMount();
 
         Object.values(this.children).forEach((child) => {
@@ -109,23 +109,29 @@ export class Block {
         });
     }
 
-    componentDidMount() {}
+    public componentDidMount() {}
 
-    dispatchComponentDidMount() {
+    public dispatchComponentDidMount() {
         this.eventBus.emit(EVENTS.FLOW_CDM);
     }
 
-    _componentDidUpdate({ oldProps, newProps }: { oldProps: Record<string, any>; newProps: Record<string, any> }) {
+    private _componentDidUpdate({
+        oldProps,
+        newProps,
+    }: {
+        oldProps: Record<string, any>;
+        newProps: Record<string, any>;
+    }) {
         this.componentDidUpdate({ oldProps, newProps });
 
         this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
 
-    componentDidUpdate(props: { oldProps: Record<string, any>; newProps: Record<string, any> }) {
+    public componentDidUpdate(props: { oldProps: Record<string, any>; newProps: Record<string, any> }) {
         return true;
     }
 
-    setProps = (propsToSet: Record<string, any>) => {
+    public setProps = (propsToSet: Record<string, any>) => {
         if (!propsToSet) {
             return;
         }
@@ -138,7 +144,7 @@ export class Block {
         }
     };
 
-    _setAttributes = (element: HTMLElement, attributes: Record<string, string | undefined>) => {
+    private _setAttributes = (element: HTMLElement, attributes: Record<string, string | undefined>) => {
         Object.entries(attributes).forEach(([attribute, attributeValue]) => {
             if (attributeValue) {
                 element.setAttribute(attribute, attributeValue);
@@ -146,25 +152,25 @@ export class Block {
         });
     };
 
-    getAttribute = (attributeName: string) => {
+    public getAttribute = (attributeName: string) => {
         return this.getContent().getAttribute(attributeName);
     };
 
-    getEvents(): [string, (event: Event) => void][] {
+    public getEvents(): [string, (event: Event) => void][] {
         return this._meta.events || [];
     }
 
-    setEvents(events: [string, (event: Event) => void][]) {
+    public setEvents(events: [string, (event: Event) => void][]) {
         this._removeEvents();
         this._meta.events = events;
         this._addEvents();
     }
 
-    addEvents(events: [string, (event: Event) => void][]) {
+    public addEvents(events: [string, (event: Event) => void][]) {
         this.setEvents([...this._meta.events, ...events]);
     }
 
-    _addEvents() {
+    private _addEvents() {
         if (this._meta.events) {
             for (const [eventName, handler] of this._meta.events) {
                 this._rootElement.addEventListener(eventName, handler);
@@ -172,7 +178,7 @@ export class Block {
         }
     }
 
-    _removeEvents() {
+    private _removeEvents() {
         if (this._meta.events) {
             for (const [eventName, handler] of this._meta.events) {
                 this._rootElement.removeEventListener(eventName, handler);
@@ -180,7 +186,7 @@ export class Block {
         }
     }
 
-    compile(contentTemplate: string, props: Record<string, any>) {
+    private _compile(contentTemplate: string, props: Record<string, any>) {
         const propsAndStubs = { ...props };
 
         const childrenDictionary: Record<string, Element[]> = {};
@@ -229,7 +235,7 @@ export class Block {
         return fragment.content;
     }
 
-    _render() {
+    private _render() {
         const compiledContentTemplate = this.render();
 
         this._removeEvents();
@@ -241,11 +247,11 @@ export class Block {
         this._addEvents();
     }
 
-    render() {
-        return this.compile(this._meta.contentTemplate, this.props);
+    public render() {
+        return this._compile(this._meta.contentTemplate, this.props);
     }
 
-    _makePropsProxy(props: Record<string, any>) {
+    private _makePropsProxy(props: Record<string, any>) {
         return new Proxy(props, {
             get: (target, prop: string) => {
                 const value = target[prop];
@@ -271,7 +277,7 @@ export class Block {
         });
     }
 
-    getContent() {
+    public getContent() {
         return this._rootElement;
     }
 }

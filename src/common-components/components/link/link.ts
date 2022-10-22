@@ -17,7 +17,7 @@ export enum LINK_TARGETS {
 const contentTemplate = '{{text}}';
 
 export class Link extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { mix, target = LINK_TARGETS.SELF, url, text } = props;
 
         let className = 'link';

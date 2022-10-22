@@ -32,7 +32,7 @@ const contentTemplate = `
 `;
 
 export class ChatItem extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { avatar, name, sender, latestMessage, timestamp, unreadMessagesCount } = props;
 
         const divider = new Divider();

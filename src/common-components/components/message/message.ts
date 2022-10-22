@@ -52,7 +52,7 @@ const contentTemplateWithImage = `
 `;
 
 export class Message extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { contentType, type, content, timestamp, read } = props;
 
         let contentTemplate;

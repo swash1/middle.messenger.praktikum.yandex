@@ -28,7 +28,7 @@ const inputs = [
 ];
 
 class ChangePassword extends ProfileInfo {
-    constructor() {
+    public constructor() {
         const inputsArray = inputs.map((inputParams) => {
             return new Input({
                 ...inputParams,

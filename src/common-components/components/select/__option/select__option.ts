@@ -18,7 +18,7 @@ const contentTemplate = `
 `;
 
 export class SelectOption extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { icon, text, events } = props;
 
         super({

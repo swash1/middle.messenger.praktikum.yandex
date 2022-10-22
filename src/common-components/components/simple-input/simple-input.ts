@@ -11,7 +11,7 @@ export interface Props {
 }
 
 export class SimpleInput extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { mix, type = 'text', placeholder, name, disabled, events, autocomplete = 'off' } = props;
 
         let className = 'simple-input';
@@ -35,15 +35,15 @@ export class SimpleInput extends Block {
         super({ tagName: 'input', attributes, events });
     }
 
-    getContent() {
+    public getContent() {
         return this._rootElement as HTMLInputElement;
     }
 
-    getValue() {
+    public getValue() {
         return this.getContent().value;
     }
 
-    setValue(value: string) {
+    public setValue(value: string) {
         this.getContent().value = value;
     }
 }

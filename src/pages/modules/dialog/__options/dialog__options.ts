@@ -15,7 +15,7 @@ const contentTemplate = `
 `;
 
 export class DialogOptions extends Block {
-    constructor() {
+    public constructor() {
         const button = new Block({
             tagName: 'button',
             attributes: { class: 'dialog__options-button' },

@@ -25,7 +25,7 @@ const selectOptionsParams = [
 ];
 
 export class DialogAddAttachment extends Block {
-    constructor() {
+    public constructor() {
         const selectOptions = selectOptionsParams.map((optionParams) => new Select.SelectOption(optionParams));
 
         const select = new Select({ selectOptions });

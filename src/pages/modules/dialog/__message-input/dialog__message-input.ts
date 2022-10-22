@@ -8,7 +8,7 @@ const contentTemplate = `
 `;
 
 export class DialogMessageInput extends Block {
-    input: SimpleInput;
+    public input: SimpleInput;
 
     constructor() {
         const input = new SimpleInput({
@@ -28,11 +28,11 @@ export class DialogMessageInput extends Block {
         this.input = input;
     }
 
-    getValue() {
+    public getValue() {
         return this.input.getValue();
     }
 
-    setValue(value: string) {
+    public setValue(value: string) {
         this.input.setValue(value);
     }
 }

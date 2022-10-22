@@ -7,7 +7,7 @@ interface Props {
 }
 
 export class Divider extends Block {
-    constructor(props: Props = {}) {
+    public constructor(props: Props = {}) {
         const { mix } = props;
 
         let className = 'divider';

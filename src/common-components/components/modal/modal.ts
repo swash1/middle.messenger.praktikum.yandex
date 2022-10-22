@@ -13,10 +13,7 @@ interface Props {
 const contentTemplate = '{{{content}}}';
 
 export class Modal extends Block {
-    contentTemplate: string;
-    templateItems?: Record<string, any>;
-
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { mix, contentTemplate: modalContentTemplate, templateItems } = props;
 
         let className = 'modal';
@@ -49,11 +46,11 @@ export class Modal extends Block {
         this.addEvents(events);
     }
 
-    open() {
+    public open() {
         this.getContent().classList.add('modal_visible');
     }
 
-    close() {
+    public close() {
         this.getContent().classList.remove('modal_visible');
     }
 }

@@ -8,7 +8,7 @@ interface Props {
 }
 
 export class ModalContent extends Block {
-    constructor(props: Props) {
+    public constructor(props: Props) {
         const { template, templateItems } = props;
 
         super({
