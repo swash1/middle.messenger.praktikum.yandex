@@ -10,6 +10,7 @@ import { INPUT_VIEWS, Props as InputParams } from '../../common-components/compo
 
 import './signin.scss';
 import { LINK_TARGETS } from '../../common-components/components/link/link';
+import { sendForm } from '../../common-components/utils/helpers';
 
 const contentTemplate = `
     <form class="signin-page__form" action="#" enctype="multipart/form-data">
@@ -120,43 +121,23 @@ export class SignIn extends Block {
                     (event) => {
                         event.preventDefault();
 
-                        let formIsValid = true;
-                        for (const inputItem of inputsArray) {
-                            const inputIsValid = inputItem.validate();
-
-                            if (!formIsValid) {
-                                continue;
-                            }
-
-                            formIsValid = inputIsValid;
-                        }
-
-                        if (!formIsValid) {
-                            return;
-                        }
-
-                        const form: HTMLFormElement | null = document.querySelector('.signin-page__form');
-
-                        if (form) {
-                            const formData = new FormData(form);
-                            const data: Record<string, FormDataEntryValue | null> = {};
-                            for (const input of inputs) {
-                                if (input.name) {
-                                    data[input.name] = formData.get(input.name);
-                                }
-                            }
-
-                            if (data.password !== data['password-again']) {
+                        const extraFormValidation = (formData: FormData) => {
+                            if (formData.get('password') !== formData.get('password-again')) {
                                 document
                                     .querySelector('.signin-page__error-message')
                                     ?.classList.add('signin-page__error-message_visible');
-                                return;
+                                return false;
                             }
 
-                            delete data['password-again'];
+                            formData.delete('password-again');
+                            return true;
+                        };
 
-                            console.log(data);
-                        }
+                        sendForm({
+                            inputs: inputsArray,
+                            formSelector: '.signin-page__form',
+                            extraValidationFunc: extraFormValidation,
+                        });
                     },
                 ],
             ],

@@ -1,6 +1,12 @@
 import { Button, Input } from '../../common-components';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { validateEmail, validateLogin, validateName, validatePhone } from '../../common-components/utils/helpers';
+import {
+    sendForm,
+    validateEmail,
+    validateLogin,
+    validateName,
+    validatePhone,
+} from '../../common-components/utils/helpers';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
@@ -83,37 +89,17 @@ class ProfileEdit extends ProfileInfo {
                 (event) => {
                     event.preventDefault();
 
-                    let formIsValid = true;
-                    for (const inputItem of inputsArray) {
-                        const inputIsValid = inputItem.validate();
-
-                        if (!formIsValid) {
-                            continue;
-                        }
-
-                        formIsValid = inputIsValid;
-                    }
-
-                    if (!formIsValid) {
+                    const onValidationFail = () => {
                         this.setProps({
                             errorMessage: 'Есть некорректно заполненные поля',
                         });
-                        return;
-                    }
+                    };
 
-                    const form: HTMLFormElement | null = document.querySelector('.info');
-
-                    if (form) {
-                        const formData = new FormData(form);
-                        const data: Record<string, FormDataEntryValue | null> = {};
-                        for (const input of inputs) {
-                            if (input.name) {
-                                data[input.name] = formData.get(input.name);
-                            }
-                        }
-
-                        console.log(data);
-                    }
+                    sendForm({
+                        inputs: inputsArray,
+                        formSelector: '.info',
+                        validationFailureCallback: onValidationFail,
+                    });
                 },
             ],
         ]);

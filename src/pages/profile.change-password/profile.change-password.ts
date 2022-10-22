@@ -1,6 +1,6 @@
 import { Button, Input } from '../../common-components';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { validatePassword } from '../../common-components/utils/helpers';
+import { sendForm, validatePassword } from '../../common-components/utils/helpers';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
@@ -48,43 +48,23 @@ class ChangePassword extends ProfileInfo {
                 (event) => {
                     event.preventDefault();
 
-                    let formIsValid = true;
-                    for (const inputItem of inputsArray) {
-                        const inputIsValid = inputItem.validate();
-
-                        if (!formIsValid) {
-                            continue;
-                        }
-
-                        formIsValid = inputIsValid;
-                    }
-
-                    if (!formIsValid) {
-                        return;
-                    }
-
-                    const form: HTMLFormElement | null = document.querySelector('.info');
-
-                    if (form) {
-                        const formData = new FormData(form);
-                        const data: Record<string, FormDataEntryValue | null> = {};
-                        for (const input of inputs) {
-                            if (input.name) {
-                                data[input.name] = formData.get(input.name);
-                            }
-                        }
-
-                        if (data.newPassword !== data.passwordAgain) {
+                    const extraValidationFunc = (formData: FormData) => {
+                        if (formData.get('newPassword') !== formData.get('passwordAgain')) {
                             this.setProps({
                                 errorMessage: 'Пароли не совпадают',
                             });
-                            return;
+                            return false;
                         }
 
-                        delete data.passwordAgain;
+                        formData.delete('passwordAgain');
+                        return true;
+                    };
 
-                        console.log(data);
-                    }
+                    sendForm({
+                        inputs: inputsArray,
+                        formSelector: '.info',
+                        extraValidationFunc,
+                    });
                 },
             ],
         ]);
