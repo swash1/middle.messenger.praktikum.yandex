@@ -14,7 +14,7 @@ const contentTemplate = `
         {{#if avatar}}
             <img src="{{avatar}}" alt="avatar" class="chat-item__avatar" />
         {{else}}
-            <div class="chat-item__colorful-avatar">{{firstLetter}}</div>
+            <div class="chat-item__avatar chat-item__avatar_colorful">{{firstLetter}}</div>
         {{/if}}
         
         <span class="chat-item__name">{{name}}</span>
