@@ -1,13 +1,27 @@
 import { Input } from '../../components/input/input';
+import { HTTPTransport, METHODS, RequestProps } from './HTTPTransport';
 
-interface Params {
+interface Params extends RequestProps {
     inputs: Input[];
     formSelector: string;
     extraValidationFunc?: (formData: FormData) => boolean;
     validationFailureCallback?: () => void;
+    onSuccess?: (response: any) => void;
+    onError?: (error: any) => void;
+    method?: METHODS.POST | METHODS.PUT;
 }
 
-export const sendForm = ({ inputs, formSelector, extraValidationFunc, validationFailureCallback }: Params) => {
+export const sendForm = async ({
+    inputs,
+    formSelector,
+    extraValidationFunc,
+    validationFailureCallback,
+    url,
+    options,
+    onSuccess,
+    onError,
+    method = METHODS.POST,
+}: Params) => {
     const form: HTMLFormElement | null = document.querySelector(formSelector);
 
     if (!form) {
@@ -41,5 +55,22 @@ export const sendForm = ({ inputs, formSelector, extraValidationFunc, validation
     const formDataObj = {} as Record<string | number, any>;
     formData.forEach((value, key) => (formDataObj[key] = value));
 
-    console.log(formDataObj);
+    const requestMethod = method === METHODS.POST ? 'post' : 'put';
+
+    const data = JSON.stringify(formDataObj);
+
+    HTTPTransport[requestMethod]({
+        url,
+        options: { ...options, data, headers: { ...options?.headers, 'content-type': 'application/json' } },
+    })
+        .then((response) => {
+            if (onSuccess) {
+                onSuccess(response);
+            }
+        })
+        .catch((error) => {
+            if (onError) {
+                onError(error);
+            }
+        });
 };

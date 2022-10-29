@@ -1,66 +1,65 @@
 import { ArrowButton, Block, Divider, Message } from '../../../common-components';
-
-import { MESSAGE_TYPES, CONTENT_TYPES } from '../../../common-components/components/message/message';
+import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
+import { ChatItemParams, MessageParams } from '../../../common-components/typings';
+import { Socket } from '../../../common-components/utils/helpers/Socket';
+import { avatarsPath } from '../../../common-components/constants';
 
 import { DialogOptions } from './__options/dialog__options';
 import { DialogAddAttachment } from './__add-attachment/dialog__add-attachment';
 import { DialogMessageInput } from './__message-input/dialog__message-input';
 
-interface Props {
-    dialogInfo: DialogInfo;
-}
-
-interface DialogInfo {
-    recipientInfo: {
-        name: string;
-        avatarImgSrc: string;
-    };
-    messages: {
-        contentType: CONTENT_TYPES;
-        type: MESSAGE_TYPES;
-        content: string;
-        timestamp: string;
-        read: boolean;
-    }[];
-}
-
 import './dialog.scss';
-import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
 
 const contentTemplate = `
-    <div class="dialog__header-wrapper">
-        <div class="dialog__header">
-            <div class="dialog__recipient-info">
-                <img class="recipient__avatar" src={{avatarImgSrc}} alt="avatar"/>
-                <div class="recipient__name">{{recipientName}}</div>
+    {{#if chat}}
+        <div class="dialog">
+            <div class="dialog__header-wrapper">
+                <div class="dialog__header">
+                    <div class="dialog__recipient-info">
+                        {{#if avatar}}
+                            <img class="recipient__avatar" src={{avatarImgSrc}} alt="avatar"/>
+                        {{else}}
+                            <div class="recipient__avatar recipient__avatar_colorful">{{firstLetter}}</div>
+                        {{/if}}
+                        <div class="recipient__name">{{chatName}}</div>
+                    </div>
+                    {{{dialogOptions}}}
+                </div>
+                {{{divider1}}}
             </div>
-            {{{dialogOptions}}}
+            <div class="dialog__messages">
+                {{#if messages.length}}
+                    {{{messages}}}
+                {{else}}
+                    <div class="dialog__empty-messages">Сообщений пока нет</div>
+                {{/if}}
+            </div>
+            <div class="dialog__footer-wrapper">
+                {{{divider2}}}
+                <div class="dialog__footer">
+                    {{{addAttachment}}}
+                    {{{messageInput}}}
+                    {{{arrowButton}}}
+                </div>
+            </div>
         </div>
-    {{{divider1}}}
-    </div>
-    <div class="dialog__messages">
-        {{{messages}}}
-    </div>
-    <div class="dialog__footer-wrapper">
-        {{{divider2}}}
-        <div class="dialog__footer">
-            {{{addAttachment}}}
-            {{{messageInput}}}
-            {{{arrowButton}}}
+    {{else}}
+        <div class="dialog_empty">
+            Диалог не выбран
         </div>
-    </div>
+    {{/if}}
 `;
 
 export class Dialog extends Block {
-    public constructor({ dialogInfo }: Props) {
+    public constructor(chat?: Omit<ChatItemParams, 'id' | 'unread_count' | 'last_message'> | null) {
         const divider1 = new Divider();
         const divider2 = new Divider();
 
-        const avatarImgSrc = dialogInfo.recipientInfo.avatarImgSrc;
+        const avatarImgSrc = `${avatarsPath}${chat?.avatar}`;
 
-        const recipientName = dialogInfo.recipientInfo.name;
+        const chatName = chat?.title;
 
-        const messages = dialogInfo.messages.map((messageParams) => new Message(messageParams));
+        const messages = [] as Message[];
 
         const dialogOptions = new DialogOptions();
 
@@ -72,12 +71,13 @@ export class Dialog extends Block {
 
         super({
             tagName: 'div',
-            attributes: { class: 'dialog' },
+            attributes: { class: 'dialog__wrapper' },
             propsAndChildren: {
+                chat,
                 divider1,
                 divider2,
                 avatarImgSrc,
-                recipientName,
+                chatName,
                 messages,
                 dialogOptions,
                 addAttachment,
@@ -116,4 +116,31 @@ export class Dialog extends Block {
             ],
         ]);
     }
+
+    public getOldMessages = (getFromMessageNumber: number = 0) => {
+        const socket = Socket.activeSocket;
+
+        if (!socket) {
+            console.error("Can't get messages - no socket started");
+            return;
+        }
+
+        const setMessages = (event: MessageEvent) => {
+            const data = JSON.parse(event.data);
+            if (Array.isArray(data)) {
+                this.setProps({
+                    messages: data.map((messageProps: MessageParams) => new Message(messageProps)).reverse(),
+                });
+
+                socket.removeEventListener('message', setMessages);
+            }
+        };
+
+        socket.addEventListener('message', setMessages);
+
+        Socket.sendMessage({
+            type: 'get old',
+            content: String(getFromMessageNumber),
+        });
+    };
 }

@@ -1,14 +1,19 @@
 import { Button, Input } from '../../common-components';
+import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
+import { urls } from '../../common-components/urls';
 import {
+    Router,
     sendForm,
     validateEmail,
     validateLogin,
     validateName,
     validatePhone,
 } from '../../common-components/utils/helpers';
+import { METHODS } from '../../common-components/utils/helpers/HTTPTransport';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
+import Profile from '../profile/profile';
 
 const inputs = [
     {
@@ -55,8 +60,15 @@ const inputs = [
     },
 ];
 
+const router = new Router();
+
 class ProfileEdit extends ProfileInfo {
+    static __instance: ProfileEdit;
+
     public constructor() {
+        if (ProfileEdit.__instance) {
+            return ProfileEdit.__instance;
+        }
         const inputsArray = inputs.map((inputParams) => {
             return new Input({
                 ...inputParams,
@@ -69,6 +81,8 @@ class ProfileEdit extends ProfileInfo {
         });
 
         super({ inputs: inputsArray, isEditable: true, button });
+
+        ProfileEdit.__instance = this;
 
         inputsArray.forEach((input) => {
             input.setEvents([
@@ -99,6 +113,13 @@ class ProfileEdit extends ProfileInfo {
                         inputs: inputsArray,
                         formSelector: '.info',
                         validationFailureCallback: onValidationFail,
+                        url: apiUrls.putUserProfile,
+                        method: METHODS.PUT,
+                        onSuccess: () => {
+                            Profile.shouldUpdate = true;
+                            router.go(urls.profile);
+                        },
+                        onError: (error) => console.error(`Error: ${error.reason}`),
                     });
                 },
             ],
@@ -106,4 +127,4 @@ class ProfileEdit extends ProfileInfo {
     }
 }
 
-export default new ProfileEdit();
+export default ProfileEdit;

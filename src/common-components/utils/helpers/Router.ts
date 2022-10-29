@@ -1,6 +1,12 @@
 import { Route } from './Route';
 import { Block } from './Block';
 import { rootNodeSelector as rootNode } from '../../constants';
+import { HTTPTransport } from './HTTPTransport';
+import { apiUrls } from '../../apiUrls';
+import { urls } from '../../urls';
+import { Store } from './Store';
+
+const store = new Store();
 
 export class Router {
     routes: Route[];
@@ -22,7 +28,7 @@ export class Router {
         Router.__instance = this;
     }
 
-    use(pathname: string, block: Block) {
+    use(pathname: string, block: new () => Block) {
         const route = new Route(pathname, block, { rootNode: this._rootNode });
         this.routes.push(route);
         return this;
@@ -33,13 +39,28 @@ export class Router {
             this._onRoute(window.location.pathname);
         });
 
-        this._onRoute(window.location.pathname);
+        HTTPTransport.get({ url: apiUrls.getUser })
+            .then((response) => {
+                const userInfo = JSON.parse(response as string);
+
+                store.set('userInfo', userInfo);
+
+                if (window.location.pathname === urls.login || window.location.pathname === urls.signIn) {
+                    this.go(urls.chats);
+                } else {
+                    this.go(window.location.pathname);
+                }
+            })
+            .catch(() => {
+                this.go(urls.login);
+            });
     }
 
     _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
 
         if (!route) {
+            this.go(urls.notFound);
             return;
         }
 

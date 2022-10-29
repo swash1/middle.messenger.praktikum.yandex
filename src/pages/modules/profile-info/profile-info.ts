@@ -1,6 +1,8 @@
 import { ArrowButton, Block, Divider, Input, Link, Avatar } from '../../../common-components';
+import { apiUrls } from '../../../common-components/apiUrls';
 import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
 import { urls } from '../../../common-components/urls';
+import { HTTPTransport, Router } from '../../../common-components/utils/helpers';
 
 import './profile-info.scss';
 
@@ -43,7 +45,13 @@ const contentTemplate = `
     </div>
 `;
 
+const router = new Router();
+
 export class ProfileInfo extends Block {
+    static components = {} as {
+        avatar?: Avatar;
+    };
+
     public constructor({
         avatarImgSrc = 'https://via.placeholder.com/130x130',
         name = '',
@@ -68,6 +76,7 @@ export class ProfileInfo extends Block {
         const divider2 = new Divider();
 
         const avatar = new Avatar({ isEditable: true, imgSrc: avatarImgSrc, mix: 'info__avatar' });
+        ProfileInfo.components.avatar = avatar;
 
         const editProfileLink = new Link({
             url: urls.editProfile,
@@ -87,7 +96,22 @@ export class ProfileInfo extends Block {
             url: urls.login,
             text: 'Выйти',
             mix: 'profile-info__action-link profile-info__action-link_color_red',
-            isRouter: true,
+            events: [
+                [
+                    'click',
+                    (event) => {
+                        event.preventDefault();
+
+                        HTTPTransport.post({ url: apiUrls.postLogOut })
+                            .then(() => {
+                                router.go(urls.login);
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    },
+                ],
+            ],
         });
 
         super({

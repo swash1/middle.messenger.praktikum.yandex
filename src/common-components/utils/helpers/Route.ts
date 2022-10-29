@@ -7,12 +7,13 @@ interface Props {
 
 export class Route {
     private _pathname: string;
-    private _block: Block;
+    private _blockConstructor: new () => Block;
     private _props: Props;
+    private _blockInstance?: Block;
 
-    constructor(pathname: string, view: Block, props: Props) {
+    constructor(pathname: string, view: new () => Block, props: Props) {
         this._pathname = pathname;
-        this._block = view;
+        this._blockConstructor = view;
         this._props = props;
     }
 
@@ -24,15 +25,17 @@ export class Route {
     }
 
     leave() {
-        this._block.hide();
+        if (this._blockInstance) {
+            this._blockInstance.hide();
+        }
     }
 
     match(pathname: string) {
         return pathname === this._pathname;
     }
 
-    render() {
-        renderDOM(this._props.rootNode, this._block);
-        return;
+    async render() {
+        this._blockInstance = new this._blockConstructor();
+        renderDOM(this._props.rootNode, this._blockInstance);
     }
 }

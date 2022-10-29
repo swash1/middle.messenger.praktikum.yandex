@@ -6,3 +6,5 @@ export { Block } from './Block';
 export { HTTPTransport } from './HTTPTransport';
 export { sendForm } from './sendForm';
 export { Router } from './Router';
+export { Socket } from './Socket';
+export { Store } from './Store';

@@ -32,6 +32,7 @@ export class Block {
     public props: Record<string, any>;
     private _id: string;
     public children: Record<string, Block>;
+    static fetchData?: () => any;
 
     public constructor({ tagName = 'div', attributes, events = [], propsAndChildren = {}, contentTemplate = '' }: BlockProps) {
         this._id = makeUUID();
@@ -235,8 +236,10 @@ export class Block {
         return fragment.content;
     }
 
-    private _render() {
-        const compiledContentTemplate = this.render();
+    private async _render() {
+        const compiledContentTemplate = this._compile(this._meta.contentTemplate, this.props);
+
+        await this.render();
 
         this._removeEvents();
 
@@ -247,9 +250,7 @@ export class Block {
         this._addEvents();
     }
 
-    public render() {
-        return this._compile(this._meta.contentTemplate, this.props);
-    }
+    public async render() {}
 
     private _makePropsProxy(props: Record<string, any>) {
         return new Proxy(props, {

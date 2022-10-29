@@ -1,9 +1,9 @@
-import { Block, Button, Input, Select } from '../../../../common-components';
+import { Block, Button, Input, Select, Modal } from '../../../../common-components';
+import { apiUrls } from '../../../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../../../common-components/components/input/input';
-import { Modal } from '../../../../common-components/components/modal/modal';
-
 import { Cancel, Plus, ThreeDots } from '../../../../common-components/icons';
-import { validateLogin } from '../../../../common-components/utils/helpers';
+import { User } from '../../../../common-components/typings';
+import { HTTPTransport, validateLogin, Store } from '../../../../common-components/utils/helpers';
 
 import './dialog__options.scss';
 
@@ -13,6 +13,8 @@ const contentTemplate = `
     {{{addUserModal}}}
     {{{removeUserModal}}}
 `;
+
+const store = new Store();
 
 export class DialogOptions extends Block {
     public constructor() {
@@ -29,7 +31,7 @@ export class DialogOptions extends Block {
             contentTemplate: '{{text}}',
         });
 
-        const userToAddLoginInput = new Input({
+        const userLoginInput = new Input({
             view: INPUT_VIEWS.DEFAULT,
             descr: 'Логин',
             invalidMessage: 'Некорректный логин',
@@ -47,13 +49,16 @@ export class DialogOptions extends Block {
         const addUserModal = new Modal({
             contentTemplate: `
                 {{{addUserModalHeader}}}
-                {{{userToAddLoginInput}}}
+                {{{userLoginInput}}}
                 {{{addUserModalButton}}}
             `,
             templateItems: {
                 addUserModalHeader,
-                userToAddLoginInput,
+                userLoginInput,
                 addUserModalButton,
+            },
+            onClose: () => {
+                userLoginInput.setValue('');
             },
         });
 
@@ -64,16 +69,6 @@ export class DialogOptions extends Block {
             contentTemplate: '{{text}}',
         });
 
-        const userToRemoveLoginInput = new Input({
-            view: INPUT_VIEWS.DEFAULT,
-            descr: 'Логин',
-            invalidMessage: 'Некорректный логин',
-            validateFunc: validateLogin,
-            type: 'text',
-            disabled: false,
-            mix: 'dialog__login-input',
-        });
-
         const removeUserModalButton = new Button({
             text: 'Удалить',
             mix: 'dialog__modal-button',
@@ -82,13 +77,16 @@ export class DialogOptions extends Block {
         const removeUserModal = new Modal({
             contentTemplate: `
                 {{{removeUserModalHeader}}}
-                {{{userToRemoveLoginInput}}}
+                {{{userLoginInput}}}
                 {{{removeUserModalButton}}}
             `,
             templateItems: {
                 removeUserModalHeader,
-                userToRemoveLoginInput,
+                userLoginInput,
                 removeUserModalButton,
+            },
+            onClose: () => {
+                userLoginInput.setValue('');
             },
         });
 
@@ -139,36 +137,65 @@ export class DialogOptions extends Block {
             ],
         ]);
 
-        addUserModalButton.addEvents([
-            [
-                'click',
-                () => {
-                    const inputIsValid = userToAddLoginInput.validate();
+        const addUserRequest = () => {
+            userActionRequest('add');
+        };
 
-                    if (!inputIsValid) {
-                        return;
-                    }
+        const removeUserRequest = () => {
+            userActionRequest('delete');
+        };
 
-                    console.log(userToAddLoginInput.getValue());
-                    userToAddLoginInput.setValue('');
+        const userActionRequest = (action: 'delete' | 'add') => {
+            const inputIsValid = userLoginInput.validate();
+
+            if (!inputIsValid) {
+                return;
+            }
+
+            HTTPTransport.post({
+                url: apiUrls.postUserSearch,
+                options: {
+                    data: JSON.stringify({
+                        login: userLoginInput.getValue(),
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 },
-            ],
-        ]);
+            })
+                .then((res: string) => {
+                    const response: User[] = JSON.parse(res);
+                    const user = response[0];
+                    return user.id;
+                })
+                .then((userId) => {
+                    const currentChatId = store.get('activeChatInfo').id;
 
-        removeUserModalButton.addEvents([
-            [
-                'click',
-                () => {
-                    const inputIsValid = userToRemoveLoginInput.validate();
+                    HTTPTransport.put({
+                        url: apiUrls[action === 'delete' ? 'putChatUsers' : 'deleteChatUser'],
+                        options: {
+                            data: JSON.stringify({
+                                users: [userId],
+                                chatId: currentChatId,
+                            }),
+                            headers: {
+                                'content-type': 'application/json',
+                            },
+                        },
+                    });
+                })
+                .then(() => {
+                    userLoginInput.setValue('');
+                    addUserModal.close();
+                    removeUserModal.close();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        };
 
-                    if (!inputIsValid) {
-                        return;
-                    }
+        addUserModalButton.addEvents([['click', addUserRequest]]);
 
-                    console.log(userToRemoveLoginInput.getValue());
-                    userToRemoveLoginInput.setValue('');
-                },
-            ],
-        ]);
+        removeUserModalButton.addEvents([['click', removeUserRequest]]);
     }
 }

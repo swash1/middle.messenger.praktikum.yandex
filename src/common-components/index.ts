@@ -15,5 +15,6 @@ export { Avatar } from './components/avatar/avatar';
 export { Message } from './components/message/message';
 export { Select } from './components/select/select';
 export { SimpleInput } from './components/simple-input/simple-input';
+export { Modal } from './components/modal/modal';
 
 export { Block } from './utils/helpers';

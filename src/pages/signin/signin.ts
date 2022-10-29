@@ -7,11 +7,12 @@ import {
     validatePhone,
 } from '../../common-components/utils/helpers/validators';
 import { INPUT_VIEWS, Props as InputParams } from '../../common-components/components/input/input';
+import { LINK_TARGETS } from '../../common-components/components/link/link';
+import { HTTPTransport, Router, sendForm } from '../../common-components/utils/helpers';
+import { urls } from '../../common-components/urls';
+import { apiUrls } from '../../common-components/apiUrls';
 
 import './signin.scss';
-import { LINK_TARGETS } from '../../common-components/components/link/link';
-import { sendForm } from '../../common-components/utils/helpers';
-import { urls } from '../../common-components/urls';
 
 const contentTemplate = `
     <form class="signin-page__form" action="#" enctype="multipart/form-data">
@@ -22,6 +23,10 @@ const contentTemplate = `
         {{{link}}}
     </form>
 `;
+
+const hideErrorMessage = () => {
+    document.querySelector('.signin-page__error-message')?.classList.remove('signin-page__error-message_visible');
+};
 
 const inputs: InputParams[] = [
     {
@@ -71,16 +76,7 @@ const inputs: InputParams[] = [
         disabled: false,
         validateFunc: validatePassword,
         invalidMessage: 'Некорректный пароль',
-        events: [
-            [
-                'mousedown',
-                () => {
-                    document
-                        .querySelector('.signin-page__error-message')
-                        ?.classList.remove('signin-page__error-message_visible');
-                },
-            ],
-        ],
+        events: [['mousedown', hideErrorMessage]],
     },
     {
         descr: 'Пароль еще раз',
@@ -89,21 +85,20 @@ const inputs: InputParams[] = [
         disabled: false,
         validateFunc: validatePassword,
         invalidMessage: 'Некорректный пароль',
-        events: [
-            [
-                'mousedown',
-                () => {
-                    document
-                        .querySelector('.signin-page__error-message')
-                        ?.classList.remove('signin-page__error-message_visible');
-                },
-            ],
-        ],
+        events: [['mousedown', hideErrorMessage]],
     },
 ];
 
+const router = new Router();
+
 export class SignIn extends Block {
+    static __instance: SignIn;
+
     public constructor() {
+        if (SignIn.__instance) {
+            return SignIn.__instance;
+        }
+
         const inputsArray = inputs.map(
             (inputParams) =>
                 new Input({
@@ -122,7 +117,7 @@ export class SignIn extends Block {
                     (event) => {
                         event.preventDefault();
 
-                        const extraFormValidation = (formData: FormData) => {
+                        const extraFormValidationFunc = (formData: FormData) => {
                             if (formData.get('password') !== formData.get('password-again')) {
                                 document
                                     .querySelector('.signin-page__error-message')
@@ -137,7 +132,16 @@ export class SignIn extends Block {
                         sendForm({
                             inputs: inputsArray,
                             formSelector: '.signin-page__form',
-                            extraValidationFunc: extraFormValidation,
+                            extraValidationFunc: extraFormValidationFunc,
+                            url: apiUrls.postSignUp,
+                            onSuccess: () => {
+                                HTTPTransport.get({ url: apiUrls.getUser })
+                                    .then(() => {
+                                        router.go(urls.chats);
+                                    })
+                                    .catch();
+                            },
+                            onError: (error) => console.error(`Error: ${error.reason}`),
                         });
                     },
                 ],
@@ -157,7 +161,9 @@ export class SignIn extends Block {
             propsAndChildren: { inputs: inputsArray, button, link, errorMessage: 'Пароли не совпадают' },
             contentTemplate,
         });
+
+        SignIn.__instance = this;
     }
 }
 
-export default new SignIn();
+export default SignIn;

@@ -105,4 +105,25 @@
             margin: 2px auto;
         }
     }
+
+    &__colorful-avatar
+    {
+
+        display: flex;
+        grid-area: avatar;
+        align-items: center;
+        justify-content: center;
+
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        overflow: hidden;
+
+        color: $white;
+        font-size: 28px;
+
+        background-color: burlywood;
+
+        border-radius: 50%;
+    }
 }

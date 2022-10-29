@@ -1,8 +1,8 @@
 import { queryStringify } from './queryStringify';
 
-interface RequestProps {
+export interface RequestProps {
     url: string;
-    options: RequestOptions;
+    options?: RequestOptions;
 }
 
 interface RequestOptions {
@@ -15,7 +15,7 @@ interface RequestParams extends RequestProps {
     method: METHODS;
 }
 
-enum METHODS {
+export enum METHODS {
     GET = 'GET',
     POST = 'POST',
     PUT = 'PUT',
@@ -43,13 +43,11 @@ export class HTTPTransport {
         return this.request({ url, options, method: METHODS.DELETE });
     };
 
-    static request = ({ url, options = {}, method }: RequestParams) => {
+    private static request = ({ url, options = {}, method }: RequestParams) => {
         const { headers = {}, data, timeout = 5000 } = options;
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-
-            const isGetMethod = method === METHODS.GET;
 
             xhr.open(method, url);
 
@@ -57,7 +55,13 @@ export class HTTPTransport {
                 xhr.setRequestHeader(key, headers[key]);
             });
 
-            xhr.onload = () => resolve(xhr);
+            xhr.onload = () => {
+                if (xhr.status !== 200) {
+                    reject(xhr.response);
+                } else {
+                    resolve(xhr.response);
+                }
+            };
 
             xhr.timeout = timeout;
 
@@ -65,7 +69,9 @@ export class HTTPTransport {
             xhr.onerror = reject;
             xhr.ontimeout = reject;
 
-            if (isGetMethod || !data) {
+            xhr.withCredentials = true;
+
+            if (!data) {
                 xhr.send();
             } else {
                 xhr.send(data);

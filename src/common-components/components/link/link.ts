@@ -9,6 +9,7 @@ interface Props {
     url: string;
     target?: LINK_TARGETS;
     isRouter?: boolean;
+    events?: [string, (event: Event) => void][];
 }
 
 export enum LINK_TARGETS {
@@ -20,7 +21,7 @@ const contentTemplate = '{{text}}';
 
 export class Link extends Block {
     public constructor(props: Props) {
-        const { mix, target = LINK_TARGETS.SELF, url, text, isRouter } = props;
+        const { mix, target = LINK_TARGETS.SELF, url, text, isRouter, events } = props;
 
         let className = 'link';
 
@@ -33,6 +34,7 @@ export class Link extends Block {
             attributes: { class: className, target, href: url },
             propsAndChildren: { text },
             contentTemplate,
+            events,
         });
 
         if (isRouter) {

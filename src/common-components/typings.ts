@@ -1,15 +1,35 @@
-import { CONTENT_TYPES, MESSAGE_TYPES } from './components/message/message';
+export interface User {
+    id: number;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    login: string;
+    email: string;
+    phone: string;
+    avatar: string;
+}
 
-export interface DialogInfo {
-    recipientInfo: {
-        name: string;
-        avatarImgSrc: string;
-    };
-    messages: {
-        contentType: CONTENT_TYPES;
-        type: MESSAGE_TYPES;
-        content: string;
-        timestamp: string;
-        read: boolean;
-    }[];
+export interface ChatItemParams {
+    id: number;
+    title: string;
+    avatar: string | null;
+    unread_count: number;
+    last_message: LastMessage | null;
+}
+
+interface LastMessage {
+    user: Omit<User, 'id' | 'display_name'>;
+    time: string;
+    content: string;
+}
+
+export interface MessageParams {
+    id: number;
+    user_id: number;
+    chat_id: number;
+    type: 'message' | 'file';
+    time: string;
+    content: string;
+    is_read: boolean;
+    file: null;
 }

@@ -1,6 +1,6 @@
 import { Block } from './Block';
 
-export const renderDOM = (targetElementSelector: string, block: Block) => {
+export const renderDOM = (targetElementSelector: string, block: Block ) => {
     const root = document.querySelector(targetElementSelector);
 
     if (!root) {
@@ -10,6 +10,4 @@ export const renderDOM = (targetElementSelector: string, block: Block) => {
     root.appendChild(block.getContent());
 
     block.dispatchComponentDidMount();
-
-    return root;
 }

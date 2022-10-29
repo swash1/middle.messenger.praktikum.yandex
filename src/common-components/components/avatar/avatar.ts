@@ -1,4 +1,7 @@
-import { Block } from '../../utils/helpers';
+import { Block, HTTPTransport } from '../../utils/helpers';
+import { apiUrls } from '../../apiUrls';
+import { User } from '../../typings';
+import { avatarsPath } from '../../constants';
 
 import { Modal } from '../modal/modal';
 import { Button } from '../button/button';
@@ -18,8 +21,8 @@ interface Props {
 }
 
 const contentTemplate = `
-    <div>
-        <img src="{{imgSrc}}" alt="img" class="avatar__image">
+    <div class="avatar__wrapper">
+        <img src="{{imgSrc}}" alt="avatar-img" class="avatar__image"s>
         {{#if isEditable}}
             {{{editOverlay}}}
             {{{modal}}}
@@ -51,25 +54,6 @@ export class Avatar extends Block {
         const button = new Button({
             text: 'Поменять',
             mix: 'avatar__modal-button',
-            events: [
-                [
-                    'click',
-                    (event) => {
-                        event.preventDefault();
-
-                        const form: HTMLFormElement | null = document.querySelector('.avatar__form');
-
-                        if (form) {
-                            const formData = new FormData(form);
-                            const data: Record<string, FormDataEntryValue | null> = {};
-
-                            data.file = formData.get(modalFileInput.getAttribute('name') as string);
-
-                            console.log(data);
-                        }
-                    },
-                ],
-            ],
         });
 
         const modal = new Modal({
@@ -118,6 +102,39 @@ export class Avatar extends Block {
                 'click',
                 () => {
                     modal.open();
+                },
+            ],
+        ]);
+
+        button.addEvents([
+            [
+                'click',
+                (event) => {
+                    event.preventDefault();
+
+                    const form: HTMLFormElement | null = document.querySelector('.avatar__form');
+
+                    if (form) {
+                        const formData = new FormData(form);
+                        HTTPTransport.put({
+                            url: apiUrls.putUserAvatar,
+                            options: {
+                                data: formData,
+                            },
+                        })
+                            .then((response: string) => {
+                                let userData: User;
+                                userData = JSON.parse(response);
+
+                                this.setProps({
+                                    imgSrc: `${avatarsPath}${userData.avatar}`,
+                                });
+                                modal.close();
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }
                 },
             ],
         ]);

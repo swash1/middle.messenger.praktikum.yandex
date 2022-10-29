@@ -1,6 +1,9 @@
 import { Button, Input } from '../../common-components';
+import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { sendForm, validatePassword } from '../../common-components/utils/helpers';
+import { urls } from '../../common-components/urls';
+import { Router, sendForm, validatePassword } from '../../common-components/utils/helpers';
+import { METHODS } from '../../common-components/utils/helpers/HTTPTransport';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
@@ -27,8 +30,16 @@ const inputs = [
     },
 ];
 
+const router = new Router();
+
 class ChangePassword extends ProfileInfo {
+    static __instance: ChangePassword;
+
     public constructor() {
+        if (ChangePassword.__instance) {
+            return ChangePassword.__instance;
+        }
+
         const inputsArray = inputs.map((inputParams) => {
             return new Input({
                 ...inputParams,
@@ -41,6 +52,8 @@ class ChangePassword extends ProfileInfo {
         });
 
         super({ inputs: inputsArray, isEditable: true, button });
+
+        ChangePassword.__instance = this;
 
         button.addEvents([
             [
@@ -64,6 +77,12 @@ class ChangePassword extends ProfileInfo {
                         inputs: inputsArray,
                         formSelector: '.info',
                         extraValidationFunc,
+                        url: apiUrls.putUserPassword,
+                        method: METHODS.PUT,
+                        onSuccess: () => {
+                            router.go(urls.profile);
+                        },
+                        onError: (error) => console.error(`Error: ${error.reason}`),
                     });
                 },
             ],
@@ -84,4 +103,4 @@ class ChangePassword extends ProfileInfo {
     }
 }
 
-export default new ChangePassword();
+export default ChangePassword;
