@@ -79,35 +79,35 @@ class Profile extends ProfileInfo {
         Profile.updateComponent();
     }
 
-    static fetchData = async () => {
+    static fetchData = async (): Promise<string> => {
         try {
-            return await HTTPTransport.get({ url: apiUrls.getUser });
+            return (await HTTPTransport.get({ url: apiUrls.getUser })) as string;
         } catch (error) {
-            console.error(error);
+            throw Error(error);
         }
     };
 
-    static updateComponent = () => {
-        Profile.fetchData()
-            .then((response: string) => {
-                const userInfo: User = JSON.parse(response as string) as User;
+    static updateComponent = async () => {
+        try {
+            const response = await Profile.fetchData();
 
-                store.set('userInfo', userInfo);
+            const userInfo: User = JSON.parse(response);
 
-                Profile.__instance.setProps({
-                    inputs: getInputs(userInfo),
-                    name: userInfo.display_name,
-                });
+            store.set('userInfo', userInfo);
 
-                Profile.components.avatar?.setProps({
-                    imgSrc: `${AVATARS_PATH}${userInfo.avatar}`,
-                });
-
-                Profile.shouldUpdate = false;
-            })
-            .catch((error) => {
-                console.error(error);
+            Profile.__instance.setProps({
+                inputs: getInputs(userInfo),
+                name: userInfo.display_name,
             });
+
+            Profile.components.avatar?.setProps({
+                imgSrc: `${AVATARS_PATH}${userInfo.avatar}`,
+            });
+
+            Profile.shouldUpdate = false;
+        } catch (error) {
+            console.error(error);
+        }
     };
 }
 

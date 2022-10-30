@@ -99,16 +99,15 @@ export class ProfileInfo extends Block {
             events: [
                 [
                     'click',
-                    (event) => {
+                    async (event) => {
                         event.preventDefault();
 
-                        HTTPTransport.post({ url: apiUrls.postLogOut })
-                            .then(() => {
-                                router.go(APP_ROUTES.login);
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                            });
+                        try {
+                            await HTTPTransport.post({ url: apiUrls.postLogOut });
+                            router.go(APP_ROUTES.login);
+                        } catch (error) {
+                            console.error(error);
+                        }
                     },
                 ],
             ],

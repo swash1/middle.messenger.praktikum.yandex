@@ -103,30 +103,29 @@ export class ChatsReel extends Block {
         createChatModalButton.addEvents([
             [
                 'click',
-                () => {
-                    const chatName = chatTitleInput.getValue();
+                async () => {
+                    try {
+                        const chatName = chatTitleInput.getValue();
+                        const data = JSON.stringify({ title: chatName });
 
-                    const data = JSON.stringify({ title: chatName });
-
-                    HTTPTransport.post({
-                        url: apiUrls.postChats,
-                        options: {
-                            data,
-                            headers: {
-                                'content-type': 'application/json',
+                        await HTTPTransport.post({
+                            url: apiUrls.postChats,
+                            options: {
+                                data,
+                                headers: {
+                                    'content-type': 'application/json',
+                                },
                             },
-                        },
-                    })
-                        .then(() => {
-                            createChatModal.close();
-
-                            if (props.onCreateChat) {
-                                props.onCreateChat();
-                            }
-                        })
-                        .catch((error) => {
-                            console.error(error);
                         });
+
+                        createChatModal.close();
+
+                        if (props.onCreateChat) {
+                            props.onCreateChat();
+                        }
+                    } catch (error) {
+                        console.error(error);
+                    }
                 },
             ],
         ]);

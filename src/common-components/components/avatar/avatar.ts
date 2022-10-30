@@ -109,30 +109,30 @@ export class Avatar extends Block {
         button.addEvents([
             [
                 'click',
-                (event) => {
+                async (event) => {
                     event.preventDefault();
 
                     const form: HTMLFormElement | null = document.querySelector('.avatar__form');
 
                     if (form) {
                         const formData = new FormData(form);
-                        HTTPTransport.put({
-                            url: apiUrls.putUserAvatar,
-                            options: {
-                                data: formData,
-                            },
-                        })
-                            .then((response: string) => {
-                                const userData: User = JSON.parse(response);
+                        try {
+                            const response = (await HTTPTransport.put({
+                                url: apiUrls.putUserAvatar,
+                                options: {
+                                    data: formData,
+                                },
+                            })) as string;
 
-                                this.setProps({
-                                    imgSrc: `${AVATARS_PATH}${userData.avatar}`,
-                                });
-                                modal.close();
-                            })
-                            .catch((error) => {
-                                console.error(error);
+                            const userData: User = JSON.parse(response);
+
+                            this.setProps({
+                                imgSrc: `${AVATARS_PATH}${userData.avatar}`,
                             });
+                            modal.close();
+                        } catch (error) {
+                            console.error(error);
+                        }
                     }
                 },
             ],

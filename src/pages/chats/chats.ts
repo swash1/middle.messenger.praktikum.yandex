@@ -54,72 +54,71 @@ class Chats extends Block {
         Chats.updateComponent();
     }
 
-    static fetchData = async () => {
+    static fetchData = async (): Promise<string> => {
         try {
-            return await HTTPTransport.get({ url: apiUrls.getChats });
+            return (await HTTPTransport.get({ url: apiUrls.getChats })) as string;
         } catch (error) {
-            console.error(error);
+            throw Error(error);
         }
     };
 
-    static updateComponent = () => {
-        Chats.fetchData()
-            .then((response: string) => {
-                const chats: ChatItemParams[] = JSON.parse(response);
+    static updateComponent = async () => {
+        try {
+            const response = await Chats.fetchData();
+            const chats: ChatItemParams[] = JSON.parse(response);
 
-                const chatItems = chats.map(
-                    (chatInfo) =>
-                        new ChatItem({
-                            ...chatInfo,
-                            events: [
-                                [
-                                    'click',
-                                    () => {
-                                        HTTPTransport.post({
+            const chatItems = chats.map(
+                (chatInfo) =>
+                    new ChatItem({
+                        ...chatInfo,
+                        events: [
+                            [
+                                'click',
+                                async () => {
+                                    try {
+                                        const response = await HTTPTransport.post({
                                             url: `${apiUrls.postGetToken}/${chatInfo.id}`,
-                                        })
-                                            .then((response: string) => {
-                                                const { token } = JSON.parse(response);
+                                        }) as string;
 
-                                                const { id: userId } = store.get('userInfo');
+                                        const { token } = JSON.parse(response);
 
-                                                new Socket({
-                                                    userId: String(userId),
-                                                    chatId: chatInfo.id,
-                                                    token,
-                                                    onStart: () => {
-                                                        Chats.components!.dialog!.getOldMessages();
-                                                    },
-                                                });
+                                        const { id: userId } = store.get('userInfo');
 
-                                                this.components.dialog!.setProps({
-                                                    chatName: chatInfo.title,
-                                                    avatar: chatInfo.avatar,
-                                                    chat: chatInfo,
-                                                    firstLetter: chatInfo.title[0],
-                                                });
+                                        new Socket({
+                                            userId: String(userId),
+                                            chatId: chatInfo.id,
+                                            token,
+                                            onStart: () => {
+                                                Chats.components!.dialog!.getOldMessages();
+                                            },
+                                        });
 
-                                                store.set('activeChatInfo', chatInfo);
-                                            })
-                                            .catch((error) => {
-                                                console.error(error);
-                                            });
-                                    },
-                                ],
+                                        this.components.dialog!.setProps({
+                                            chatName: chatInfo.title,
+                                            avatar: chatInfo.avatar,
+                                            chat: chatInfo,
+                                            firstLetter: chatInfo.title[0],
+                                        });
+
+                                        store.set('activeChatInfo', chatInfo);
+                                    } catch (error) {
+                                        console.error(error);
+                                    }
+                                },
                             ],
-                        })
-                );
+                        ],
+                    })
+            );
 
-                Chats.components.chatsReel?.setProps({
-                    chatItems,
-                    isEmpty: !(chatItems && chatItems.length),
-                });
-
-                Chats.shouldUpdate = false;
-            })
-            .catch((error) => {
-                console.error(error);
+            Chats.components.chatsReel?.setProps({
+                chatItems,
+                isEmpty: !(chatItems && chatItems.length),
             });
+
+            Chats.shouldUpdate = false;
+        } catch (error) {
+            console.error(error);
+        }
     };
 }
 

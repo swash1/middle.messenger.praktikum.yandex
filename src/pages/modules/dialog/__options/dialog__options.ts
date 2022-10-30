@@ -145,53 +145,51 @@ export class DialogOptions extends Block {
             userActionRequest('delete');
         };
 
-        const userActionRequest = (action: 'delete' | 'add') => {
+        const userActionRequest = async (action: 'delete' | 'add') => {
             const inputIsValid = userLoginInput.validate();
 
             if (!inputIsValid) {
                 return;
             }
 
-            HTTPTransport.post({
-                url: apiUrls.postUserSearch,
-                options: {
-                    data: JSON.stringify({
-                        login: userLoginInput.getValue(),
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                },
-            })
-                .then((res: string) => {
-                    const response: User[] = JSON.parse(res);
-                    const user = response[0];
-                    return user.id;
-                })
-                .then((userId) => {
-                    const currentChatId = store.get('activeChatInfo').id;
-
-                    HTTPTransport.put({
-                        url: apiUrls[action === 'delete' ? 'putChatUsers' : 'deleteChatUser'],
-                        options: {
-                            data: JSON.stringify({
-                                users: [userId],
-                                chatId: currentChatId,
-                            }),
-                            headers: {
-                                'content-type': 'application/json',
-                            },
+            try {
+                const response = (await HTTPTransport.post({
+                    url: apiUrls.postUserSearch,
+                    options: {
+                        data: JSON.stringify({
+                            login: userLoginInput.getValue(),
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json',
                         },
-                    });
-                })
-                .then(() => {
-                    userLoginInput.setValue('');
-                    addUserModal.close();
-                    removeUserModal.close();
-                })
-                .catch((error) => {
-                    console.error(error);
+                    },
+                })) as string;
+
+                const users: User[] = JSON.parse(response);
+                const user = users[0];
+                const userId = user.id;
+
+                const currentChatId = store.get('activeChatInfo').id;
+
+                await HTTPTransport.put({
+                    url: apiUrls[action === 'delete' ? 'putChatUsers' : 'deleteChatUser'],
+                    options: {
+                        data: JSON.stringify({
+                            users: [userId],
+                            chatId: currentChatId,
+                        }),
+                        headers: {
+                            'content-type': 'application/json',
+                        },
+                    },
                 });
+
+                userLoginInput.setValue('');
+                addUserModal.close();
+                removeUserModal.close();
+            } catch (error) {
+                console.error(error);
+            }
         };
 
         addUserModalButton.addEvents([['click', addUserRequest]]);

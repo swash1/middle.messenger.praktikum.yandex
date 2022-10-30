@@ -137,12 +137,13 @@ export class SignIn extends Block {
                             formSelector: '.signin-page__form',
                             extraValidationFunc: extraFormValidationFunc,
                             url: apiUrls.postSignUp,
-                            onSuccess: () => {
-                                HTTPTransport.get({ url: apiUrls.getUser })
-                                    .then(() => {
-                                        router.go(APP_ROUTES.chats);
-                                    })
-                                    .catch();
+                            onSuccess: async () => {
+                                try {
+                                    await HTTPTransport.get({ url: apiUrls.getUser });
+                                    router.go(APP_ROUTES.chats);
+                                } catch (error) {
+                                    console.error(error);
+                                }
                             },
                             onError: (error) => console.error(`Error: ${error.reason}`),
                         });

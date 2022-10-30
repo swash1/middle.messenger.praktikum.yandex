@@ -19,22 +19,21 @@ const router = new Router(ROOT_NODE_SELECTOR);
 
 const store = new Store();
 
-const onRouterStart = () => {
-    HTTPTransport.get({ url: apiUrls.getUser })
-        .then((response: string) => {
-            const userInfo: User = JSON.parse(response);
+const onRouterStart = async () => {
+    try {
+        const response = (await HTTPTransport.get({ url: apiUrls.getUser })) as string;
+        const userInfo: User = JSON.parse(response);
 
-            store.set('userInfo', userInfo);
+        store.set('userInfo', userInfo);
 
-            if (window.location.pathname === APP_ROUTES.login || window.location.pathname === APP_ROUTES.signIn) {
-                router.go(APP_ROUTES.chats);
-            } else {
-                router.go(window.location.pathname);
-            }
-        })
-        .catch(() => {
-            router.go(APP_ROUTES.login);
-        });
+        if (window.location.pathname === APP_ROUTES.login || window.location.pathname === APP_ROUTES.signIn) {
+            router.go(APP_ROUTES.chats);
+        } else {
+            router.go(window.location.pathname);
+        }
+    } catch {
+        router.go(APP_ROUTES.login);
+    }
 };
 
 router
