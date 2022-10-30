@@ -1,5 +1,5 @@
-import { Input } from '../../common-components/components/input/input';
-import { HTTPTransport, METHODS, RequestProps } from './HTTPTransport';
+import { Input } from '../../common-components';
+import { HTTPTransport, METHODS, RequestProps } from '../HTTPTransport';
 
 interface Params extends RequestProps {
     inputs: Input[];
@@ -57,7 +57,12 @@ export const sendForm = async ({
 
     const requestMethod = method === METHODS.POST ? 'post' : 'put';
 
-    const data = JSON.stringify(formDataObj);
+    let data;
+    try {
+        data = JSON.stringify(formDataObj);
+    } catch {
+        throw Error('Error while parsing form data')
+    }
 
     HTTPTransport[requestMethod]({
         url,

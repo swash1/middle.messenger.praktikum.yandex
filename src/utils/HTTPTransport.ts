@@ -1,4 +1,4 @@
-import { queryStringify } from './queryStringify';
+import { queryStringify } from './helpers/queryStringify';
 
 export interface RequestProps {
     url: string;

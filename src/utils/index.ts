@@ -1,10 +1,10 @@
-export * from './handlebarsHelpers';
-export * from './validators';
+export * from './helpers/handlebarsHelpers';
+export * from './helpers/validators';
 export { EventBus } from './EventBus';
-export { renderDOM } from './renderDOM';
+export { renderDOM } from './helpers/renderDOM';
 export { Block } from './Block';
 export { HTTPTransport } from './HTTPTransport';
-export { sendForm } from './sendForm';
+export { sendForm } from './helpers/sendForm';
 export { Router } from './Router';
 export { Socket } from './Socket';
 export { Store } from './Store';

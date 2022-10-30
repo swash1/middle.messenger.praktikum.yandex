@@ -1,5 +1,5 @@
 import { Block } from './Block';
-import { renderDOM } from './renderDOM';
+import { renderDOM } from './helpers/renderDOM';
 
 interface Props {
     rootNode: string;
