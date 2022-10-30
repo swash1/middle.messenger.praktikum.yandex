@@ -1,5 +1,4 @@
 import { Button, Input } from '../../common-components';
-import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { APP_ROUTES } from '../../constants';
 import {
@@ -9,8 +8,8 @@ import {
     validateLogin,
     validateName,
     validatePhone,
+    UsersApi
 } from '../../utils';
-import { METHODS } from '../../utils/HTTPTransport';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 import Profile from '../profile/profile';
@@ -113,8 +112,7 @@ class ProfileEdit extends ProfileInfo {
                         inputs: inputsArray,
                         formSelector: '.info',
                         validationFailureCallback: onValidationFail,
-                        url: apiUrls.putUserProfile,
-                        method: METHODS.PUT,
+                        api: UsersApi.updateUser,
                         onSuccess: () => {
                             Profile.shouldUpdate = true;
                             router.go(APP_ROUTES.profile);

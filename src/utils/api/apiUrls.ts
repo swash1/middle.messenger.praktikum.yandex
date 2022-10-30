@@ -1,4 +1,4 @@
-import { API_HOST, API_PATH } from '../constants';
+import { API_HOST, API_PATH } from '../../constants';
 
 const base = `${API_HOST}${API_PATH}`;
 
@@ -7,9 +7,11 @@ const apiPaths = {
     postSignIn: '/auth/signin',
     getUser: '/auth/user',
     postLogOut: '/auth/logout',
+
     putUserProfile: '/user/profile',
     putUserPassword: '/user/password',
     putUserAvatar: '/user/profile/avatar',
+
     getChats: '/chats',
     postChats: '/chats',
     postGetToken: '/chats/token', //+id

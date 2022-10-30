@@ -1,8 +1,7 @@
 import { ArrowButton, Divider, Input, Link, Avatar } from '../../../common-components';
-import { apiUrls } from '../../../common-components/apiUrls';
 import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
 import { APP_ROUTES } from '../../../constants';
-import { Block, HTTPTransport, Router } from '../../../utils';
+import { AuthApi, Block, Router } from '../../../utils';
 
 import './profile-info.scss';
 
@@ -45,8 +44,6 @@ const contentTemplate = `
     </div>
 `;
 
-const router = new Router();
-
 export class ProfileInfo extends Block {
     static components = {} as {
         avatar?: Avatar;
@@ -60,16 +57,11 @@ export class ProfileInfo extends Block {
         button,
         errorMessage,
     }: Props) {
+        const router = new Router();
+
         const arrowButton = new ArrowButton({
             direction: ARROW_DIRECTIONS.LEFT,
-            events: [
-                [
-                    'click',
-                    () => {
-                        window.history.back();
-                    },
-                ],
-            ],
+            events: [['click', router.back]],
         });
 
         const divider1 = new Divider();
@@ -103,7 +95,7 @@ export class ProfileInfo extends Block {
                         event.preventDefault();
 
                         try {
-                            await HTTPTransport.post({ url: apiUrls.postLogOut });
+                            await AuthApi.logOut();
                             router.go(APP_ROUTES.login);
                         } catch (error) {
                             console.error(error);

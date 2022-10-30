@@ -1,9 +1,7 @@
 import { Button, Input, Select, Modal } from '../../../../common-components';
-import { apiUrls } from '../../../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../../../common-components/components/input/input';
 import { Cancel, Plus, ThreeDots } from '../../../../common-components/icons';
-import { User } from '../../../../typings';
-import { Block, HTTPTransport, validateLogin, Store } from '../../../../utils';
+import { Block, validateLogin, Store, ChatsApi } from '../../../../utils';
 
 import './dialog__options.scss';
 
@@ -137,14 +135,6 @@ export class DialogOptions extends Block {
             ],
         ]);
 
-        const addUserRequest = () => {
-            userActionRequest('add');
-        };
-
-        const removeUserRequest = () => {
-            userActionRequest('delete');
-        };
-
         const userActionRequest = async (action: 'delete' | 'add') => {
             const inputIsValid = userLoginInput.validate();
 
@@ -152,31 +142,11 @@ export class DialogOptions extends Block {
                 return;
             }
 
+            const login = userLoginInput.getValue();
+            const chatId = store.get('activeChatInfo').id;
+
             try {
-                const response = (await HTTPTransport.post({
-                    url: apiUrls.postUserSearch,
-                    options: {
-                        data: JSON.stringify({
-                            login: userLoginInput.getValue(),
-                        }),
-                    },
-                })) as string;
-
-                const users: User[] = JSON.parse(response);
-                const user = users[0];
-                const userId = user.id;
-
-                const currentChatId = store.get('activeChatInfo').id;
-
-                await HTTPTransport.put({
-                    url: apiUrls[action === 'delete' ? 'putChatUsers' : 'deleteChatUser'],
-                    options: {
-                        data: JSON.stringify({
-                            users: [userId],
-                            chatId: currentChatId,
-                        }),
-                    },
-                });
+                await ChatsApi[action === 'add' ? 'addUserToChat' : 'removeUserFromChat'](login, chatId);
 
                 userLoginInput.setValue('');
                 addUserModal.close();
@@ -186,8 +156,22 @@ export class DialogOptions extends Block {
             }
         };
 
-        addUserModalButton.addEvents([['click', addUserRequest]]);
+        addUserModalButton.addEvents([
+            [
+                'click',
+                () => {
+                    userActionRequest('add');
+                },
+            ],
+        ]);
 
-        removeUserModalButton.addEvents([['click', removeUserRequest]]);
+        removeUserModalButton.addEvents([
+            [
+                'click',
+                () => {
+                    userActionRequest('delete');
+                },
+            ],
+        ]);
     }
 }

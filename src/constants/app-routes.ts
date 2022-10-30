@@ -4,7 +4,7 @@ export const APP_ROUTES = {
     chats: '/chats',
 
     login: '/login',
-    signIn: '/signin',
+    signUp: '/signup',
 
     notFound: '/404',
     serverError: '/500',

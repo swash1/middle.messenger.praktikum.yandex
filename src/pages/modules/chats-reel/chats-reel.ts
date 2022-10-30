@@ -1,9 +1,8 @@
 import { Button, ChatItem, Divider, Input, Link, Modal } from '../../../common-components';
-import { apiUrls } from '../../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../../common-components/components/link/link';
 import { APP_ROUTES } from '../../../constants';
-import { Block, HTTPTransport } from '../../../utils';
+import { Block, ChatsApi } from '../../../utils';
 
 import './chats-reel.scss';
 
@@ -108,12 +107,7 @@ export class ChatsReel extends Block {
                         const chatName = chatTitleInput.getValue();
                         const data = JSON.stringify({ title: chatName });
 
-                        await HTTPTransport.post({
-                            url: apiUrls.postChats,
-                            options: {
-                                data,
-                            },
-                        });
+                        await ChatsApi.createChat(data);
 
                         createChatModal.close();
 

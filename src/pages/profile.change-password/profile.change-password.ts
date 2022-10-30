@@ -1,9 +1,7 @@
 import { Button, Input } from '../../common-components';
-import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { APP_ROUTES } from '../../constants';
-import { Router, sendForm, validatePassword } from '../../utils';
-import { METHODS } from '../../utils/HTTPTransport';
+import { Router, sendForm, UsersApi, validatePassword } from '../../utils';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
@@ -77,8 +75,7 @@ class ChangePassword extends ProfileInfo {
                         inputs: inputsArray,
                         formSelector: '.info',
                         extraValidationFunc,
-                        url: apiUrls.putUserPassword,
-                        method: METHODS.PUT,
+                        api: UsersApi.changePassword,
                         onSuccess: () => {
                             router.go(APP_ROUTES.profile);
                         },

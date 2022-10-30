@@ -1,9 +1,8 @@
 import { Button, Input, Link } from '../../common-components';
-import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../common-components/components/link/link';
 import { APP_ROUTES } from '../../constants';
-import { Block, Router, sendForm, validateLogin } from '../../utils';
+import { AuthApi, Block, Router, sendForm, validateLogin } from '../../utils';
 
 import './login.scss';
 
@@ -48,7 +47,7 @@ export class Login extends Block {
         }
 
         const link = new Link({
-            url: APP_ROUTES.signIn,
+            url: APP_ROUTES.signUp,
             target: LINK_TARGETS.SELF,
             text: 'Создать аккаунт',
             isRouter: true,
@@ -74,7 +73,7 @@ export class Login extends Block {
                         sendForm({
                             inputs: inputsArray,
                             formSelector: '.login-page__form',
-                            url: apiUrls.postSignIn,
+                            api: AuthApi.login,
                             onSuccess: () => {
                                 router.go(APP_ROUTES.chats);
                             },

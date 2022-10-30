@@ -1,6 +1,5 @@
 import { ChatItem } from '../../common-components';
-import { apiUrls } from '../../common-components/apiUrls';
-import { HTTPTransport, Store, Socket, Block } from '../../utils';
+import { Store, Socket, Block, ChatsApi } from '../../utils';
 import { ChatItemParams } from '../../typings';
 
 import { ChatsReel } from '../modules/chats-reel/chats-reel';
@@ -16,7 +15,7 @@ const contentTemplate = `
 const store = new Store();
 
 class Chats extends Block {
-    static __instance: Chats;
+    private static __instance: Chats;
     static shouldUpdate: boolean = false;
     static components = {} as {
         chatsReel?: ChatsReel;
@@ -54,9 +53,9 @@ class Chats extends Block {
         Chats.updateComponent();
     }
 
-    static fetchData = async (): Promise<string> => {
+    static fetchData = async (): Promise<ChatItemParams[]> => {
         try {
-            return (await HTTPTransport.get({ url: apiUrls.getChats })) as string;
+            return await ChatsApi.getChats();
         } catch (error) {
             throw Error(error);
         }
@@ -64,8 +63,7 @@ class Chats extends Block {
 
     static updateComponent = async () => {
         try {
-            const response = await Chats.fetchData();
-            const chats: ChatItemParams[] = JSON.parse(response);
+            const chats = await Chats.fetchData();
 
             const chatItems = chats.map(
                 (chatInfo) =>
@@ -76,11 +74,7 @@ class Chats extends Block {
                                 'click',
                                 async () => {
                                     try {
-                                        const response = await HTTPTransport.post({
-                                            url: `${apiUrls.postGetToken}/${chatInfo.id}`,
-                                        }) as string;
-
-                                        const { token } = JSON.parse(response);
+                                        const { token } = await ChatsApi.getChatToken(chatInfo.id);
 
                                         const { id: userId } = store.get('userInfo');
 

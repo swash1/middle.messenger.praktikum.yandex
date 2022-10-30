@@ -4,10 +4,10 @@ import { APP_ROUTES, ROOT_NODE_SELECTOR } from '../constants';
 
 export class Router {
     private routes: Route[];
-    private history: History;
+    private static history: History;
     private currentRoute: Route | null;
     private rootNode: string;
-    private static __instance: Router | null;
+    private static __instance: Router | null = null;
 
     constructor(rootNodeSelector?: string) {
         if (Router.__instance) {
@@ -15,7 +15,7 @@ export class Router {
         }
 
         this.routes = [];
-        this.history = window.history;
+        Router.history = window.history;
         this.currentRoute = null;
         this.rootNode = rootNodeSelector || ROOT_NODE_SELECTOR;
 
@@ -55,16 +55,17 @@ export class Router {
     }
 
     public go(pathname: string) {
-        this.history.pushState({}, '', pathname);
+        Router.history.pushState({}, '', pathname);
+        
         this.onRoute(pathname);
     }
 
-    public back() {
-        this.history.back();
+    public back() { 
+        Router.history.back();
     }
 
     public forward() {
-        this.history.forward();
+        Router.history.forward();
     }
 
     private getRoute(pathname: string) {

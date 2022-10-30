@@ -1,6 +1,4 @@
-import { Block, HTTPTransport } from '../../../utils';
-import { apiUrls } from '../../apiUrls';
-import { User } from '../../../typings';
+import { Block, UsersApi } from '../../../utils';
 import { AVATARS_PATH } from '../../../constants';
 
 import { Modal } from '../modal/modal';
@@ -117,15 +115,7 @@ export class Avatar extends Block {
                     if (form) {
                         const formData = new FormData(form);
                         try {
-                            const response = (await HTTPTransport.put({
-                                url: apiUrls.putUserAvatar,
-                                options: {
-                                    data: formData,
-                                    headers: {},
-                                },
-                            })) as string;
-
-                            const userData: User = JSON.parse(response);
+                            const userData = await UsersApi.updateAvatar(formData);
 
                             this.setProps({
                                 imgSrc: `${AVATARS_PATH}${userData.avatar}`,

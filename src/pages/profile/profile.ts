@@ -1,9 +1,8 @@
 import { Input } from '../../common-components';
-import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { AVATARS_PATH } from '../../constants';
 import { User } from '../../typings';
-import { HTTPTransport, Store } from '../../utils';
+import { AuthApi, Store } from '../../utils';
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
 const store = new Store();
@@ -79,9 +78,9 @@ class Profile extends ProfileInfo {
         Profile.updateComponent();
     }
 
-    static fetchData = async (): Promise<string> => {
+    static fetchData = async (): Promise<User> => {
         try {
-            return (await HTTPTransport.get({ url: apiUrls.getUser })) as string;
+            return await AuthApi.getUser();
         } catch (error) {
             throw Error(error);
         }
@@ -89,9 +88,7 @@ class Profile extends ProfileInfo {
 
     static updateComponent = async () => {
         try {
-            const response = await Profile.fetchData();
-
-            const userInfo: User = JSON.parse(response);
+            const userInfo = await Profile.fetchData();
 
             store.set('userInfo', userInfo);
 

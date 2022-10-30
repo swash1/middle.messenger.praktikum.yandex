@@ -27,27 +27,27 @@ const defaultHeaders = {
 };
 
 export class HTTPTransport {
-    static get = ({ url, options = {} }: RequestProps) => {
+    static get = <T>({ url, options = {} }: RequestProps): Promise<T> => {
         if (options.data) {
             url = `${url}${queryStringify(options.data)}`;
         }
 
-        return this.request({ url, options, method: METHODS.GET });
+        return this.request<T>({ url, options, method: METHODS.GET });
     };
 
-    static post = ({ url, options = {} }: RequestProps) => {
-        return this.request({ url, options, method: METHODS.POST });
+    static post = <T>({ url, options = {} }: RequestProps): Promise<T> => {
+        return this.request<T>({ url, options, method: METHODS.POST });
     };
 
-    static put = ({ url, options = {} }: RequestProps) => {
-        return this.request({ url, options, method: METHODS.PUT });
+    static put = <T>({ url, options = {} }: RequestProps): Promise<T> => {
+        return this.request<T>({ url, options, method: METHODS.PUT });
     };
 
-    static delete = ({ url, options = {} }: RequestProps) => {
-        return this.request({ url, options, method: METHODS.DELETE });
+    static delete = <T>({ url, options = {} }: RequestProps): Promise<T> => {
+        return this.request<T>({ url, options, method: METHODS.DELETE });
     };
 
-    private static request = ({ url, options = {}, method }: RequestParams) => {
+    private static request = <T>({ url, options = {}, method }: RequestParams): Promise<T> => {
         const { headers = defaultHeaders, data, timeout = 5000 } = options;
 
         return new Promise((resolve, reject) => {

@@ -1,14 +1,13 @@
 import { Input } from '../../common-components';
-import { HTTPTransport, METHODS, RequestProps } from '../HTTPTransport';
 
-interface Params extends RequestProps {
+interface Params {
     inputs: Input[];
     formSelector: string;
     extraValidationFunc?: (formData: FormData) => boolean;
     validationFailureCallback?: () => void;
     onSuccess?: (response: any) => void;
     onError?: (error: any) => void;
-    method?: METHODS.POST | METHODS.PUT;
+    api: (data: string) => Promise<any>;
 }
 
 export const sendForm = async ({
@@ -16,11 +15,9 @@ export const sendForm = async ({
     formSelector,
     extraValidationFunc,
     validationFailureCallback,
-    url,
-    options,
     onSuccess,
     onError,
-    method = METHODS.POST,
+    api,
 }: Params) => {
     const form: HTMLFormElement | null = document.querySelector(formSelector);
 
@@ -55,8 +52,6 @@ export const sendForm = async ({
     const formDataObj = {} as Record<string | number, any>;
     formData.forEach((value, key) => (formDataObj[key] = value));
 
-    const requestMethod = method === METHODS.POST ? 'post' : 'put';
-
     let data;
     try {
         data = JSON.stringify(formDataObj);
@@ -64,10 +59,7 @@ export const sendForm = async ({
         throw Error('Error while parsing form data');
     }
 
-    HTTPTransport[requestMethod]({
-        url,
-        options: { ...options, data },
-    })
+    api(data)
         .then((response) => {
             if (onSuccess) {
                 onSuccess(response);
