@@ -22,6 +22,10 @@ export enum METHODS {
     DELETE = 'DELETE',
 }
 
+const defaultHeaders = {
+    'content-type': 'application/json',
+};
+
 export class HTTPTransport {
     static get = ({ url, options = {} }: RequestProps) => {
         if (options.data) {
@@ -44,7 +48,7 @@ export class HTTPTransport {
     };
 
     private static request = ({ url, options = {}, method }: RequestParams) => {
-        const { headers = {}, data, timeout = 5000 } = options;
+        const { headers = defaultHeaders, data, timeout = 5000 } = options;
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();

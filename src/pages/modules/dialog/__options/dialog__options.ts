@@ -159,9 +159,6 @@ export class DialogOptions extends Block {
                         data: JSON.stringify({
                             login: userLoginInput.getValue(),
                         }),
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
                     },
                 })) as string;
 
@@ -178,9 +175,6 @@ export class DialogOptions extends Block {
                             users: [userId],
                             chatId: currentChatId,
                         }),
-                        headers: {
-                            'content-type': 'application/json',
-                        },
                     },
                 });
 

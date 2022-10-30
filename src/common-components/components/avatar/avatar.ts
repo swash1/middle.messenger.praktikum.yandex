@@ -121,6 +121,7 @@ export class Avatar extends Block {
                                 url: apiUrls.putUserAvatar,
                                 options: {
                                     data: formData,
+                                    headers: {},
                                 },
                             })) as string;
 

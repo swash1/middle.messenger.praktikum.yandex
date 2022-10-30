@@ -112,9 +112,6 @@ export class ChatsReel extends Block {
                             url: apiUrls.postChats,
                             options: {
                                 data,
-                                headers: {
-                                    'content-type': 'application/json',
-                                },
                             },
                         });
 

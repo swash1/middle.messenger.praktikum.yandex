@@ -61,12 +61,12 @@ export const sendForm = async ({
     try {
         data = JSON.stringify(formDataObj);
     } catch {
-        throw Error('Error while parsing form data')
+        throw Error('Error while parsing form data');
     }
 
     HTTPTransport[requestMethod]({
         url,
-        options: { ...options, data, headers: { ...options?.headers, 'content-type': 'application/json' } },
+        options: { ...options, data },
     })
         .then((response) => {
             if (onSuccess) {
