@@ -83,7 +83,7 @@ class Chats extends Block {
                                             chatId: chatInfo.id,
                                             token,
                                             onStart: () => {
-                                                Chats.components!.dialog!.getOldMessages();
+                                                Chats.components!.dialog!.initialize();
                                             },
                                         });
 

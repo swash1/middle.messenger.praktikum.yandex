@@ -51,6 +51,8 @@ const contentTemplate = `
 `;
 
 export class Dialog extends Block {
+    private messages: Message[];
+
     public constructor(chat?: Omit<ChatItemParams, 'id' | 'unread_count' | 'last_message'> | null) {
         const divider1 = new Divider();
         const divider2 = new Divider();
@@ -87,9 +89,14 @@ export class Dialog extends Block {
             contentTemplate,
         });
 
+        this.messages = messages;
+
         const sendMessage = () => {
             if (messageInput.getValue()) {
-                console.log(messageInput.getValue());
+                Socket.sendMessage({
+                    type: 'message',
+                    content: messageInput.getValue(),
+                });
                 messageInput.setValue('');
                 messageInput.input.getContent().focus();
             }
@@ -128,9 +135,13 @@ export class Dialog extends Block {
         const setMessages = (event: MessageEvent) => {
             const data = JSON.parse(event.data);
             if (Array.isArray(data)) {
+                const messages = data.map((messageProps: MessageParams) => new Message(messageProps)).reverse();
+
                 this.setProps({
-                    messages: data.map((messageProps: MessageParams) => new Message(messageProps)).reverse(),
+                    messages
                 });
+
+                this.messages = messages;
 
                 socket.removeEventListener('message', setMessages);
             }
@@ -143,4 +154,18 @@ export class Dialog extends Block {
             content: String(getFromMessageNumber),
         });
     };
+
+    public initialize = () => {
+        this.getOldMessages()
+
+        Socket.activeSocket!.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+            
+            if (data.type === 'message') {
+                this.setProps({
+                    messages: [...this.messages, new Message(data)],
+                });
+            }
+        });
+    }
 }

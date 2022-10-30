@@ -62,10 +62,6 @@ export class Socket {
         Socket.activeSocket = socket;
     }
 
-    public static getActiveSocket = () => {
-        return this.activeSocket;
-    };
-
     static sendMessage = (props: MessageProps) => {
         if (this.activeSocket) {
             this.activeSocket.send(JSON.stringify(props));
