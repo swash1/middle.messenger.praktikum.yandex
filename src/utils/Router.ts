@@ -1,19 +1,13 @@
 import { Route } from './Route';
 import { Block } from './Block';
-import { HTTPTransport } from './HTTPTransport';
-import { apiUrls } from '../../common-components/apiUrls';
-import { urls } from '../../urls';
-import { Store } from './Store';
-import { ROOT_NODE_SELECTOR } from '../../common-components/constants';
-
-const store = new Store();
+import { APP_ROUTES, ROOT_NODE_SELECTOR } from '../constants';
 
 export class Router {
-    routes: Route[];
-    history: History;
-    _currentRoute: Route | null;
-    _rootNode: string;
-    static __instance: Router | null;
+    private routes: Route[];
+    private history: History;
+    private currentRoute: Route | null;
+    private rootNode: string;
+    private static __instance: Router | null;
 
     constructor(rootNodeSelector?: string) {
         if (Router.__instance) {
@@ -22,70 +16,58 @@ export class Router {
 
         this.routes = [];
         this.history = window.history;
-        this._currentRoute = null;
-        this._rootNode = rootNodeSelector || ROOT_NODE_SELECTOR;
+        this.currentRoute = null;
+        this.rootNode = rootNodeSelector || ROOT_NODE_SELECTOR;
 
         Router.__instance = this;
     }
 
-    use(pathname: string, block: new () => Block) {
-        const route = new Route(pathname, block, { rootNode: this._rootNode });
+    public use(pathname: string, block: new () => Block) {
+        const route = new Route(pathname, block, { rootNode: this.rootNode });
         this.routes.push(route);
         return this;
     }
 
-    start() {
+    public start(callback?: () => void) {
         window.addEventListener('popstate', () => {
-            this._onRoute(window.location.pathname);
+            this.onRoute(window.location.pathname);
         });
 
-        HTTPTransport.get({ url: apiUrls.getUser })
-            .then((response) => {
-                const userInfo = JSON.parse(response as string);
-
-                store.set('userInfo', userInfo);
-
-                if (window.location.pathname === urls.login || window.location.pathname === urls.signIn) {
-                    this.go(urls.chats);
-                } else {
-                    this.go(window.location.pathname);
-                }
-            })
-            .catch(() => {
-                this.go(urls.login);
-            });
+        if (callback) {
+            callback();
+        }
     }
 
-    _onRoute(pathname: string) {
+    private onRoute(pathname: string) {
         const route = this.getRoute(pathname);
 
         if (!route) {
-            this.go(urls.notFound);
+            this.go(APP_ROUTES.notFound);
             return;
         }
 
-        if (this._currentRoute) {
-            this._currentRoute.leave();
+        if (this.currentRoute) {
+            this.currentRoute.leave();
         }
 
-        this._currentRoute = route;
+        this.currentRoute = route;
         route.render();
     }
 
-    go(pathname: string) {
+    public go(pathname: string) {
         this.history.pushState({}, '', pathname);
-        this._onRoute(pathname);
+        this.onRoute(pathname);
     }
 
-    back() {
+    public back() {
         this.history.back();
     }
 
-    forward() {
+    public forward() {
         this.history.forward();
     }
 
-    getRoute(pathname: string) {
+    private getRoute(pathname: string) {
         return this.routes.find((route) => route.match(pathname));
     }
 }
