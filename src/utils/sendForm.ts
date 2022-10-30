@@ -1,4 +1,4 @@
-import { Input } from '../../components/input/input';
+import { Input } from '../../common-components/components/input/input';
 import { HTTPTransport, METHODS, RequestProps } from './HTTPTransport';
 
 interface Params extends RequestProps {

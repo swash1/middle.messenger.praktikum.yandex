@@ -1,7 +1,7 @@
-import { Block, ChatItem } from '../../common-components';
+import { ChatItem } from '../../common-components';
 import { apiUrls } from '../../common-components/apiUrls';
-import { HTTPTransport, Store, Socket } from '../../common-components/utils/helpers';
-import { ChatItemParams } from '../../common-components/typings';
+import { HTTPTransport, Store, Socket, Block } from '../../utils';
+import { ChatItemParams } from '../../typings';
 
 import { ChatsReel } from '../modules/chats-reel/chats-reel';
 import { Dialog } from '../modules/dialog/dialog';

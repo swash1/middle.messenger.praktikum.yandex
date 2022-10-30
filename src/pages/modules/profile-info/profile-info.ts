@@ -1,8 +1,8 @@
-import { ArrowButton, Block, Divider, Input, Link, Avatar } from '../../../common-components';
+import { ArrowButton, Divider, Input, Link, Avatar } from '../../../common-components';
 import { apiUrls } from '../../../common-components/apiUrls';
 import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
-import { APP_ROUTES } from '../../../common-components/constants';
-import { HTTPTransport, Router } from '../../../common-components/utils/helpers';
+import { APP_ROUTES } from '../../../constants';
+import { Block, HTTPTransport, Router } from '../../../utils';
 
 import './profile-info.scss';
 

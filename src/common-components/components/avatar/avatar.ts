@@ -1,7 +1,7 @@
-import { Block, HTTPTransport } from '../../utils/helpers';
+import { Block, HTTPTransport } from '../../../utils';
 import { apiUrls } from '../../apiUrls';
-import { User } from '../../typings';
-import { AVATARS_PATH } from '../../constants';
+import { User } from '../../../typings';
+import { AVATARS_PATH } from '../../../constants';
 
 import { Modal } from '../modal/modal';
 import { Button } from '../button/button';

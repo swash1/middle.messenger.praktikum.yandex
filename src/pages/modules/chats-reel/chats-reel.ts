@@ -1,9 +1,9 @@
-import { Block, Button, ChatItem, Divider, Input, Link, Modal } from '../../../common-components';
+import { Button, ChatItem, Divider, Input, Link, Modal } from '../../../common-components';
 import { apiUrls } from '../../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../../common-components/components/link/link';
-import { APP_ROUTES } from '../../../common-components/constants';
-import { HTTPTransport } from '../../../common-components/utils/helpers';
+import { APP_ROUTES } from '../../../constants';
+import { Block, HTTPTransport } from '../../../utils';
 
 import './chats-reel.scss';
 

@@ -1,10 +1,9 @@
-import { Block } from '../../utils/helpers/Block';
-import { Store } from '../../utils/helpers';
+import { Block, Store } from '../../../utils';
 
 import { Jackdaw } from '../../icons/Jackdaw';
 import { DoubleJackdaw } from '../../icons/DoubleJackdaw';
 
-import { MessageParams as MessageProps } from '../../typings';
+import { MessageParams as MessageProps } from '../../../typings';
 
 import './message.scss';
 

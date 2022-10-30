@@ -1,6 +1,7 @@
-import { Block, Select } from '../../../../common-components';
+import { Select } from '../../../../common-components';
 
 import { Clip, Photo, File, Location } from '../../../../common-components/icons';
+import { Block } from '../../../../utils';
 
 import './dialog__add-attachment.scss';
 

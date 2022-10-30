@@ -1,8 +1,8 @@
-import { ArrowButton, Block, Divider, Message } from '../../../common-components';
+import { ArrowButton, Divider, Message } from '../../../common-components';
 import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
-import { ChatItemParams, MessageParams } from '../../../common-components/typings';
-import { Socket } from '../../../common-components/utils/helpers/Socket';
-import { AVATARS_PATH } from '../../../common-components/constants';
+import { ChatItemParams, MessageParams } from '../../../typings';
+import { Block, Socket } from '../../../utils';
+import { AVATARS_PATH } from '../../../constants';
 
 import { DialogOptions } from './__options/dialog__options';
 import { DialogAddAttachment } from './__add-attachment/dialog__add-attachment';

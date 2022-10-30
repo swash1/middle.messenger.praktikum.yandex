@@ -1,16 +1,19 @@
-import { Block, Button, Link, Input } from '../../common-components';
+import { Button, Link, Input } from '../../common-components';
+import { INPUT_VIEWS, Props as InputParams } from '../../common-components/components/input/input';
+import { LINK_TARGETS } from '../../common-components/components/link/link';
 import {
+    Block,
+    HTTPTransport,
+    Router,
+    sendForm,
     validateEmail,
     validateLogin,
     validateName,
     validatePassword,
     validatePhone,
-} from '../../common-components/utils/helpers/validators';
-import { INPUT_VIEWS, Props as InputParams } from '../../common-components/components/input/input';
-import { LINK_TARGETS } from '../../common-components/components/link/link';
-import { HTTPTransport, Router, sendForm } from '../../common-components/utils/helpers';
+} from '../../utils';
 import { apiUrls } from '../../common-components/apiUrls';
-import { APP_ROUTES } from '../../common-components/constants';
+import { APP_ROUTES } from '../../constants';
 
 import './signin.scss';
 

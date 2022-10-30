@@ -1,5 +1,4 @@
-import { Router } from '../../utils/helpers';
-import { Block } from '../../utils/helpers/Block';
+import { Router, Block } from '../../../utils';
 
 import './link.scss';
 

@@ -1,4 +1,4 @@
-import { API_HOST, API_PATH } from './constants';
+import { API_HOST, API_PATH } from '../constants';
 
 const base = `${API_HOST}${API_PATH}`;
 

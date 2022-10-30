@@ -1,7 +1,7 @@
 import { Button, Input } from '../../common-components';
 import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { APP_ROUTES } from '../../common-components/constants';
+import { APP_ROUTES } from '../../constants';
 import {
     Router,
     sendForm,
@@ -9,8 +9,8 @@ import {
     validateLogin,
     validateName,
     validatePhone,
-} from '../../common-components/utils/helpers';
-import { METHODS } from '../../common-components/utils/helpers/HTTPTransport';
+} from '../../utils';
+import { METHODS } from '../../utils/HTTPTransport';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 import Profile from '../profile/profile';

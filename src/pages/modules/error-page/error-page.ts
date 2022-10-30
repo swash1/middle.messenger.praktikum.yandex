@@ -1,5 +1,6 @@
-import { Block, Link } from '../../../common-components';
-import { APP_ROUTES } from '../../../common-components/constants';
+import { Link } from '../../../common-components';
+import { APP_ROUTES } from '../../../constants';
+import { Block } from '../../../utils';
 
 import './error-page.scss';
 

@@ -1,10 +1,9 @@
 import { Input } from '../../common-components';
 import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { AVATARS_PATH } from '../../common-components/constants';
-import { User } from '../../common-components/typings';
-import { HTTPTransport } from '../../common-components/utils/helpers';
-import { Store } from '../../common-components/utils/helpers/Store';
+import { AVATARS_PATH } from '../../constants';
+import { User } from '../../typings';
+import { HTTPTransport, Store } from '../../utils';
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
 const store = new Store();

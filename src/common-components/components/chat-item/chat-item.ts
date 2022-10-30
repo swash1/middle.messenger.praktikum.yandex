@@ -1,5 +1,5 @@
-import { ChatItemParams } from '../../typings';
-import { Block } from '../../utils/helpers';
+import { ChatItemParams } from '../../../typings';
+import { Block } from '../../../utils';
 
 import { Divider } from '../divider/divider';
 

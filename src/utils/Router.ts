@@ -1,10 +1,10 @@
 import { Route } from './Route';
 import { Block } from './Block';
 import { HTTPTransport } from './HTTPTransport';
-import { apiUrls } from '../../apiUrls';
+import { apiUrls } from '../../common-components/apiUrls';
 import { urls } from '../../urls';
 import { Store } from './Store';
-import { ROOT_NODE_SELECTOR } from '../../constants';
+import { ROOT_NODE_SELECTOR } from '../../common-components/constants';
 
 const store = new Store();
 

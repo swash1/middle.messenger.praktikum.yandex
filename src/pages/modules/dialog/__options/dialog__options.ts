@@ -1,9 +1,9 @@
-import { Block, Button, Input, Select, Modal } from '../../../../common-components';
+import { Button, Input, Select, Modal } from '../../../../common-components';
 import { apiUrls } from '../../../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../../../common-components/components/input/input';
 import { Cancel, Plus, ThreeDots } from '../../../../common-components/icons';
-import { User } from '../../../../common-components/typings';
-import { HTTPTransport, validateLogin, Store } from '../../../../common-components/utils/helpers';
+import { User } from '../../../../typings';
+import { Block, HTTPTransport, validateLogin, Store } from '../../../../utils';
 
 import './dialog__options.scss';
 

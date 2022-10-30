@@ -1,4 +1,4 @@
-import { ChatItemParams, User } from '../../typings';
+import { ChatItemParams, User } from '../../common-components/typings';
 
 interface StoreData {
     userInfo: User;

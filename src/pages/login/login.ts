@@ -1,10 +1,9 @@
-import { Block, Button, Input, Link } from '../../common-components';
+import { Button, Input, Link } from '../../common-components';
 import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../common-components/components/link/link';
-import { APP_ROUTES } from '../../common-components/constants';
-import { Router, sendForm } from '../../common-components/utils/helpers';
-import { validateLogin } from '../../common-components/utils/helpers/validators';
+import { APP_ROUTES } from '../../constants';
+import { Block, Router, sendForm, validateLogin } from '../../utils';
 
 import './login.scss';
 

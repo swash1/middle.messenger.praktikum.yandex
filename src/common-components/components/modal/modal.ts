@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers/Block';
+import { Block } from '../../../utils';
 
 import { ModalContent } from './__content/modal__content';
 

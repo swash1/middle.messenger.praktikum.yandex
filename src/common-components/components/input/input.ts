@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers';
+import { Block } from '../../../utils';
 
 import { Props as InputProps, SimpleInput } from '../simple-input/simple-input';
 

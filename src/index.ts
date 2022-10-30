@@ -1,6 +1,6 @@
-import { rootNodeSelector } from './common-components/constants';
+import { rootNodeSelector } from './constants';
 import { urls } from './common-components/urls';
-import { Router } from './common-components/utils/helpers';
+import { Router } from './utils/helpers';
 import {
     loginPage,
     notFoundPage,

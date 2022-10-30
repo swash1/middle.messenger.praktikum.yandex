@@ -1,4 +1,4 @@
-import { Block } from '../../../utils/helpers';
+import { Block } from '../../../../utils/';
 
 import './avatar__modal-file-input-label.scss';
 
