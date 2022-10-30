@@ -1,7 +1,7 @@
 import { Block, HTTPTransport } from '../../utils/helpers';
 import { apiUrls } from '../../apiUrls';
 import { User } from '../../typings';
-import { avatarsPath } from '../../constants';
+import { AVATARS_PATH } from '../../constants';
 
 import { Modal } from '../modal/modal';
 import { Button } from '../button/button';
@@ -127,7 +127,7 @@ export class Avatar extends Block {
                                 userData = JSON.parse(response);
 
                                 this.setProps({
-                                    imgSrc: `${avatarsPath}${userData.avatar}`,
+                                    imgSrc: `${AVATARS_PATH}${userData.avatar}`,
                                 });
                                 modal.close();
                             })

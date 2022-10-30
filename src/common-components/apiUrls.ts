@@ -1,8 +1,6 @@
-const host = 'https://ya-praktikum.tech';
+import { API_HOST, API_PATH } from './constants';
 
-const path = '/api/v2';
-
-const base = `${host}${path}`;
+const base = `${API_HOST}${API_PATH}`;
 
 const apiPaths = {
     postSignUp: '/auth/signup',

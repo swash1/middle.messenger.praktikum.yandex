@@ -1,10 +1,10 @@
 import { Route } from './Route';
 import { Block } from './Block';
-import { rootNodeSelector as rootNode } from '../../constants';
 import { HTTPTransport } from './HTTPTransport';
 import { apiUrls } from '../../apiUrls';
 import { urls } from '../../urls';
 import { Store } from './Store';
+import { ROOT_NODE_SELECTOR } from '../../constants';
 
 const store = new Store();
 
@@ -23,7 +23,7 @@ export class Router {
         this.routes = [];
         this.history = window.history;
         this._currentRoute = null;
-        this._rootNode = rootNodeSelector || rootNode;
+        this._rootNode = rootNodeSelector || ROOT_NODE_SELECTOR;
 
         Router.__instance = this;
     }

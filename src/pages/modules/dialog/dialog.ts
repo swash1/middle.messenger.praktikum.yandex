@@ -2,7 +2,7 @@ import { ArrowButton, Block, Divider, Message } from '../../../common-components
 import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
 import { ChatItemParams, MessageParams } from '../../../common-components/typings';
 import { Socket } from '../../../common-components/utils/helpers/Socket';
-import { avatarsPath } from '../../../common-components/constants';
+import { AVATARS_PATH } from '../../../common-components/constants';
 
 import { DialogOptions } from './__options/dialog__options';
 import { DialogAddAttachment } from './__add-attachment/dialog__add-attachment';
@@ -55,7 +55,7 @@ export class Dialog extends Block {
         const divider1 = new Divider();
         const divider2 = new Divider();
 
-        const avatarImgSrc = `${avatarsPath}${chat?.avatar}`;
+        const avatarImgSrc = `${AVATARS_PATH}${chat?.avatar}`;
 
         const chatName = chat?.title;
 

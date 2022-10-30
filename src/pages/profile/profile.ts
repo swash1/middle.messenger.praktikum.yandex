@@ -1,7 +1,7 @@
 import { Input } from '../../common-components';
 import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { avatarsPath } from '../../common-components/constants';
+import { AVATARS_PATH } from '../../common-components/constants';
 import { User } from '../../common-components/typings';
 import { HTTPTransport } from '../../common-components/utils/helpers';
 import { Store } from '../../common-components/utils/helpers/Store';
@@ -101,7 +101,7 @@ class Profile extends ProfileInfo {
                 });
 
                 Profile.components.avatar?.setProps({
-                    imgSrc: `${avatarsPath}${userInfo.avatar}`,
+                    imgSrc: `${AVATARS_PATH}${userInfo.avatar}`,
                 });
 
                 Profile.shouldUpdate = false;
