@@ -123,8 +123,7 @@ export class Avatar extends Block {
                             },
                         })
                             .then((response: string) => {
-                                let userData: User;
-                                userData = JSON.parse(response);
+                                const userData: User = JSON.parse(response);
 
                                 this.setProps({
                                     imgSrc: `${AVATARS_PATH}${userData.avatar}`,
