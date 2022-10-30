@@ -1,7 +1,7 @@
 import { ArrowButton, Block, Divider, Input, Link, Avatar } from '../../../common-components';
 import { apiUrls } from '../../../common-components/apiUrls';
 import { ARROW_DIRECTIONS } from '../../../common-components/components/arrow-button/arrow-button';
-import { urls } from '../../../common-components/urls';
+import { APP_ROUTES } from '../../../common-components/constants';
 import { HTTPTransport, Router } from '../../../common-components/utils/helpers';
 
 import './profile-info.scss';
@@ -79,21 +79,21 @@ export class ProfileInfo extends Block {
         ProfileInfo.components.avatar = avatar;
 
         const editProfileLink = new Link({
-            url: urls.editProfile,
+            url: APP_ROUTES.editProfile,
             text: 'Изменить данные',
             mix: 'profile-info__action-link',
             isRouter: true,
         });
 
         const changePasswordLink = new Link({
-            url: urls.changePassword,
+            url: APP_ROUTES.changePassword,
             text: 'Изменить пароль',
             mix: 'profile-info__action-link',
             isRouter: true,
         });
 
         const logOutLink = new Link({
-            url: urls.login,
+            url: APP_ROUTES.login,
             text: 'Выйти',
             mix: 'profile-info__action-link profile-info__action-link_color_red',
             events: [
@@ -104,7 +104,7 @@ export class ProfileInfo extends Block {
 
                         HTTPTransport.post({ url: apiUrls.postLogOut })
                             .then(() => {
-                                router.go(urls.login);
+                                router.go(APP_ROUTES.login);
                             })
                             .catch((error) => {
                                 console.error(error);

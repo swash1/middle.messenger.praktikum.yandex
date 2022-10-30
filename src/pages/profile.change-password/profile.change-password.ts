@@ -1,7 +1,7 @@
 import { Button, Input } from '../../common-components';
 import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { urls } from '../../common-components/urls';
+import { APP_ROUTES } from '../../common-components/constants';
 import { Router, sendForm, validatePassword } from '../../common-components/utils/helpers';
 import { METHODS } from '../../common-components/utils/helpers/HTTPTransport';
 
@@ -80,7 +80,7 @@ class ChangePassword extends ProfileInfo {
                         url: apiUrls.putUserPassword,
                         method: METHODS.PUT,
                         onSuccess: () => {
-                            router.go(urls.profile);
+                            router.go(APP_ROUTES.profile);
                         },
                         onError: (error) => console.error(`Error: ${error.reason}`),
                     });

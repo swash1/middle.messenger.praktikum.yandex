@@ -9,8 +9,8 @@ import {
 import { INPUT_VIEWS, Props as InputParams } from '../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../common-components/components/link/link';
 import { HTTPTransport, Router, sendForm } from '../../common-components/utils/helpers';
-import { urls } from '../../common-components/urls';
 import { apiUrls } from '../../common-components/apiUrls';
+import { APP_ROUTES } from '../../common-components/constants';
 
 import './signin.scss';
 
@@ -137,7 +137,7 @@ export class SignIn extends Block {
                             onSuccess: () => {
                                 HTTPTransport.get({ url: apiUrls.getUser })
                                     .then(() => {
-                                        router.go(urls.chats);
+                                        router.go(APP_ROUTES.chats);
                                     })
                                     .catch();
                             },
@@ -149,7 +149,7 @@ export class SignIn extends Block {
         });
 
         const link = new Link({
-            url: urls.profile,
+            url: APP_ROUTES.profile,
             target: LINK_TARGETS.SELF,
             text: 'Войти',
             isRouter: true,

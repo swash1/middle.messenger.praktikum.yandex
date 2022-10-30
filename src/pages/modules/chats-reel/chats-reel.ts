@@ -2,7 +2,7 @@ import { Block, Button, ChatItem, Divider, Input, Link, Modal } from '../../../c
 import { apiUrls } from '../../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../../common-components/components/link/link';
-import { urls } from '../../../common-components/urls';
+import { APP_ROUTES } from '../../../common-components/constants';
 import { HTTPTransport } from '../../../common-components/utils/helpers';
 
 import './chats-reel.scss';
@@ -39,7 +39,7 @@ export class ChatsReel extends Block {
         const divider = new Divider();
 
         const link = new Link({
-            url: urls.profile,
+            url: APP_ROUTES.profile,
             target: LINK_TARGETS.SELF,
             text: 'Профиль >',
             mix: 'chats-reel__profile-link',

@@ -1,7 +1,7 @@
 import { Button, Input } from '../../common-components';
 import { apiUrls } from '../../common-components/apiUrls';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { urls } from '../../common-components/urls';
+import { APP_ROUTES } from '../../common-components/constants';
 import {
     Router,
     sendForm,
@@ -117,7 +117,7 @@ class ProfileEdit extends ProfileInfo {
                         method: METHODS.PUT,
                         onSuccess: () => {
                             Profile.shouldUpdate = true;
-                            router.go(urls.profile);
+                            router.go(APP_ROUTES.profile);
                         },
                         onError: (error) => console.error(`Error: ${error.reason}`),
                     });
