@@ -44,6 +44,8 @@ const contentTemplate = `
     </div>
 `;
 
+const router = new Router();
+
 export class ProfileInfo extends Block {
     static components = {} as {
         avatar?: Avatar;
@@ -57,8 +59,6 @@ export class ProfileInfo extends Block {
         button,
         errorMessage,
     }: Props) {
-        const router = new Router();
-
         const arrowButton = new ArrowButton({
             direction: ARROW_DIRECTIONS.LEFT,
             events: [['click', router.back]],

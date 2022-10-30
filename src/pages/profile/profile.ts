@@ -60,7 +60,7 @@ const getInputs = (userInfo: User) => {
 };
 
 class Profile extends ProfileInfo {
-    static __instance: Profile;
+    private static __instance: Profile;
     static shouldUpdate: boolean = false;
 
     public constructor() {
