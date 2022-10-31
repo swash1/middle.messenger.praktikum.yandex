@@ -1,5 +1,5 @@
-import { Block } from '../../../../common-components';
 import { SimpleInput } from '../../../../common-components/components/simple-input/simple-input';
+import { Block } from '../../../../utils';
 
 import './dialog__message-input.scss';
 

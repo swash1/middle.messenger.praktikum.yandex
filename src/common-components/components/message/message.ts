@@ -1,26 +1,15 @@
-import { Block } from '../../utils/helpers/Block';
+import { Block, Store } from '../../../utils';
 
 import { Jackdaw } from '../../icons/Jackdaw';
 import { DoubleJackdaw } from '../../icons/DoubleJackdaw';
+
+import { MessageParams as MessageProps } from '../../../typings';
 
 import './message.scss';
 
 export enum MESSAGE_TYPES {
     INCOMING = 'incoming',
     OUTGOING = 'outgoing',
-}
-
-export enum CONTENT_TYPES {
-    TEXT = 'text',
-    IMAGE = 'image',
-}
-
-interface Props {
-    contentType: CONTENT_TYPES;
-    type: MESSAGE_TYPES;
-    content: string;
-    timestamp: string;
-    read: boolean;
 }
 
 const ifIsOutgoing = `
@@ -51,31 +40,39 @@ const contentTemplateWithImage = `
     </div>
 `;
 
+const store = new Store();
+
 export class Message extends Block {
-    public constructor(props: Props) {
-        const { contentType, type, content, timestamp, read } = props;
+    public constructor(props: MessageProps) {
+        const { type, time, content, is_read: isRead, user_id } = props;
 
         let contentTemplate;
 
-        switch (contentType) {
-            case CONTENT_TYPES.TEXT:
+        switch (type) {
+            case 'message':
                 contentTemplate = contentTemplateWithText;
                 break;
-            case CONTENT_TYPES.IMAGE:
+            case 'file':
                 contentTemplate = contentTemplateWithImage;
                 break;
             default:
                 break;
         }
 
-        const className = `message message_type_${type} message_content-type_${contentType}`;
+        const isOutgoing = user_id === store.get('userInfo').id;
 
-        const isOutgoing = type === MESSAGE_TYPES.OUTGOING;
+        const className = `message message_type_${
+            isOutgoing ? MESSAGE_TYPES.OUTGOING : MESSAGE_TYPES.INCOMING
+        } message_content-type_${type}`;
+
+        const date = new Date(time);
+
+        const timestamp = `${date.getHours()}.${date.getSeconds()}`;
 
         super({
             tagName: 'div',
             attributes: { class: className },
-            propsAndChildren: { contentType, isOutgoing, content, timestamp, read },
+            propsAndChildren: { isOutgoing, content, timestamp, isRead },
             contentTemplate,
         });
     }

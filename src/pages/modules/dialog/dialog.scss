@@ -3,11 +3,18 @@
 .dialog
 {
     width: 100%;
-    height: 100vh;
-    padding: 0 20px;
+    height: 100%;
+
     overflow-y: scroll;
 
     @include hideScrollbar;
+
+    &__wrapper
+    {
+        width: 100%;
+        height: 100vh;
+        padding: 0 20px;
+    }
 
     &__header-wrapper
     {
@@ -44,6 +51,18 @@
             overflow: hidden;
 
             border-radius: 50%;
+
+            &_colorful
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                color: $white;
+                font-size: 20px;
+
+                background-color: burlywood;
+            }
         }
 
         &__name
@@ -86,5 +105,14 @@
         gap: 10px;
         align-items: center;
         height: 54px;
+    }
+
+    &_empty
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
     }
 }

@@ -1,21 +1,22 @@
-import { Block } from '../../utils/helpers';
+import { ChatItemParams } from '../../../typings';
+import { Block } from '../../../utils';
 
 import { Divider } from '../divider/divider';
 
 import './chat-item.scss';
 
-interface Props {
-    avatar: string;
-    name: string;
-    sender: string;
-    latestMessage: string;
-    timestamp: string;
-    unreadMessagesCount: number;
+interface ChatItemProps extends ChatItemParams {
+    events?: [string, (event: Event) => void][];
 }
 
 const contentTemplate = `
     <div class="chat-item">
-        <img src="{{avatar}}" alt="avatar" class="chat-item__avatar" />
+        {{#if avatar}}
+            <img src="{{avatar}}" alt="avatar" class="chat-item__avatar" />
+        {{else}}
+            <div class="chat-item__avatar chat-item__avatar_colorful">{{firstLetter}}</div>
+        {{/if}}
+        
         <span class="chat-item__name">{{name}}</span>
         <p class="chat-item__message">
             {{#if (isYouSender sender)}}
@@ -32,16 +33,31 @@ const contentTemplate = `
 `;
 
 export class ChatItem extends Block {
-    public constructor(props: Props) {
-        const { avatar, name, sender, latestMessage, timestamp, unreadMessagesCount } = props;
+    public constructor(props: ChatItemProps) {
+        const { avatar, last_message, unread_count, title, events } = props;
+
+        const date = last_message?.time ? new Date(last_message?.time) : null;
+        const timestamp = date ? `${date.getMonth()}.${date.getDate()}` : '';
+
+        const firstLetter = title[0];
 
         const divider = new Divider();
 
         super({
             tagName: 'div',
             attributes: { class: 'chat-item__wrapper' },
-            propsAndChildren: { avatar, name, sender, latestMessage, timestamp, unreadMessagesCount, divider },
+            propsAndChildren: {
+                avatar,
+                name: title,
+                sender: false,
+                latestMessage: last_message?.content || '',
+                timestamp,
+                unreadMessagesCount: unread_count,
+                divider,
+                firstLetter,
+            },
             contentTemplate,
+            events,
         });
     }
 }

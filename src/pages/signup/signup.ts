@@ -1,26 +1,34 @@
-import { Block, Button, Link, Input } from '../../common-components';
+import { Button, Link, Input } from '../../common-components';
+import { INPUT_VIEWS, Props as InputParams } from '../../common-components/components/input/input';
+import { LINK_TARGETS } from '../../common-components/components/link/link';
 import {
+    AuthApi,
+    Block,
+    Router,
+    sendForm,
     validateEmail,
     validateLogin,
     validateName,
     validatePassword,
     validatePhone,
-} from '../../common-components/utils/helpers/validators';
-import { INPUT_VIEWS, Props as InputParams } from '../../common-components/components/input/input';
+} from '../../utils';
+import { APP_ROUTES } from '../../constants';
 
-import './signin.scss';
-import { LINK_TARGETS } from '../../common-components/components/link/link';
-import { sendForm } from '../../common-components/utils/helpers';
+import './signup.scss';
 
 const contentTemplate = `
-    <form class="signin-page__form" action="#" enctype="multipart/form-data">
-        <h1 class="signin-page__title">Регистрация</h1>               
+    <form class="signup-page__form" action="#" enctype="multipart/form-data">
+        <h1 class="signup-page__title">Регистрация</h1>               
         {{{inputs}}}
-        <span class="signin-page__error-message">{{errorMessage}}</span>
+        <span class="signup-page__error-message">{{errorMessage}}</span>
         {{{button}}}
         {{{link}}}
     </form>
 `;
+
+const hideErrorMessage = () => {
+    document.querySelector('.signup-page__error-message')?.classList.remove('signup-page__error-message_visible');
+};
 
 const inputs: InputParams[] = [
     {
@@ -70,16 +78,7 @@ const inputs: InputParams[] = [
         disabled: false,
         validateFunc: validatePassword,
         invalidMessage: 'Некорректный пароль',
-        events: [
-            [
-                'mousedown',
-                () => {
-                    document
-                        .querySelector('.signin-page__error-message')
-                        ?.classList.remove('signin-page__error-message_visible');
-                },
-            ],
-        ],
+        events: [['mousedown', hideErrorMessage]],
     },
     {
         descr: 'Пароль еще раз',
@@ -88,21 +87,20 @@ const inputs: InputParams[] = [
         disabled: false,
         validateFunc: validatePassword,
         invalidMessage: 'Некорректный пароль',
-        events: [
-            [
-                'mousedown',
-                () => {
-                    document
-                        .querySelector('.signin-page__error-message')
-                        ?.classList.remove('signin-page__error-message_visible');
-                },
-            ],
-        ],
+        events: [['mousedown', hideErrorMessage]],
     },
 ];
 
-export class SignIn extends Block {
+const router = new Router();
+
+export class SignUp extends Block {
+    static __instance: SignUp;
+
     public constructor() {
+        if (SignUp.__instance) {
+            return SignUp.__instance;
+        }
+
         const inputsArray = inputs.map(
             (inputParams) =>
                 new Input({
@@ -121,11 +119,11 @@ export class SignIn extends Block {
                     (event) => {
                         event.preventDefault();
 
-                        const extraFormValidation = (formData: FormData) => {
+                        const extraFormValidationFunc = (formData: FormData) => {
                             if (formData.get('password') !== formData.get('password-again')) {
                                 document
-                                    .querySelector('.signin-page__error-message')
-                                    ?.classList.add('signin-page__error-message_visible');
+                                    .querySelector('.signup-page__error-message')
+                                    ?.classList.add('signup-page__error-message_visible');
                                 return false;
                             }
 
@@ -135,8 +133,17 @@ export class SignIn extends Block {
 
                         sendForm({
                             inputs: inputsArray,
-                            formSelector: '.signin-page__form',
-                            extraValidationFunc: extraFormValidation,
+                            formSelector: '.signup-page__form',
+                            extraValidationFunc: extraFormValidationFunc,
+                            api: AuthApi.signin,
+                            onSuccess: async () => {
+                                try {
+                                    router.go(APP_ROUTES.chats);
+                                } catch (error) {
+                                    console.error(error);
+                                }
+                            },
+                            onError: (error) => console.error(`Error: ${error.reason}`),
                         });
                     },
                 ],
@@ -144,18 +151,21 @@ export class SignIn extends Block {
         });
 
         const link = new Link({
-            url: '/profile',
+            url: APP_ROUTES.profile,
             target: LINK_TARGETS.SELF,
             text: 'Войти',
+            isRouter: true,
         });
 
         super({
             tagName: 'div',
-            attributes: { class: 'signin-page' },
+            attributes: { class: 'signup-page' },
             propsAndChildren: { inputs: inputsArray, button, link, errorMessage: 'Пароли не совпадают' },
             contentTemplate,
         });
+
+        SignUp.__instance = this;
     }
 }
 
-export default new SignIn();
+export default SignUp;

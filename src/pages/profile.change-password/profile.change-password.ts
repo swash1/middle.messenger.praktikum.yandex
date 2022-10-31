@@ -1,6 +1,7 @@
 import { Button, Input } from '../../common-components';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
-import { sendForm, validatePassword } from '../../common-components/utils/helpers';
+import { APP_ROUTES } from '../../constants';
+import { Router, sendForm, UsersApi, validatePassword } from '../../utils';
 
 import { ProfileInfo } from '../modules/profile-info/profile-info';
 
@@ -27,8 +28,16 @@ const inputs = [
     },
 ];
 
+const router = new Router();
+
 class ChangePassword extends ProfileInfo {
+    static __instance: ChangePassword;
+
     public constructor() {
+        if (ChangePassword.__instance) {
+            return ChangePassword.__instance;
+        }
+
         const inputsArray = inputs.map((inputParams) => {
             return new Input({
                 ...inputParams,
@@ -41,6 +50,8 @@ class ChangePassword extends ProfileInfo {
         });
 
         super({ inputs: inputsArray, isEditable: true, button });
+
+        ChangePassword.__instance = this;
 
         button.addEvents([
             [
@@ -64,6 +75,11 @@ class ChangePassword extends ProfileInfo {
                         inputs: inputsArray,
                         formSelector: '.info',
                         extraValidationFunc,
+                        api: UsersApi.changePassword,
+                        onSuccess: () => {
+                            router.go(APP_ROUTES.profile);
+                        },
+                        onError: (error) => console.error(`Error: ${error.reason}`),
                     });
                 },
             ],
@@ -84,4 +100,4 @@ class ChangePassword extends ProfileInfo {
     }
 }
 
-export default new ChangePassword();
+export default ChangePassword;

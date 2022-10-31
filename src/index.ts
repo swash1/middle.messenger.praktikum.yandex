@@ -1,35 +1,46 @@
-import { Block } from './common-components';
-import { render } from './common-components/utils/helpers/renderDOM';
+import { APP_ROUTES, ROOT_NODE_SELECTOR } from './constants';
 import {
     loginPage,
     notFoundPage,
     serverErrorPage,
-    siginPage,
+    signUpPage,
     chatsPage,
     profilePage,
     editProfilePage,
     changePasswordPage,
 } from './pages';
+import { Store, Router, AuthApi } from './utils';
 
 import './style.scss';
 
-const routes: Record<string, Block> = {
-    '/login': loginPage,
-    '/404': notFoundPage,
-    '/500': serverErrorPage,
-    '/signin': siginPage,
-    '/chats': chatsPage,
-    '/profile': profilePage,
-    '/profile/edit': editProfilePage,
-    '/profile/change-password': changePasswordPage,
-};
+const router = new Router(ROOT_NODE_SELECTOR);
 
-window.onload = () => {
-    const pathName = window.location.pathname;
-    const block = Object.keys(routes).includes(pathName) ? routes[pathName] : null;
-    if (block) {
-        render('.root', block)
-    } else {
-        window.location.href = '/404';
+const store = new Store();
+
+const onRouterStart = async () => {
+    try {
+        const userInfo = await AuthApi.getUser();
+
+        store.set('userInfo', userInfo);
+
+        if (window.location.pathname === APP_ROUTES.login || window.location.pathname === APP_ROUTES.signUp) {
+            router.go(APP_ROUTES.chats);
+        } else {
+            router.go(window.location.pathname);
+        }
+    } catch {
+        router.go(APP_ROUTES.login);
     }
 };
+
+router
+    .use(APP_ROUTES.index, chatsPage)
+    .use(APP_ROUTES.login, loginPage)
+    .use(APP_ROUTES.notFound, notFoundPage)
+    .use(APP_ROUTES.serverError, serverErrorPage)
+    .use(APP_ROUTES.signUp, signUpPage)
+    .use(APP_ROUTES.chats, chatsPage)
+    .use(APP_ROUTES.profile, profilePage)
+    .use(APP_ROUTES.editProfile, editProfilePage)
+    .use(APP_ROUTES.changePassword, changePasswordPage)
+    .start(onRouterStart);

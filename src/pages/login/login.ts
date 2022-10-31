@@ -1,7 +1,8 @@
-import { Block, Button, Input, Link } from '../../common-components';
+import { Button, Input, Link } from '../../common-components';
 import { INPUT_VIEWS } from '../../common-components/components/input/input';
 import { LINK_TARGETS } from '../../common-components/components/link/link';
-import { validateLogin } from '../../common-components/utils/helpers/validators';
+import { APP_ROUTES } from '../../constants';
+import { AuthApi, Block, Router, sendForm, validateLogin } from '../../utils';
 
 import './login.scss';
 
@@ -35,12 +36,21 @@ const inputs = [
     },
 ];
 
+const router = new Router();
+
 export class Login extends Block {
+    static __instance: Login;
+
     public constructor() {
+        if (Login.__instance) {
+            return Login.__instance;
+        }
+
         const link = new Link({
-            url: '/signin',
+            url: APP_ROUTES.signUp,
             target: LINK_TARGETS.SELF,
             text: 'Создать аккаунт',
+            isRouter: true,
         });
 
         const inputsArray = inputs.map((inputParams) => {
@@ -60,34 +70,15 @@ export class Login extends Block {
                     (event) => {
                         event.preventDefault();
 
-                        let formIsValid = true;
-                        for (const inputItem of inputsArray) {
-                            const inputIsValid = inputItem.validate();
-
-                            if (!formIsValid) {
-                                continue;
-                            }
-
-                            formIsValid = inputIsValid;
-                        }
-
-                        if (!formIsValid) {
-                            return;
-                        }
-
-                        const form: HTMLFormElement | null = document.querySelector('.login-page__form');
-
-                        if (form) {
-                            const formData = new FormData(form);
-                            const data: Record<string, FormDataEntryValue | null> = {};
-                            for (const input of inputs) {
-                                if (input.name) {
-                                    data[input.name] = formData.get(input.name);
-                                }
-                            }
-
-                            console.log(data);
-                        }
+                        sendForm({
+                            inputs: inputsArray,
+                            formSelector: '.login-page__form',
+                            api: AuthApi.login,
+                            onSuccess: () => {
+                                router.go(APP_ROUTES.chats);
+                            },
+                            onError: (error) => console.error(`Error: ${error.reason}`),
+                        });
                     },
                 ],
             ],
@@ -99,7 +90,9 @@ export class Login extends Block {
             propsAndChildren: { inputs: inputsArray, link, button },
             contentTemplate,
         });
+
+        Login.__instance = this;
     }
 }
 
-export default new Login();
+export default Login;

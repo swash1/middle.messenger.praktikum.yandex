@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers/Block';
+import { Block } from '../../../utils';
 
 import { ModalContent } from './__content/modal__content';
 
@@ -8,13 +8,14 @@ interface Props {
     mix?: string;
     contentTemplate: string;
     templateItems?: Record<string, any>;
+    onClose?: () => void;
 }
 
 const contentTemplate = '{{{content}}}';
 
 export class Modal extends Block {
     public constructor(props: Props) {
-        const { mix, contentTemplate: modalContentTemplate, templateItems } = props;
+        const { mix, contentTemplate: modalContentTemplate, templateItems, onClose } = props;
 
         let className = 'modal';
 
@@ -38,6 +39,9 @@ export class Modal extends Block {
                     event.stopPropagation();
                     if (event.target === this.getContent()) {
                         this.close();
+                        if (onClose) {
+                            onClose();
+                        }
                     }
                 },
             ],

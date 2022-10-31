@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers/Block';
+import { Router, Block } from '../../../utils';
 
 import './link.scss';
 
@@ -7,6 +7,8 @@ interface Props {
     text: string;
     url: string;
     target?: LINK_TARGETS;
+    isRouter?: boolean;
+    events?: [string, (event: Event) => void][];
 }
 
 export enum LINK_TARGETS {
@@ -18,7 +20,7 @@ const contentTemplate = '{{text}}';
 
 export class Link extends Block {
     public constructor(props: Props) {
-        const { mix, target = LINK_TARGETS.SELF, url, text } = props;
+        const { mix, target = LINK_TARGETS.SELF, url, text, isRouter, events } = props;
 
         let className = 'link';
 
@@ -31,6 +33,22 @@ export class Link extends Block {
             attributes: { class: className, target, href: url },
             propsAndChildren: { text },
             contentTemplate,
+            events,
         });
+
+        if (isRouter) {
+            const router = new Router();
+
+            this.addEvents([
+                [
+                    'click',
+                    (event) => {
+                        event.preventDefault();
+
+                        router.go(url);
+                    },
+                ],
+            ]);
+        }
     }
 }

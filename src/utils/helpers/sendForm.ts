@@ -1,13 +1,24 @@
-import { Input } from '../../components/input/input';
+import { Input } from '../../common-components';
 
 interface Params {
     inputs: Input[];
     formSelector: string;
     extraValidationFunc?: (formData: FormData) => boolean;
     validationFailureCallback?: () => void;
+    onSuccess?: (response: any) => void;
+    onError?: (error: any) => void;
+    api: (data: string) => Promise<any>;
 }
 
-export const sendForm = ({ inputs, formSelector, extraValidationFunc, validationFailureCallback }: Params) => {
+export const sendForm = async ({
+    inputs,
+    formSelector,
+    extraValidationFunc,
+    validationFailureCallback,
+    onSuccess,
+    onError,
+    api,
+}: Params) => {
     const form: HTMLFormElement | null = document.querySelector(formSelector);
 
     if (!form) {
@@ -41,5 +52,22 @@ export const sendForm = ({ inputs, formSelector, extraValidationFunc, validation
     const formDataObj = {} as Record<string | number, any>;
     formData.forEach((value, key) => (formDataObj[key] = value));
 
-    console.log(formDataObj);
+    let data;
+    try {
+        data = JSON.stringify(formDataObj);
+    } catch {
+        throw Error('Error while parsing form data');
+    }
+
+    api(data)
+        .then((response) => {
+            if (onSuccess) {
+                onSuccess(response);
+            }
+        })
+        .catch((error) => {
+            if (onError) {
+                onError(error);
+            }
+        });
 };

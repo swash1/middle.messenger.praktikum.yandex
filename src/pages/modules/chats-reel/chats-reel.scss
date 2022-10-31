@@ -2,7 +2,11 @@
 
 .chats-reel
 {
-    max-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100vh;
 
     border-right: 1px solid $lightGray;
 
@@ -41,10 +45,65 @@
 
     &__chats-container
     {
-        max-height: 100%;
+        position: relative;
+
+        height: 100%;
         padding-bottom: 30px;
         overflow: scroll;
 
         @include hideScrollbar;
+    }
+
+    &__empty-state-wrapper
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__empty-message
+    {
+        margin-bottom: 8px;
+    }
+
+    &__modal-header
+    {
+        margin-bottom: 24px;
+
+        color: $trueBlack;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    &__chat-title-input
+    {
+        margin-bottom: 30px;
+    }
+
+    &__modal-button
+    {
+        width: 100%;
+    }
+
+    &__create-chat-button
+    {
+        position: absolute;
+        bottom: 0;
+
+        width: 100%;
+
+        border-radius: 0;
+    }
+
+    .modal__content
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 340px;
     }
 }

@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 
-import { isYouSender, arrayIsNotEmpty } from './utils/helpers';
+import { isYouSender, arrayIsNotEmpty } from '../utils';
 
 Handlebars.registerHelper('isYouSender', isYouSender);
 Handlebars.registerHelper('arrayIsNotEmpty', arrayIsNotEmpty);
@@ -15,5 +15,4 @@ export { Avatar } from './components/avatar/avatar';
 export { Message } from './components/message/message';
 export { Select } from './components/select/select';
 export { SimpleInput } from './components/simple-input/simple-input';
-
-export { Block } from './utils/helpers';
+export { Modal } from './components/modal/modal';

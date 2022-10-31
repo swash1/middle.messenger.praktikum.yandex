@@ -1,9 +1,7 @@
-import { Block, Button, Input, Select } from '../../../../common-components';
+import { Button, Input, Select, Modal } from '../../../../common-components';
 import { INPUT_VIEWS } from '../../../../common-components/components/input/input';
-import { Modal } from '../../../../common-components/components/modal/modal';
-
 import { Cancel, Plus, ThreeDots } from '../../../../common-components/icons';
-import { validateLogin } from '../../../../common-components/utils/helpers';
+import { Block, validateLogin, Store, ChatsApi } from '../../../../utils';
 
 import './dialog__options.scss';
 
@@ -13,6 +11,8 @@ const contentTemplate = `
     {{{addUserModal}}}
     {{{removeUserModal}}}
 `;
+
+const store = new Store();
 
 export class DialogOptions extends Block {
     public constructor() {
@@ -29,7 +29,7 @@ export class DialogOptions extends Block {
             contentTemplate: '{{text}}',
         });
 
-        const userToAddLoginInput = new Input({
+        const userLoginInput = new Input({
             view: INPUT_VIEWS.DEFAULT,
             descr: 'Логин',
             invalidMessage: 'Некорректный логин',
@@ -47,13 +47,16 @@ export class DialogOptions extends Block {
         const addUserModal = new Modal({
             contentTemplate: `
                 {{{addUserModalHeader}}}
-                {{{userToAddLoginInput}}}
+                {{{userLoginInput}}}
                 {{{addUserModalButton}}}
             `,
             templateItems: {
                 addUserModalHeader,
-                userToAddLoginInput,
+                userLoginInput,
                 addUserModalButton,
+            },
+            onClose: () => {
+                userLoginInput.setValue('');
             },
         });
 
@@ -64,16 +67,6 @@ export class DialogOptions extends Block {
             contentTemplate: '{{text}}',
         });
 
-        const userToRemoveLoginInput = new Input({
-            view: INPUT_VIEWS.DEFAULT,
-            descr: 'Логин',
-            invalidMessage: 'Некорректный логин',
-            validateFunc: validateLogin,
-            type: 'text',
-            disabled: false,
-            mix: 'dialog__login-input',
-        });
-
         const removeUserModalButton = new Button({
             text: 'Удалить',
             mix: 'dialog__modal-button',
@@ -82,13 +75,16 @@ export class DialogOptions extends Block {
         const removeUserModal = new Modal({
             contentTemplate: `
                 {{{removeUserModalHeader}}}
-                {{{userToRemoveLoginInput}}}
+                {{{userLoginInput}}}
                 {{{removeUserModalButton}}}
             `,
             templateItems: {
                 removeUserModalHeader,
-                userToRemoveLoginInput,
+                userLoginInput,
                 removeUserModalButton,
+            },
+            onClose: () => {
+                userLoginInput.setValue('');
             },
         });
 
@@ -139,18 +135,32 @@ export class DialogOptions extends Block {
             ],
         ]);
 
+        const userActionRequest = async (action: 'delete' | 'add') => {
+            const inputIsValid = userLoginInput.validate();
+
+            if (!inputIsValid) {
+                return;
+            }
+
+            const login = userLoginInput.getValue();
+            const chatId = store.get('activeChatInfo').id;
+
+            try {
+                await ChatsApi[action === 'add' ? 'addUserToChat' : 'removeUserFromChat'](login, chatId);
+
+                userLoginInput.setValue('');
+                addUserModal.close();
+                removeUserModal.close();
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
         addUserModalButton.addEvents([
             [
                 'click',
                 () => {
-                    const inputIsValid = userToAddLoginInput.validate();
-
-                    if (!inputIsValid) {
-                        return;
-                    }
-
-                    console.log(userToAddLoginInput.getValue());
-                    userToAddLoginInput.setValue('');
+                    userActionRequest('add');
                 },
             ],
         ]);
@@ -159,14 +169,7 @@ export class DialogOptions extends Block {
             [
                 'click',
                 () => {
-                    const inputIsValid = userToRemoveLoginInput.validate();
-
-                    if (!inputIsValid) {
-                        return;
-                    }
-
-                    console.log(userToRemoveLoginInput.getValue());
-                    userToRemoveLoginInput.setValue('');
+                    userActionRequest('delete');
                 },
             ],
         ]);

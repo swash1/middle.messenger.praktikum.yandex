@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers';
+import { Block } from '../../../utils';
 
 import { Props as InputProps, SimpleInput } from '../simple-input/simple-input';
 
@@ -44,6 +44,7 @@ export class Input extends Block {
             type,
             name,
             disabled,
+            value,
         } = props;
 
         let className = `input input_view_${view}`;
@@ -52,7 +53,7 @@ export class Input extends Block {
             className = [className, mix].join(' ');
         }
 
-        const input = new SimpleInput({ events, mix: 'input__field', placeholder, type, name, disabled });
+        const input = new SimpleInput({ events, mix: 'input__field', placeholder, type, name, disabled, value });
 
         super({
             tagName: 'div',

@@ -1,4 +1,4 @@
-import { Block } from '../../utils/helpers/Block';
+import { Block } from '../../../utils';
 
 export interface Props {
     placeholder?: string;
@@ -8,11 +8,12 @@ export interface Props {
     disabled?: boolean;
     events?: [string, (event: Event) => void][];
     autocomplete?: string;
+    value?: string;
 }
 
 export class SimpleInput extends Block {
     public constructor(props: Props) {
-        const { mix, type = 'text', placeholder, name, disabled, events, autocomplete = 'off' } = props;
+        const { mix, type = 'text', placeholder, name, disabled, events, autocomplete = 'off', value } = props;
 
         let className = 'simple-input';
 
@@ -26,6 +27,7 @@ export class SimpleInput extends Block {
             placeholder,
             name,
             autocomplete,
+            value
         };
 
         if (disabled) {
