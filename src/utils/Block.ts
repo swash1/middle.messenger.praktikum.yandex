@@ -1,4 +1,4 @@
-import Handlebars from 'handlebars';
+import { compile as HBSCompile } from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 
 import { EventBus } from './EventBus';
@@ -34,7 +34,13 @@ export class Block {
     public children: Record<string, Block>;
     static fetchData?: () => any;
 
-    public constructor({ tagName = 'div', attributes, events = [], propsAndChildren = {}, contentTemplate = '' }: BlockProps) {
+    public constructor({
+        tagName = 'div',
+        attributes,
+        events = [],
+        propsAndChildren = {},
+        contentTemplate = '',
+    }: BlockProps) {
         this._id = makeUUID();
 
         const { children, props } = this._separatePropsAndChildren(propsAndChildren);
@@ -128,6 +134,7 @@ export class Block {
         this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
 
+    // @ts-ignore
     public componentDidUpdate(props: { oldProps: Record<string, any>; newProps: Record<string, any> }) {
         return true;
     }
@@ -213,7 +220,7 @@ export class Block {
 
         const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
-        fragment.innerHTML = Handlebars.compile(contentTemplate)(propsAndStubs);
+        fragment.innerHTML = HBSCompile(contentTemplate)(propsAndStubs);
 
         Object.values(this.children).forEach((child) => {
             const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
