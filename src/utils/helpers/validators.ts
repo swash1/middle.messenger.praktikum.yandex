@@ -6,8 +6,8 @@ const createValidationFunc = (regExp: RegExp) => {
 
 const validationRegExps = {
     email: new RegExp(/^\S+@\S+\.\S+$/),
-    login: new RegExp(/^[a-zA-Z\_\-]{2,20}$/),
-    name: new RegExp(/^[A-ZА-Я][a-zA-Zа-яА-Я\-]+$/),
+    login: new RegExp(/^[a-zA-Z_-]{2,20}$/),
+    name: new RegExp(/^[A-ZА-Я][a-zA-Zа-яА-Я-]+$/),
     phone: new RegExp(/^\+?\d{9,15}$/),
     password: new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
 };

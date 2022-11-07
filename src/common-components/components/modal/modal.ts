@@ -7,7 +7,7 @@ import './modal.scss';
 interface Props {
     mix?: string;
     contentTemplate: string;
-    templateItems?: Record<string, any>;
+    templateItems?: Record<string, unknown>;
     onClose?: () => void;
 }
 

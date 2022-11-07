@@ -83,11 +83,11 @@ class Chats extends Block {
                                             chatId: chatInfo.id,
                                             token,
                                             onStart: () => {
-                                                Chats.components!.dialog!.initialize();
+                                                Chats.components?.dialog?.initialize();
                                             },
                                         });
 
-                                        this.components.dialog!.setProps({
+                                        this.components.dialog?.setProps({
                                             chatName: chatInfo.title,
                                             avatar: chatInfo.avatar,
                                             chat: chatInfo,

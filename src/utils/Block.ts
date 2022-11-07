@@ -13,7 +13,7 @@ interface Meta {
 interface BlockProps {
     tagName?: string;
     attributes?: Record<string, string | undefined>;
-    propsAndChildren?: Record<string, any>;
+    propsAndChildren?: Record<string, unknown>;
     events?: [string, (event: Event) => void][];
     contentTemplate?: string;
 }
@@ -29,10 +29,10 @@ export class Block {
     protected _rootElement: HTMLElement;
     private _meta: Meta;
     public eventBus: EventBus;
-    public props: Record<string, any>;
+    public props: Record<string, unknown>;
     private _id: string;
     public children: Record<string, Block>;
-    static fetchData?: () => any;
+    static fetchData?: () => unknown;
 
     public constructor({
         tagName = 'div',
@@ -65,7 +65,7 @@ export class Block {
         eventBus.emit(EVENTS.INIT);
     }
 
-    private _separatePropsAndChildren(propsAndChildren: Record<string, any>) {
+    private _separatePropsAndChildren(propsAndChildren: Record<string, unknown>) {
         const children: typeof this.children = {};
         const props: typeof this.props = {};
 
@@ -116,6 +116,7 @@ export class Block {
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     public componentDidMount() {}
 
     public dispatchComponentDidMount() {
@@ -126,8 +127,8 @@ export class Block {
         oldProps,
         newProps,
     }: {
-        oldProps: Record<string, any>;
-        newProps: Record<string, any>;
+        oldProps: Record<string, unknown>;
+        newProps: Record<string, unknown>;
     }) {
         this.componentDidUpdate({ oldProps, newProps });
 
@@ -135,11 +136,12 @@ export class Block {
     }
 
     // @ts-ignore
-    public componentDidUpdate(props: { oldProps: Record<string, any>; newProps: Record<string, any> }) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    public componentDidUpdate(props: { oldProps: Record<string, unknown>; newProps: Record<string, unknown> }) {
         return true;
     }
 
-    public setProps = (propsToSet: Record<string, any>) => {
+    public setProps = (propsToSet: Record<string, unknown>) => {
         if (!propsToSet) {
             return;
         }
@@ -194,7 +196,7 @@ export class Block {
         }
     }
 
-    private _compile(contentTemplate: string, props: Record<string, any>) {
+    private _compile(contentTemplate: string, props: Record<string, unknown>) {
         const propsAndStubs = { ...props };
 
         const childrenDictionary: Record<string, Element[]> = {};
@@ -257,9 +259,10 @@ export class Block {
         this._addEvents();
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     public async render() {}
 
-    private _makePropsProxy(props: Record<string, any>) {
+    private _makePropsProxy(props: Record<string, unknown>) {
         return new Proxy(props, {
             get: (target, prop: string) => {
                 const value = target[prop];
@@ -267,6 +270,7 @@ export class Block {
             },
             set: (target, prop: string, value) => {
                 let oldProps;
+                // eslint-disable-next-line no-useless-catch
                 try {
                     oldProps = JSON.parse(JSON.stringify(target));
                 } catch (error) {

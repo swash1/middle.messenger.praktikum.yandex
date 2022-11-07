@@ -4,7 +4,7 @@ import './modal__content.scss';
 
 interface Props {
     template: string;
-    templateItems?: Record<string, any>;
+    templateItems?: Record<string, unknown>;
 }
 
 export class ModalContent extends Block {

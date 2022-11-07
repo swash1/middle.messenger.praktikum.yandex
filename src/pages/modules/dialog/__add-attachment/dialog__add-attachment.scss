@@ -1,4 +1,4 @@
-@import '../../../design.scss';
+@import '../../../design';
 
 .dialog__add-attachment
 {
@@ -22,6 +22,6 @@
     .select
     {
         bottom: 50px;
-        left: 0px;
+        left: 0;
     }
 }
