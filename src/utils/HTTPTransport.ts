@@ -7,8 +7,16 @@ export interface RequestProps {
 
 interface RequestOptions {
     headers?: Record<string, string>;
-    data?: any;
+    data?: Record<string, string | number> | FormData | string;
     timeout?: number;
+}
+
+interface GetRequestProps extends RequestProps {
+    options?: GetRequestOptions;
+}
+
+interface GetRequestOptions extends RequestOptions {
+    data?: Record<string, string | number>;
 }
 
 interface RequestParams extends RequestProps {
@@ -27,7 +35,7 @@ const defaultHeaders = {
 };
 
 export class HTTPTransport {
-    static get = <T>({ url, options = {} }: RequestProps): Promise<T> => {
+    static get = <T>({ url, options = {} }: GetRequestProps): Promise<T> => {
         if (options.data) {
             url = `${url}${queryStringify(options.data)}`;
         }
@@ -48,7 +56,12 @@ export class HTTPTransport {
     };
 
     private static request = <T>({ url, options = {}, method }: RequestParams): Promise<T> => {
-        const { headers = defaultHeaders, data, timeout = 5000 } = options;
+        const { headers = defaultHeaders, timeout = 5000 } = options;
+        let { data } = options;
+
+        if (typeof data === 'object') {
+            data = JSON.stringify(data);
+        }
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -78,7 +91,7 @@ export class HTTPTransport {
             if (!data) {
                 xhr.send();
             } else {
-                xhr.send(data);
+                xhr.send(data as string | FormData);
             }
         });
     };

@@ -1,4 +1,4 @@
-@import '../../design.scss';
+@import '../../design';
 
 .profile-info
 {
@@ -101,7 +101,7 @@
     {
         @include paragraphS;
         display: block;
-        margin: 16px auto 0 auto;
+        margin: 16px auto 0;
 
         color: $red;
         text-align: center;

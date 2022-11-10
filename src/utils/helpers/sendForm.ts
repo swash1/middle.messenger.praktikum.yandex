@@ -5,9 +5,9 @@ interface Params {
     formSelector: string;
     extraValidationFunc?: (formData: FormData) => boolean;
     validationFailureCallback?: () => void;
-    onSuccess?: (response: any) => void;
-    onError?: (error: any) => void;
-    api: (data: string) => Promise<any>;
+    onSuccess?: (response: unknown) => void;
+    onError?: (error: unknown) => void;
+    api: (data: string) => Promise<unknown>;
 }
 
 export const sendForm = async ({
@@ -49,7 +49,7 @@ export const sendForm = async ({
         return;
     }
 
-    const formDataObj = {} as Record<string | number, any>;
+    const formDataObj = {} as Record<string | number, unknown>;
     formData.forEach((value, key) => (formDataObj[key] = value));
 
     let data;
@@ -65,7 +65,7 @@ export const sendForm = async ({
                 onSuccess(response);
             }
         })
-        .catch((error) => {
+        .catch((error: unknown) => {
             if (onError) {
                 onError(error);
             }

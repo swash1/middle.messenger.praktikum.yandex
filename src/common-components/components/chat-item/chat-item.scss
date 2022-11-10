@@ -1,13 +1,12 @@
-@import '../../design.scss';
+@import '../../design';
 
 .chat-item
 {
     display: grid;
-    grid-template-areas: 
-        "avatar name timestamp"
-        "avatar message count";
-    grid-template-rows: 16px 30px;
-    grid-template-columns: 56px 190px 40px;
+    grid: 
+        "avatar name timestamp" 16px
+        "avatar message count" 30px
+        56px 190px 40px;
     padding: 10px;
 
     &_active

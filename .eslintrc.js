@@ -14,23 +14,13 @@ module.exports = {
         es6: true,
     },
     rules: {
-        'import/prefer-default-export': 'off',
-        'sort-imports': [
-            'error',
-            {
-                ignoreCase: false,
-                ignoreDeclarationSort: false,
-                ignoreMemberSort: false,
-                allowSeparatedGroups: true,
-                memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
-            },
-        ],
-        'import/resolver': {
-            node: {
-                extensions: ['.js', '.ts'],
-            },
-        },
-        'import/order': [1, { groups: ['external', 'builtin', 'internal', 'sibling', 'parent', 'index'] }],
+        '@typescript-eslint/no-inferrable-types': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off'
     },
-    extends: ['plugin:@typescript-eslint/recommended', 'airbnb-base', 'prettier'],
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier',
+    ],
 };

@@ -1,4 +1,4 @@
-@import '../../design.scss';
+@import '../../design';
 
 .modal
 {
@@ -12,7 +12,7 @@
     width: 100vw;
     height: 100vh;
 
-    background-color: rgba($color: $baseBlack, $alpha: 0.5);
+    background-color: rgba($color: $baseBlack, $alpha: 50%);
 
     &_visible
     {

@@ -143,7 +143,7 @@ export class SignUp extends Block {
                                     console.error(error);
                                 }
                             },
-                            onError: (error) => console.error(`Error: ${error.reason}`),
+                            onError: (error: Error) => console.error(`Error: ${error.message}`),
                         });
                     },
                 ],

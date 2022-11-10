@@ -19,7 +19,7 @@ export class Store {
         Store.__instance = this;
     }
 
-    public set = (key: keyof StoreData, value: any) => {
+    public set = <T extends keyof StoreData>(key: T, value: StoreData[typeof key]) => {
         this.__store[key] = value;
         return this;
     };

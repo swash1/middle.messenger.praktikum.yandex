@@ -158,7 +158,7 @@ export class Dialog extends Block {
     public initialize = () => {
         this.getOldMessages()
 
-        Socket.activeSocket!.addEventListener('message', (event) => {
+        Socket.activeSocket?.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
             
             if (data.type === 'message') {

@@ -6,7 +6,8 @@ cd middle.messenger.praktikum.yandex
 npm i
 npm run build       // создать билд
 npm run start       // запустить express-сервер локально (будет доступен по адресу localhost:3000)
-npm run start-dev   // запустить parcel dev-сервер
+npm run start-dev   // запустить webpack dev-сервер
+npm run test        // запустить тесты
 ```
 Проект досупен по адресу 
 https://sage-capybara-879631.netlify.app/
@@ -14,8 +15,11 @@ https://sage-capybara-879631.netlify.app/
 
 Макет: https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=1%3A498
 
-Технологии: TS, Prettier, ESLint, SCSS, Handlebars, Stylelint
+Heroku: https://telegraph-msg.herokuapp.com/login
+
+Технологии: TS, Prettier, ESLint, SCSS, Handlebars, Stylelint, Webpack, Docker, Husky, Mocha + Chai
 
 ПР-ы:
  - Sprint 1: https://github.com/swash1/middle.messenger.praktikum.yandex/pull/1
  - Sprint 2: https://github.com/swash1/middle.messenger.praktikum.yandex/pull/2
+ - Sprint 3: https://github.com/swash1/middle.messenger.praktikum.yandex/pull/3
