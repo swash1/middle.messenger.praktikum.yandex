@@ -10,7 +10,7 @@ interface Meta {
     contentTemplate: string;
 }
 
-interface BlockProps {
+export interface BlockProps {
     tagName?: string;
     attributes?: Record<string, string | undefined>;
     propsAndChildren?: Record<string, unknown>;

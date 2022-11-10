@@ -7,6 +7,7 @@ npm i
 npm run build       // создать билд
 npm run start       // запустить express-сервер локально (будет доступен по адресу localhost:3000)
 npm run start-dev   // запустить webpack dev-сервер
+npm run test        // запустить тесты
 ```
 Проект досупен по адресу 
 https://sage-capybara-879631.netlify.app/
@@ -16,7 +17,7 @@ https://sage-capybara-879631.netlify.app/
 
 Heroku: https://telegraph-msg.herokuapp.com/login
 
-Технологии: TS, Prettier, ESLint, SCSS, Handlebars, Stylelint, Webpack, Docker
+Технологии: TS, Prettier, ESLint, SCSS, Handlebars, Stylelint, Webpack, Docker, Husky, Mocha + Chai
 
 ПР-ы:
  - Sprint 1: https://github.com/swash1/middle.messenger.praktikum.yandex/pull/1
