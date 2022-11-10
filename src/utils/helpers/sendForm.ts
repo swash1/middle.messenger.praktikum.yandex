@@ -65,7 +65,7 @@ export const sendForm = async ({
                 onSuccess(response);
             }
         })
-        .catch((error) => {
+        .catch((error: unknown) => {
             if (onError) {
                 onError(error);
             }

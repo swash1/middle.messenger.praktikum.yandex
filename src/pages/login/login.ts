@@ -77,7 +77,7 @@ export class Login extends Block {
                             onSuccess: () => {
                                 router.go(APP_ROUTES.chats);
                             },
-                            onError: (error) => console.error(`Error: ${error.reason}`),
+                            onError: (error: Error) => console.error(`Error: ${error.message}`),
                         });
                     },
                 ],

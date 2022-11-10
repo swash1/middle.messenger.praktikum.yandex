@@ -10,8 +10,9 @@
         "lint:ts": "eslint . --ext .ts",
         "lint:styles": "npx stylelint \"./src/**/*.scss\"",
         "lint:styles:fix": "lint:styles --fix",
-        "precommit": "npm-run-all --parallel lint:ts lint:styles test",
-        "test": "npx mocha"
+        "precommit": "npm-run-all --parallel lint:ts lint:styles test type-check",
+        "test": "npx mocha",
+        "type-check": "npx tsc --noEmit"
     },
     "keywords": [
         "practicum",

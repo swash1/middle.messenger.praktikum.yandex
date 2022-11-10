@@ -79,7 +79,7 @@ class ChangePassword extends ProfileInfo {
                         onSuccess: () => {
                             router.go(APP_ROUTES.profile);
                         },
-                        onError: (error) => console.error(`Error: ${error.reason}`),
+                        onError: (error: Error) => console.error(`Error: ${error.message}`),
                     });
                 },
             ],

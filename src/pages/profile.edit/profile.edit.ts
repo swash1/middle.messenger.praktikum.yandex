@@ -54,7 +54,7 @@ class ProfileEdit extends ProfileInfo {
                     };
 
                     sendForm({
-                        inputs: this.props.inputs,
+                        inputs: this.props.inputs as Input[],
                         formSelector: '.info',
                         validationFailureCallback: onValidationFail,
                         api: UsersApi.updateUser,
@@ -62,7 +62,7 @@ class ProfileEdit extends ProfileInfo {
                             Profile.shouldUpdate = true;
                             router.go(APP_ROUTES.profile);
                         },
-                        onError: (error) => console.error(`Error: ${error.reason}`),
+                        onError: (error: Error) => console.error(`Error: ${error.message}`),
                     });
                 },
             ],
